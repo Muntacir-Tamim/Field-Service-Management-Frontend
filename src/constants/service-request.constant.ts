@@ -15,3 +15,8 @@ export function canCancelServiceRequest(status: ServiceRequestStatus) {
 export const REQUEST_MAX_ATTACHMENTS = 5;
 export const REQUEST_MAX_FILE_MB = 5;
 export const REQUEST_ATTACHMENT_ACCEPT = "image/*,.pdf";
+
+// admin শুধু এই অবস্থার request review (approve / reject) করতে পারে
+export function canReviewServiceRequest(status: ServiceRequestStatus) {
+  return status === "PENDING" || status === "UNDER_REVIEW";
+}

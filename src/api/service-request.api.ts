@@ -1,9 +1,12 @@
 import apiClient from "@/lib/apiClient";
 import type {
+  AdminServiceRequest,
+  AdminServiceRequestParams,
   ApiResponse,
   CreateServiceRequestPayload,
   MyServiceRequest,
   MyServiceRequestParams,
+  ReviewServiceRequestPayload,
   ServiceRequest,
   ServiceRequestAttachment,
   ServiceRequestDetail,
@@ -59,5 +62,31 @@ export function cancelServiceRequest(serviceRequestId: string) {
   return apiClient<ApiResponse<ServiceRequest>>(
     `/service-requests/${serviceRequestId}/cancel`,
     { method: "PATCH" },
+  );
+}
+
+// ADMIN: সব request (status / priority / city filter + pagination)
+export function getAllServiceRequests(params?: AdminServiceRequestParams) {
+  return apiClient<ApiResponse<AdminServiceRequest[]>>("/service-requests", {
+    query: cleanParams(params),
+  });
+}
+
+// ADMIN: PENDING → UNDER_REVIEW
+export function markServiceRequestUnderReview(serviceRequestId: string) {
+  return apiClient<ApiResponse<ServiceRequest>>(
+    `/service-requests/${serviceRequestId}/under-review`,
+    { method: "PATCH" },
+  );
+}
+
+// ADMIN: PENDING / UNDER_REVIEW → APPROVED / REJECTED
+export function reviewServiceRequest(
+  serviceRequestId: string,
+  payload: ReviewServiceRequestPayload,
+) {
+  return apiClient<ApiResponse<ServiceRequest>>(
+    `/service-requests/${serviceRequestId}/review`,
+    { method: "PATCH", body: payload },
   );
 }

@@ -2,7 +2,6 @@
 
 import {
   CalendarClockIcon,
-  FileIcon,
   MapPinIcon,
   StarIcon,
   UserIcon,
@@ -25,9 +24,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { canCancelServiceRequest } from "@/constants";
 import { useGetServiceRequest } from "@/hooks";
 import { CUSTOMER_ROUTES } from "@/routes";
-import type { ServiceRequestAttachment, ServiceRequestDetail } from "@/types";
+import type { ServiceRequestDetail } from "@/types";
 import { formatDate, formatDateTime, getErrorMessage } from "@/utils";
 import CancelRequestDialog from "./cancel-request-dialog";
+import RequestAttachment from "./request-attachment";
 
 function InfoRow({
   label,
@@ -41,35 +41,6 @@ function InfoRow({
       <dt className="text-xs font-medium text-muted-foreground">{label}</dt>
       <dd className="text-sm">{children}</dd>
     </div>
-  );
-}
-
-function Attachment({ file }: { file: ServiceRequestAttachment }) {
-  const isImage = file.fileType.startsWith("image/");
-
-  return (
-    <a
-      href={file.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex items-center gap-3 overflow-hidden rounded-lg border p-2 text-sm transition-colors hover:bg-muted/50"
-    >
-      {isImage ? (
-        // biome-ignore lint/performance/noImgElement: Cloudinary URL, remote domain config লাগবে না
-        <img
-          src={file.url}
-          alt={file.fileName ?? "Attachment"}
-          className="size-12 shrink-0 rounded-md object-cover"
-        />
-      ) : (
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
-          <FileIcon className="size-5" aria-hidden="true" />
-        </span>
-      )}
-      <span className="min-w-0 flex-1 truncate">
-        {file.fileName ?? "Attachment"}
-      </span>
-    </a>
   );
 }
 
@@ -143,7 +114,7 @@ function RequestBody({ request }: { request: ServiceRequestDetail }) {
           {request.attachments.length > 0 ? (
             <CardContent className="grid gap-2 sm:grid-cols-2">
               {request.attachments.map((file) => (
-                <Attachment key={file.id} file={file} />
+                <RequestAttachment key={file.id} file={file} />
               ))}
             </CardContent>
           ) : null}

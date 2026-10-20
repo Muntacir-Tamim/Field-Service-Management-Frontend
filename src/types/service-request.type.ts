@@ -137,3 +137,40 @@ export interface CreateServiceRequestPayload {
   // field name "attachments", সর্বোচ্চ ৫টা
   attachments?: File[];
 }
+
+// ---------- ADMIN: GET /service-requests ----------
+
+export interface AdminServiceRequest extends ServiceRequest {
+  customer: {
+    id: string;
+    contactNumber: string | null;
+    city: string | null;
+    user: { name: string; email: string };
+  };
+  admin: { id: string; user: { name: string } } | null;
+  attachments: ServiceRequestAttachment[];
+  // সর্বশেষ ১টা assignment
+  assignments: {
+    id: string;
+    status: AssignmentStatus;
+    scheduledStart: string;
+  }[];
+}
+
+export type AdminServiceRequestParams = {
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: SortOrder;
+  status?: ServiceRequestStatus | "";
+  priority?: Priority | "";
+  city?: string;
+};
+
+// ---------- ADMIN: PATCH /service-requests/:id/review ----------
+
+export interface ReviewServiceRequestPayload {
+  status: "APPROVED" | "REJECTED";
+  // REJECTED হলে বাধ্যতামূলক
+  rejectionReason?: string;
+}

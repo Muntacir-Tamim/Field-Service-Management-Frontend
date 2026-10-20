@@ -7,17 +7,32 @@ import {
 import {
   cancelServiceRequest,
   createServiceRequest,
+  getAllServiceRequests,
   getMyServiceRequests,
   getServiceRequestById,
+  markServiceRequestUnderReview,
+  reviewServiceRequest,
 } from "@/api";
 import { serviceRequestKeys } from "@/constants";
-import type { MyServiceRequestParams } from "@/types";
+import type {
+  AdminServiceRequestParams,
+  MyServiceRequestParams,
+  ReviewServiceRequestPayload,
+} from "@/types";
 
 export function useGetMyServiceRequests(params?: MyServiceRequestParams) {
   return useQuery({
     queryKey: serviceRequestKeys.mine(params),
     queryFn: () => getMyServiceRequests(params),
     // page / filter বদলালে আগের data দেখিয়ে রাখি
+    placeholderData: keepPreviousData,
+  });
+}
+
+export function useGetAllServiceRequests(params?: AdminServiceRequestParams) {
+  return useQuery({
+    queryKey: serviceRequestKeys.list(params),
+    queryFn: () => getAllServiceRequests(params),
     placeholderData: keepPreviousData,
   });
 }
@@ -52,4 +67,15 @@ export function useCreateServiceRequest() {
 
 export function useCancelServiceRequest() {
   return useServiceRequestMutation(cancelServiceRequest);
+}
+
+export function useMarkUnderReview() {
+  return useServiceRequestMutation(markServiceRequestUnderReview);
+}
+
+export function useReviewServiceRequest() {
+  return useServiceRequestMutation(
+    ({ id, payload }: { id: string; payload: ReviewServiceRequestPayload }) =>
+      reviewServiceRequest(id, payload),
+  );
 }

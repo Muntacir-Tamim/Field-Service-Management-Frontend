@@ -37,3 +37,16 @@ export const serviceRequestSchema = z.object({
 });
 
 export type ServiceRequestFormValues = z.infer<typeof serviceRequestSchema>;
+
+// admin reject করার form (APPROVED এ reason লাগে না, তাই আলাদা schema)
+export const rejectServiceRequestSchema = z.object({
+  rejectionReason: z
+    .string()
+    .trim()
+    .min(5, "Please give a reason (at least 5 characters)")
+    .max(500, "Reason must be at most 500 characters"),
+});
+
+export type RejectServiceRequestFormValues = z.infer<
+  typeof rejectServiceRequestSchema
+>;
