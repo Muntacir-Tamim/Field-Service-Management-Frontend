@@ -1,4 +1,5 @@
-// this is dashboard / dashboard / service-requests page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / dashboard / service-requests page</div>;
+import ServiceRequestList from "@/components/modules/service-request/service-request-list";
+
+export default function CustomerServiceRequestsPage() {
+  return <ServiceRequestList />;
 }

@@ -1,4 +1,5 @@
-// this is dashboard / dashboard / service-requests / new page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / dashboard / service-requests / new page</div>;
+import ServiceRequestForm from "@/components/modules/service-request/service-request-form";
+
+export default function NewServiceRequestPage() {
+  return <ServiceRequestForm />;
 }
