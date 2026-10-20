@@ -1,4 +1,5 @@
-// this is dashboard / admin / skills page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / admin / skills page</div>;
+import SkillList from "@/components/modules/skill/skill-list";
+
+export default function AdminSkillsPage() {
+  return <SkillList />;
 }
