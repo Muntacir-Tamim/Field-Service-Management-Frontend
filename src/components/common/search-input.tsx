@@ -1,4 +1,77 @@
-// this is search input (debounced)
-export default function SearchInput() {
-  return <div>this is search input (debounced)</div>;
+"use client";
+
+import { SearchIcon, XIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Input } from "@/components/ui/input";
+import useDebounce from "@/hooks/debounce.hook";
+import { cn } from "@/lib/utils";
+
+interface SearchInputProps {
+  // parent এর state এ থাকা "committed" search term
+  value: string;
+  // debounce শেষে একবার call হয় (প্রতি keystroke এ নয়)
+  onChange: (value: string) => void;
+  placeholder?: string;
+  delay?: number;
+  className?: string;
+}
+
+export default function SearchInput({
+  value,
+  onChange,
+  placeholder = "Search...",
+  delay = 500,
+  className,
+}: SearchInputProps) {
+  const [text, setText] = useState(value);
+  const debounced = useDebounce(text, delay);
+  // parent কে সর্বশেষ যে value জানানো হয়েছে (বা parent থেকে যা পেয়েছি)
+  const lastSynced = useRef(value);
+
+  // user টাইপ করা থামালে (text == debounced) parent কে একবার জানাও
+  useEffect(() => {
+    if (debounced === text && debounced !== lastSynced.current) {
+      lastSynced.current = debounced;
+      onChange(debounced);
+    }
+  }, [debounced, text, onChange]);
+
+  // parent বাইরে থেকে value বদলালে (যেমন "Clear" চাপলে) input ও মিলিয়ে নাও
+  useEffect(() => {
+    if (value !== lastSynced.current) {
+      lastSynced.current = value;
+      setText(value);
+    }
+  }, [value]);
+
+  return (
+    <div className={cn("relative w-full sm:max-w-xs", className)}>
+      <SearchIcon
+        className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground"
+        aria-hidden="true"
+      />
+      <Input
+        type="search"
+        value={text}
+        onChange={(event) => setText(event.target.value)}
+        placeholder={placeholder}
+        aria-label={placeholder}
+        className="px-8 [&::-webkit-search-cancel-button]:hidden"
+      />
+      {text ? (
+        <button
+          type="button"
+          onClick={() => {
+            setText("");
+            lastSynced.current = "";
+            onChange("");
+          }}
+          className="absolute top-1/2 right-2 -translate-y-1/2 rounded-sm text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
+          aria-label="Clear search"
+        >
+          <XIcon className="size-4" />
+        </button>
+      ) : null}
+    </div>
+  );
 }
