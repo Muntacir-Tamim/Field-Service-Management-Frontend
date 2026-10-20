@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
+import AuthGuard from "@/components/auth/auth-guard";
 
-// this is dashboard layout
-export default function LayoutPlaceholder({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+// logged-in না হলে /login এ পাঠায়; role check হয় নিচের layout গুলোতে
+export default function DashboardLayout({ children }: { children: ReactNode }) {
+  return <AuthGuard>{children}</AuthGuard>;
 }

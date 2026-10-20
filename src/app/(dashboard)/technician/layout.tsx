@@ -1,6 +1,16 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
+import RoleGuard from "@/components/auth/role-guard";
+import DashboardShell from "@/components/dashboard/dashboard-shell";
+import { ROLES } from "@/constants";
 
-// this is dashboard / technician layout
-export default function LayoutPlaceholder({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+export default function TechnicianLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return (
+    <RoleGuard roles={[ROLES.TECHNICIAN]}>
+      <DashboardShell role={ROLES.TECHNICIAN}>{children}</DashboardShell>
+    </RoleGuard>
+  );
 }
