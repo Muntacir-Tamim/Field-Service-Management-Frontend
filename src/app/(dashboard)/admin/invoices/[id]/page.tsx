@@ -1,4 +1,9 @@
-// this is dashboard / admin / invoices / [id] page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / admin / invoices / [id] page</div>;
+import InvoiceDetail from "@/components/modules/payment/invoice-detail";
+
+export default async function AdminInvoiceDetailPage({
+  params,
+}: PageProps<"/admin/invoices/[id]">) {
+  const { id } = await params;
+
+  return <InvoiceDetail id={id} mode="admin" />;
 }

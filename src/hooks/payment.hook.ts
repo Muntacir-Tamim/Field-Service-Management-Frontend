@@ -1,2 +1,112 @@
-// this is payment.hook
-export {};
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import {
+  createInvoice,
+  downloadInvoicePdf,
+  getAllInvoices,
+  getInvoiceById,
+  getMyInvoices,
+  initiatePayment,
+  refundInvoice,
+} from "@/api";
+import { paymentKeys, workOrderKeys } from "@/constants";
+import type {
+  CreateInvoicePayload,
+  InvoiceListParams,
+  RefundInvoicePayload,
+} from "@/types";
+
+// ADMIN। enabled: false দিলে request যায় না (এক component এ admin/customer দুই mode এর জন্য)
+export function useGetInvoices(
+  params?: InvoiceListParams,
+  options?: { enabled?: boolean },
+) {
+  return useQuery({
+    queryKey: paymentKeys.list(params),
+    queryFn: () => getAllInvoices(params),
+    enabled: options?.enabled ?? true,
+    placeholderData: keepPreviousData,
+  });
+}
+
+// CUSTOMER
+export function useGetMyInvoices(
+  params?: InvoiceListParams,
+  options?: { enabled?: boolean },
+) {
+  return useQuery({
+    queryKey: paymentKeys.invoices(params),
+    queryFn: () => getMyInvoices(params),
+    enabled: options?.enabled ?? true,
+    placeholderData: keepPreviousData,
+  });
+}
+
+export function useGetInvoice(id: string) {
+  return useQuery({
+    queryKey: paymentKeys.invoice(id),
+    queryFn: () => getInvoiceById(id),
+    enabled: Boolean(id),
+    retry: false,
+  });
+}
+
+// invoice বদলালে সব payment query refetch হয়;
+// work order detail এও invoice এর status দেখানো হয়, তাই work order ও
+function useInvoiceMutation<TVariables, TData>(
+  mutationFn: (variables: TVariables) => Promise<TData>,
+) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: paymentKeys.all });
+      queryClient.invalidateQueries({ queryKey: workOrderKeys.all });
+    },
+  });
+}
+
+// caller `res.data.bkashURL` এ redirect করবে
+export function useInitiatePayment() {
+  return useInvoiceMutation(initiatePayment);
+}
+
+export function useRefundInvoice() {
+  return useInvoiceMutation(
+    ({ id, payload }: { id: string; payload: RefundInvoicePayload }) =>
+      refundInvoice(id, payload),
+  );
+}
+
+export function useCreateInvoice() {
+  return useInvoiceMutation((payload: CreateInvoicePayload) =>
+    createInvoice(payload),
+  );
+}
+
+// browser এ file হিসেবে save করানো (এটা server data বদলায় না, তাই cache invalidate নেই)
+function saveBlob(blob: Blob, fileName: string) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  // সাথে সাথে revoke করলে কিছু browser এ download কেটে যায়
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+export function useDownloadInvoicePdf() {
+  return useMutation({
+    mutationFn: async ({ id, fileName }: { id: string; fileName: string }) => {
+      const blob = await downloadInvoicePdf(id);
+      saveBlob(blob, `${fileName}.pdf`);
+    },
+  });
+}

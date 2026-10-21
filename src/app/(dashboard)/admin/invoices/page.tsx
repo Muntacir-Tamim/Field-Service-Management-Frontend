@@ -1,4 +1,5 @@
-// this is dashboard / admin / invoices page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / admin / invoices page</div>;
+import InvoiceList from "@/components/modules/payment/invoice-list";
+
+export default function AdminInvoicesPage() {
+  return <InvoiceList mode="admin" />;
 }
