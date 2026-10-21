@@ -1,4 +1,5 @@
-// this is dashboard / admin / assignments page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / admin / assignments page</div>;
+import AssignmentList from "@/components/modules/assignment/assignment-list";
+
+export default function AdminAssignmentsPage() {
+  return <AssignmentList mode="admin" />;
 }

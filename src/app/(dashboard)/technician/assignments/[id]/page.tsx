@@ -1,4 +1,9 @@
-// this is dashboard / technician / assignments / [id] page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / technician / assignments / [id] page</div>;
+import AssignmentDetail from "@/components/modules/assignment/assignment-detail";
+
+export default async function TechnicianAssignmentDetailPage({
+  params,
+}: PageProps<"/technician/assignments/[id]">) {
+  const { id } = await params;
+
+  return <AssignmentDetail id={id} mode="technician" />;
 }

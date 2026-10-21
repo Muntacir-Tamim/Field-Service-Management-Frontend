@@ -1,4 +1,9 @@
-// this is dashboard / admin / technicians / [id] page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / admin / technicians / [id] page</div>;
+import TechnicianDetail from "@/components/modules/technician/technician-detail";
+
+export default async function AdminTechnicianDetailPage({
+  params,
+}: PageProps<"/admin/technicians/[id]">) {
+  const { id } = await params;
+
+  return <TechnicianDetail id={id} />;
 }

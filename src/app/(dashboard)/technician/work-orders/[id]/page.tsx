@@ -1,4 +1,9 @@
-// this is dashboard / technician / work-orders / [id] page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / technician / work-orders / [id] page</div>;
+import WorkOrderDetail from "@/components/modules/work-order/work-order-detail";
+
+export default async function TechnicianWorkOrderDetailPage({
+  params,
+}: PageProps<"/technician/work-orders/[id]">) {
+  const { id } = await params;
+
+  return <WorkOrderDetail id={id} mode="technician" />;
 }

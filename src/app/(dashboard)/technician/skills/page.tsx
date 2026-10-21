@@ -1,4 +1,5 @@
-// this is dashboard / technician / skills page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / technician / skills page</div>;
+import TechnicianSkillsManager from "@/components/modules/technician/technician-skills-manager";
+
+export default function TechnicianSkillsPage() {
+  return <TechnicianSkillsManager />;
 }

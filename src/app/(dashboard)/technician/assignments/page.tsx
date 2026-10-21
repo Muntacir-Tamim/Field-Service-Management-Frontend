@@ -1,4 +1,5 @@
-// this is dashboard / technician / assignments page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / technician / assignments page</div>;
+import AssignmentList from "@/components/modules/assignment/assignment-list";
+
+export default function TechnicianAssignmentsPage() {
+  return <AssignmentList mode="technician" />;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { ClipboardCheckIcon } from "lucide-react";
+import Link from "next/link";
 import StatusBadge from "@/components/common/status-badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -13,6 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { canReviewServiceRequest } from "@/constants";
+import { ADMIN_ROUTES } from "@/routes";
 import type { AdminServiceRequest } from "@/types";
 import { formatDate } from "@/utils";
 
@@ -73,9 +75,12 @@ export default function AdminServiceRequestTable({
                 return (
                   <TableRow key={request.id}>
                     <TableCell className="max-w-64">
-                      <span className="block truncate font-medium">
+                      <Link
+                        href={`${ADMIN_ROUTES.serviceRequests}/${request.id}`}
+                        className="block truncate font-medium hover:underline"
+                      >
                         {request.title}
-                      </span>
+                      </Link>
                       <span className="block truncate text-xs text-muted-foreground">
                         {request.city}
                       </span>

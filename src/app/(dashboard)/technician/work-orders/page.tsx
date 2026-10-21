@@ -1,4 +1,5 @@
-// this is dashboard / technician / work-orders page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / technician / work-orders page</div>;
+import WorkOrderList from "@/components/modules/work-order/work-order-list";
+
+export default function TechnicianWorkOrdersPage() {
+  return <WorkOrderList mode="technician" />;
 }

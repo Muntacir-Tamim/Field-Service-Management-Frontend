@@ -1,4 +1,9 @@
-// this is dashboard / admin / service-requests / [id] page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / admin / service-requests / [id] page</div>;
+import AdminServiceRequestDetail from "@/components/modules/service-request/admin-service-request-detail";
+
+export default async function AdminServiceRequestDetailPage({
+  params,
+}: PageProps<"/admin/service-requests/[id]">) {
+  const { id } = await params;
+
+  return <AdminServiceRequestDetail id={id} />;
 }
