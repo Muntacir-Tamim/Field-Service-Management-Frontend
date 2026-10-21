@@ -1,4 +1,5 @@
-// this is authentication / apply page
-export default function PagePlaceholder() {
-  return <div>this is authentication / apply page</div>;
+import TechnicianApplyForm from "@/components/form/technician-apply-form";
+
+export default function ApplyPage() {
+  return <TechnicianApplyForm />;
 }

@@ -1,4 +1,5 @@
-// this is dashboard / dashboard / notifications page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / dashboard / notifications page</div>;
+import NotificationList from "@/components/modules/notification/notification-list";
+
+export default function NotificationsPage() {
+  return <NotificationList />;
 }

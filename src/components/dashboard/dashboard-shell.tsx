@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import NotificationBell from "@/components/modules/notification/notification-bell";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -28,6 +29,7 @@ export default function DashboardShell({
             {humanizeEnum(role)} Dashboard
           </span>
           <div className="ml-auto flex items-center gap-2">
+            <NotificationBell role={role} />
             <UserNav />
           </div>
         </header>
