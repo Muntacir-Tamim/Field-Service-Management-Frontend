@@ -12,14 +12,13 @@ export interface ServiceRequestAttachment {
   id: string;
   url: string;
   publicId: string;
-  // MIME type, যেমন "image/png" / "application/pdf"
+
   fileType: string;
   fileName: string | null;
   createdAt: string;
   serviceRequestId: string;
 }
 
-// Backend `ServiceRequest` model এর নিজস্ব field
 export interface ServiceRequest {
   id: string;
   title: string;
@@ -45,7 +44,6 @@ interface PersonRef {
   imageUrl?: string;
 }
 
-// request এর সাথে জুড়ে থাকা customer feedback (deleted হলে backend null দেয়)
 export interface ServiceRequestFeedback {
   id: string;
   rating: number;
@@ -53,8 +51,6 @@ export interface ServiceRequestFeedback {
   createdAt: string;
   updatedAt: string;
 }
-
-// ---------- GET /service-requests/my-requests ----------
 
 export interface MyRequestAssignment {
   id: string;
@@ -66,7 +62,7 @@ export interface MyRequestAssignment {
 
 export interface MyServiceRequest extends ServiceRequest {
   attachments: ServiceRequestAttachment[];
-  // শুধু CONFIRMED assignment আসে
+
   assignments: MyRequestAssignment[];
   feedback: ServiceRequestFeedback | null;
 }
@@ -79,8 +75,6 @@ export type MyServiceRequestParams = {
   status?: ServiceRequestStatus | "";
   priority?: Priority | "";
 };
-
-// ---------- GET /service-requests/:id ----------
 
 export interface DetailWorkOrder {
   id: string;
@@ -124,21 +118,17 @@ export interface ServiceRequestDetail extends ServiceRequest {
   feedback: ServiceRequestFeedback | null;
 }
 
-// ---------- POST /service-requests (multipart/form-data) ----------
-
 export interface CreateServiceRequestPayload {
   title: string;
   description: string;
   priority?: Priority;
-  // ISO string
+
   preferredDate?: string;
   address: string;
   city: string;
-  // field name "attachments", সর্বোচ্চ ৫টা
+
   attachments?: File[];
 }
-
-// ---------- ADMIN: GET /service-requests ----------
 
 export interface AdminServiceRequest extends ServiceRequest {
   customer: {
@@ -149,7 +139,6 @@ export interface AdminServiceRequest extends ServiceRequest {
   };
   admin: { id: string; user: { name: string } } | null;
   attachments: ServiceRequestAttachment[];
-  // সর্বশেষ ১টা assignment
   assignments: {
     id: string;
     status: AssignmentStatus;
@@ -167,10 +156,7 @@ export type AdminServiceRequestParams = {
   city?: string;
 };
 
-// ---------- ADMIN: PATCH /service-requests/:id/review ----------
-
 export interface ReviewServiceRequestPayload {
   status: "APPROVED" | "REJECTED";
-  // REJECTED হলে বাধ্যতামূলক
   rejectionReason?: string;
 }
