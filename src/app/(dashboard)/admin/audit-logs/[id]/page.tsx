@@ -1,4 +1,9 @@
-// this is dashboard / admin / audit-logs / [id] page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / admin / audit-logs / [id] page</div>;
+import AuditLogDetail from "@/components/modules/audit-log/audit-log-detail";
+
+export default async function AdminAuditLogDetailPage({
+  params,
+}: PageProps<"/admin/audit-logs/[id]">) {
+  const { id } = await params;
+
+  return <AuditLogDetail id={id} />;
 }

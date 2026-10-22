@@ -13,3 +13,4 @@ export * from "./analytics.type";
 export * from "./audit-log.type";
 export * from "./api.type";
 export * from "./sidebar.type";
+export * from "./admin-user.type";

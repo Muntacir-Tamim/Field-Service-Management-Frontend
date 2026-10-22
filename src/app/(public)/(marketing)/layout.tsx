@@ -1,6 +1,13 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
+import Footer from "@/components/layout/public/Footer";
+import Header from "@/components/layout/public/Header";
 
-// this is marketing layout
-export default function LayoutPlaceholder({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+export default function MarketingLayout({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex min-h-svh flex-col">
+      <Header />
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </div>
+  );
 }

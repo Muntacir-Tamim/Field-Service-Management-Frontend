@@ -8,3 +8,4 @@ export * from "./work-order.validation";
 export * from "./feedback.validation";
 export * from "./payment.validation";
 export * from "./user.validation";
+export * from "./admin-user.validation";

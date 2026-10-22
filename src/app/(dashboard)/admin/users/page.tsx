@@ -1,4 +1,5 @@
-// this is dashboard / admin / users page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / admin / users page</div>;
+import UserList from "@/components/modules/user-management/user-list";
+
+export default function AdminUsersPage() {
+  return <UserList />;
 }
