@@ -19,7 +19,12 @@ import {
   startWork,
   verifyWorkOrder,
 } from "@/api";
-import { assignmentKeys, workOrderKeys } from "@/constants";
+import {
+  analyticsKeys,
+  assignmentKeys,
+  paymentKeys,
+  workOrderKeys,
+} from "@/constants";
 import type {
   AddPartPayload,
   CompleteWorkPayload,
@@ -72,6 +77,8 @@ function useWorkOrderMutation<TVariables>(
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: workOrderKeys.all });
       queryClient.invalidateQueries({ queryKey: assignmentKeys.all });
+      queryClient.invalidateQueries({ queryKey: paymentKeys.all });
+      queryClient.invalidateQueries({ queryKey: analyticsKeys.all });
     },
   });
 }

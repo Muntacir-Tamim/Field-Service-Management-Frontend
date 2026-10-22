@@ -28,7 +28,7 @@ export default function RoleGuard({ children, roles }: IProps) {
     if (isError || !user) {
       router.replace("/login");
     }
-  }, [isPending, isError, user]);
+  }, [isPending, isError, user, router]);
 
   if (isPending) {
     return <AuthLoading />;
