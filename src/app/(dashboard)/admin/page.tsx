@@ -1,4 +1,5 @@
-// this is dashboard / admin page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / admin page</div>;
+import AdminDashboard from "@/components/modules/analytics/admin-dashboard";
+
+export default function AdminHomePage() {
+  return <AdminDashboard />;
 }

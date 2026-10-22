@@ -1,4 +1,5 @@
-// this is dashboard / technician / performance page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / technician / performance page</div>;
+import TechnicianPerformance from "@/components/modules/analytics/technician-performance";
+
+export default function TechnicianPerformancePage() {
+  return <TechnicianPerformance />;
 }

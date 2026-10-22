@@ -1,4 +1,5 @@
-// this is dashboard / dashboard / feedbacks page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / dashboard / feedbacks page</div>;
+import FeedbackList from "@/components/modules/feedback/feedback-list";
+
+export default function CustomerFeedbacksPage() {
+  return <FeedbackList mode="customer" />;
 }

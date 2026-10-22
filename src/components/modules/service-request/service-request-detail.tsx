@@ -3,7 +3,6 @@
 import {
   CalendarClockIcon,
   MapPinIcon,
-  StarIcon,
   UserIcon,
   XCircleIcon,
 } from "lucide-react";
@@ -11,6 +10,7 @@ import { useState } from "react";
 import EmptyState from "@/components/common/empty-state";
 import PageHeader from "@/components/common/page-header";
 import StatusBadge from "@/components/common/status-badge";
+import { ServiceFeedbackPanel } from "@/components/modules/feedback/feedback-form";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -181,27 +181,11 @@ function RequestBody({ request }: { request: ServiceRequestDetail }) {
           </CardContent>
         </Card>
 
-        {request.feedback ? (
-          <Card>
-            <CardHeader>
-              <CardTitle>Your feedback</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2 text-sm">
-              <p className="inline-flex items-center gap-1 font-medium">
-                <StarIcon
-                  className="size-4 fill-amber-400 text-amber-400"
-                  aria-hidden="true"
-                />
-                {request.feedback.rating} / 5
-              </p>
-              {request.feedback.comment ? (
-                <p className="text-muted-foreground">
-                  {request.feedback.comment}
-                </p>
-              ) : null}
-            </CardContent>
-          </Card>
-        ) : null}
+        <ServiceFeedbackPanel
+          serviceRequestId={request.id}
+          isCompleted={request.status === "COMPLETED"}
+          feedback={request.feedback}
+        />
       </div>
     </div>
   );

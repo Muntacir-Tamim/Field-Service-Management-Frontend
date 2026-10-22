@@ -1,4 +1,5 @@
-// this is dashboard / admin / feedbacks page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / admin / feedbacks page</div>;
+import FeedbackList from "@/components/modules/feedback/feedback-list";
+
+export default function AdminFeedbacksPage() {
+  return <FeedbackList mode="admin" />;
 }

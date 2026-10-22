@@ -23,10 +23,14 @@ export function useApplyAsTechnician() {
 
 // ---------- ADMIN ----------
 
-export function useGetTechnicians(params?: TechnicianListParams) {
+export function useGetTechnicians(
+  params?: TechnicianListParams,
+  options?: { enabled?: boolean },
+) {
   return useQuery({
     queryKey: technicianKeys.list(params),
     queryFn: () => getTechnicians(params),
+    enabled: options?.enabled ?? true,
     placeholderData: keepPreviousData,
   });
 }

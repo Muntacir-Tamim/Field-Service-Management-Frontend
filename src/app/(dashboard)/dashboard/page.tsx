@@ -1,4 +1,5 @@
-// this is dashboard / dashboard page
-export default function PagePlaceholder() {
-  return <div>this is dashboard / dashboard page</div>;
+import CustomerDashboard from "@/components/modules/analytics/customer-dashboard";
+
+export default function CustomerHomePage() {
+  return <CustomerDashboard />;
 }
