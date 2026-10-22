@@ -29,7 +29,6 @@ import {
 } from "@/constants";
 import { humanizeEnum } from "@/utils";
 
-// StatusBadge এর tone এর সাথে মিল রেখে chart এর রঙ (light/dark দুটোতেই পড়া যায়)
 const TONE_COLOR: Record<StatusTone, string> = {
   neutral: "#94a3b8",
   info: "#3b82f6",
@@ -54,8 +53,6 @@ export interface ChartDatum {
   color?: string;
 }
 
-// { PENDING: 3, APPROVED: 5 } → [{ name: "Pending", value: 3, color }]
-// kind দিলে label আর রঙ status constant থেকে আসে; শূন্য মান বাদ যায়
 export function statusChartData(
   kind: StatusKind,
   counts: Record<string, number>,
@@ -77,14 +74,13 @@ interface ChartCardProps {
   title: string;
   description?: string;
   isLoading?: boolean;
-  // true হলে chart এর জায়গায় "No data" দেখায়
+
   isEmpty?: boolean;
   emptyText?: string;
   className?: string;
   children: ReactNode;
 }
 
-// সব chart এর একই খোলস: title + loading + empty state
 export function ChartCard({
   title,
   description,
@@ -115,14 +111,12 @@ export function ChartCard({
   );
 }
 
-// ---------- Donut ----------
-
 export function DonutChart({
   data,
   centerLabel,
 }: {
   data: ChartDatum[];
-  // মাঝখানের লেখা (যেমন total)
+
   centerLabel?: string;
 }) {
   const total = data.reduce((sum, item) => sum + item.value, 0);
@@ -177,16 +171,11 @@ export function DonutChart({
   );
 }
 
-// ---------- Bar ----------
-
 interface SimpleBarChartProps {
   data: ChartDatum[];
-  // horizontal: নামগুলো বাঁ পাশে, bar ডানে বাড়ে (লম্বা নামের জন্য ভালো)
   layout?: "vertical" | "horizontal";
   height?: number;
-  // প্রতিটা datum এ color না থাকলে এটা
   color?: string;
-  // tooltip এ মানের পাশে কী লেখা (যেমন "jobs")
   unit?: string;
 }
 
@@ -269,9 +258,6 @@ export function SimpleBarChart({
   );
 }
 
-// ---------- ready-made charts ----------
-
-// status → donut (যেমন service request status অনুযায়ী ভাগ)
 export function StatusDonutChart({
   kind,
   counts,
@@ -303,7 +289,6 @@ export function StatusDonutChart({
   );
 }
 
-// status → bar (যেমন work order status)
 export function StatusBarChart({
   kind,
   counts,
@@ -333,7 +318,6 @@ export function StatusBarChart({
   );
 }
 
-// 1-5 তারার review সংখ্যা (backend distribution এর key "1".."5")
 export function RatingDistributionChart({
   distribution,
   title = "Rating distribution",

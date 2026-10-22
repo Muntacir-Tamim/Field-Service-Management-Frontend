@@ -6,10 +6,9 @@ import { cn } from "@/lib/utils";
 import { formatFileSize } from "@/utils";
 
 interface FileDropzoneProps {
-  // parent ফাইলের list ধরে রাখে (controlled)
   value: File[];
   onChange: (files: File[]) => void;
-  // input accept এর মতো: "image/*,.pdf"
+
   accept?: string;
   multiple?: boolean;
   maxFiles?: number;

@@ -41,7 +41,6 @@ import type { SkillLevel, TechnicianSkillEntry } from "@/types";
 import { getErrorMessage } from "@/utils";
 import { addMySkillSchema } from "@/validation";
 
-// /technician/skills
 export default function TechnicianSkillsManager() {
   const [removing, setRemoving] = useState<TechnicianSkillEntry | null>(null);
 
@@ -85,7 +84,7 @@ export default function TechnicianSkillsManager() {
     if (level === entry.level) {
       return;
     }
-    // backend এ একই endpoint আগে থাকলে শুধু level বদলায়
+
     addSkill(
       { skillId: entry.skill.id, level },
       {

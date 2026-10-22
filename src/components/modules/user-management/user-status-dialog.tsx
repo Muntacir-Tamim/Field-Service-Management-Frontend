@@ -24,7 +24,6 @@ import type { AdminUser } from "@/types";
 import { getErrorMessage, humanizeEnum } from "@/utils";
 import { blockUserSchema } from "@/validation";
 
-// block = suspend, unblock = activate
 export type UserAction = "block" | "unblock" | "delete";
 
 export interface UserActionTarget {
@@ -33,17 +32,14 @@ export interface UserActionTarget {
 }
 
 interface UserStatusDialogProps {
-  // null হলে dialog বন্ধ
   target: UserActionTarget | null;
   onOpenChange: (open: boolean) => void;
 }
 
-// ADMIN: user কে suspend (block) / activate (unblock) / soft delete
 export default function UserStatusDialog({
   target,
   onOpenChange,
 }: UserStatusDialogProps) {
-  // mutation এখানে রাখা: form unmount হলেও callback চলে
   const { mutate: updateStatus, isPending: isUpdating } =
     useUpdateAdminUserStatus();
   const { mutate: remove, isPending: isDeleting } = useDeleteAdminUser();

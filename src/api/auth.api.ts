@@ -26,7 +26,6 @@ export function userRegistration(payload: RegistrationPayload) {
   });
 }
 
-// customer verify করলে backend নিজেই cookie set করে (auto login)
 export function verifyAccount(payload: VerifyAccountPayload) {
   return apiClient<ApiResponse<unknown>>("/auth/verify-email", {
     method: "POST",
@@ -63,7 +62,6 @@ export function resetPassword(payload: ResetPasswordPayload) {
   });
 }
 
-// technician application এর email verify (account verify হলেও admin approve না করা পর্যন্ত pending)
 export function verifyTechnicianAccount(payload: VerifyAccountPayload) {
   return apiClient<ApiResponse<unknown>>("/technicians/apply/verify-email", {
     method: "POST",

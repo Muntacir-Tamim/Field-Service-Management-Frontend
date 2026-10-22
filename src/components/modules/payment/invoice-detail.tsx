@@ -67,7 +67,6 @@ function SummaryRow({
   );
 }
 
-// parts + labor + discount + tax = total
 function BreakdownCard({ invoice }: { invoice: Invoice }) {
   const { breakdown, workOrder } = invoice;
   const hours = Number(breakdown.laborHours);

@@ -14,7 +14,6 @@ interface StatCardProps {
   title: string;
   value: ReactNode;
   icon?: LucideIcon;
-  // value এর নিচের ছোট লেখা (যেমন "this month")
   description?: string;
   isLoading?: boolean;
   className?: string;

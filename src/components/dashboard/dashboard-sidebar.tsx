@@ -28,7 +28,6 @@ function isItemActive(pathname: string, item: SidebarItem) {
   return pathname === item.url || pathname.startsWith(`${item.url}/`);
 }
 
-// role wise menu: CUSTOMER / TECHNICIAN / ADMIN
 export function DashboardSidebar({ role }: { role: UserRole }) {
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();

@@ -25,7 +25,6 @@ import type { Gender, UpdateMyProfilePayload, User, UserRole } from "@/types";
 import { getErrorMessage } from "@/utils";
 import { type MyProfileFormValues, myProfileSchema } from "@/validation";
 
-// সব role এর field একসাথে; role অনুযায়ী কিছু field দেখানো হয়
 type ProfileFormValues = MyProfileFormValues;
 
 type TextFieldName = Exclude<keyof ProfileFormValues, "gender">;
@@ -37,7 +36,6 @@ const GENDER_ITEMS = [
   { value: "OTHER", label: "Other" },
 ];
 
-// কোন role এ কোন field দেখাবে
 const FIELDS_BY_ROLE: Record<UserRole, (keyof ProfileFormValues)[]> = {
   CUSTOMER: ["name", "contactNumber", "gender", "address", "city"],
   TECHNICIAN: [
@@ -92,8 +90,6 @@ function getInitialValues(user: User): ProfileFormValues {
   return base;
 }
 
-// শুধু বদলানো + ফাঁকা নয় এমন field পাঠাই (backend ফাঁকা string reject করে,
-// আর অন্তত একটা field না থাকলে 400 দেয়)
 function buildPayload(
   role: UserRole,
   initial: ProfileFormValues,

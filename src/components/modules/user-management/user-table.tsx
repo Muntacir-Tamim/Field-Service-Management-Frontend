@@ -22,12 +22,11 @@ const SKELETON_ROWS = ["a", "b", "c", "d", "e"];
 interface UserTableProps {
   users: AdminUser[];
   isLoading?: boolean;
-  // নিজের row তে কোনো action দেখানো হয় না
+
   currentUserId?: string;
   onAction: (user: AdminUser, action: UserAction) => void;
 }
 
-// backend: ADMIN account বদলানো/মোছা যায় না, নিজেরটাও না, deleted এ কিছু করার নেই
 function canManage(user: AdminUser, currentUserId?: string) {
   return (
     user.role !== "ADMIN" &&

@@ -8,7 +8,6 @@ const rawClient = ofetch.create({
   credentials: "include",
 });
 
-// এই endpoint গুলোতে 401 মানে ভুল credential/OTP; refresh করার মানে নেই
 const NO_REFRESH_PATHS = [
   "/auth/login",
   "/auth/register",

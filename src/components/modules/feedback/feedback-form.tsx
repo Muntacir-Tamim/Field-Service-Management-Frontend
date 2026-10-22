@@ -43,14 +43,13 @@ type ExistingFeedback = Pick<
 
 interface FeedbackFormProps {
   serviceRequestId: string;
-  // দিলে edit mode (PATCH), না দিলে নতুন feedback (POST)
+
   feedback?: ExistingFeedback | null;
-  // সফলভাবে save হলে (dialog বন্ধ করা ইত্যাদির জন্য)
+
   onSaved?: () => void;
   onCancel?: () => void;
 }
 
-// CUSTOMER: কাজ শেষ (COMPLETED) হলে rating আর comment দেওয়ার form
 export default function FeedbackForm({
   serviceRequestId,
   feedback,
@@ -195,12 +194,10 @@ export default function FeedbackForm({
 }
 
 interface FeedbackEditDialogProps {
-  // null হলে dialog বন্ধ
   feedback: (ExistingFeedback & { serviceRequestId: string }) | null;
   onOpenChange: (open: boolean) => void;
 }
 
-// CUSTOMER: feedback list থেকে edit
 export function FeedbackEditDialog({
   feedback,
   onOpenChange,
@@ -230,14 +227,11 @@ export function FeedbackEditDialog({
 
 interface ServiceFeedbackPanelProps {
   serviceRequestId: string;
-  // request এর status === "COMPLETED" কিনা
+
   isCompleted: boolean;
   feedback: ServiceRequestFeedback | null;
 }
 
-// CUSTOMER এর request detail page এ বসে:
-// COMPLETED + feedback নেই → form, feedback আছে → দেখায় + edit/delete।
-// (COMPLETED না হলে কিছুই দেখায় না, কারণ backend তখন feedback নেয় না)
 export function ServiceFeedbackPanel({
   serviceRequestId,
   isCompleted,

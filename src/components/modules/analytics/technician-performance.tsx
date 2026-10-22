@@ -14,7 +14,6 @@ import {
 import RangeFilter, { type RangePreset, rangeFromPreset } from "./range-filter";
 import TechnicianStatsCards from "./technician-stats-cards";
 
-// /technician/performance
 export default function TechnicianPerformance() {
   const [preset, setPreset] = useState<RangePreset>("30");
   const { data, isPending, isError, error, refetch } = useGetMyStats(

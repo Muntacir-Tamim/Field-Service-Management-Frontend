@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-// detail page এর "label + value" জোড়া (<dl> এর ভেতরে বসে)
 export default function InfoRow({
   label,
   children,

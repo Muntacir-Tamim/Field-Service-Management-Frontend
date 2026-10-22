@@ -10,7 +10,6 @@ import { ADMIN_ROUTES } from "@/routes";
 import { getErrorMessage, humanizeEnum } from "@/utils";
 import AuditLogContent from "./audit-log-content";
 
-// /admin/audit-logs/[id]
 export default function AuditLogDetail({ id }: { id: string }) {
   const { data, isPending, isError, error, refetch } = useGetAuditLog(id);
   const log = data?.data;

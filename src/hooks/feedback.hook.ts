@@ -16,10 +16,6 @@ import {
 import { analyticsKeys, feedbackKeys, serviceRequestKeys } from "@/constants";
 import type { FeedbackListParams, UpdateFeedbackPayload } from "@/types";
 
-// feedbackKeys.list({ scope, ...params }): scope দিয়ে আলাদা cache entry,
-// তাই constants এ নতুন key লাগে না
-
-// ADMIN
 export function useGetAllFeedbacks(
   params?: FeedbackListParams,
   options?: { enabled?: boolean },
@@ -32,7 +28,6 @@ export function useGetAllFeedbacks(
   });
 }
 
-// CUSTOMER
 export function useGetMyFeedbacks(
   params?: FeedbackListParams,
   options?: { enabled?: boolean },
@@ -45,7 +40,6 @@ export function useGetMyFeedbacks(
   });
 }
 
-// TECHNICIAN
 export function useGetMyTechnicianFeedbacks(
   params?: FeedbackListParams,
   options?: { enabled?: boolean },
@@ -58,7 +52,6 @@ export function useGetMyTechnicianFeedbacks(
   });
 }
 
-// ADMIN: একজন technician এর feedback
 export function useGetTechnicianFeedbacks(
   technicianId: string,
   params?: FeedbackListParams,
@@ -75,8 +68,6 @@ export function useGetTechnicianFeedbacks(
   });
 }
 
-// feedback বদলালে: feedback list, request detail (feedback ওখানেও জোড়া থাকে)
-// আর rating এর analytics সব refetch হয়
 function useFeedbackMutation<TVariables, TData>(
   mutationFn: (variables: TVariables) => Promise<TData>,
 ) {

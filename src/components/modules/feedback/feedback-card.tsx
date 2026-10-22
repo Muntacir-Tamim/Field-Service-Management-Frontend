@@ -13,10 +13,8 @@ import type { Feedback } from "@/types";
 import { formatDate, getErrorMessage, getInitials } from "@/utils";
 import RatingStars from "./rating-stars";
 
-// admin: সব feedback, customer: নিজের, technician: নিজের কাজের (শুধু দেখা)
 export type FeedbackMode = "admin" | "customer" | "technician";
 
-// update এর সময় updatedAt কয়েক ms এগোয়; ১ সেকেন্ডের বেশি ফারাক হলে "edited"
 function wasEdited(feedback: Feedback) {
   return (
     new Date(feedback.updatedAt).getTime() -
@@ -28,9 +26,9 @@ function wasEdited(feedback: Feedback) {
 interface FeedbackCardProps {
   feedback: Feedback;
   mode: FeedbackMode;
-  // customer: edit button (dialog caller এর হাতে)
+
   onEdit?: (feedback: Feedback) => void;
-  // admin + customer: delete button (dialog caller এর হাতে)
+
   onDelete?: (feedback: Feedback) => void;
 }
 
@@ -141,19 +139,16 @@ export default function FeedbackCard({
 }
 
 interface DeleteFeedbackDialogProps {
-  // null হলে dialog বন্ধ
   feedback: Pick<Feedback, "id"> | null;
   onOpenChange: (open: boolean) => void;
   mode: Exclude<FeedbackMode, "technician">;
 }
 
-// ADMIN (যেকোনো) আর CUSTOMER (নিজের) এর delete confirm
 export function DeleteFeedbackDialog({
   feedback,
   onOpenChange,
   mode,
 }: DeleteFeedbackDialogProps) {
-  // mutation এখানে রাখা: dialog বন্ধ হলেও callback চলে
   const { mutate: remove, isPending } = useDeleteFeedback();
 
   const handleDelete = () => {

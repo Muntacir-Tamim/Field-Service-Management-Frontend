@@ -19,7 +19,6 @@ const PROFILE_PATH_BY_ROLE: Record<UserRole, string> = {
   CUSTOMER: CUSTOMER_ROUTES.profile,
 };
 
-// role অনুযায়ী sidebar menu
 export function getMenuByRole(role: UserRole): SidebarItems {
   return MENU_BY_ROLE[role] ?? [];
 }

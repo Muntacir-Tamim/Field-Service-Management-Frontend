@@ -3,7 +3,6 @@ import type { AuditAction } from "@/types";
 import { humanizeEnum } from "@/utils";
 import type { StatusTone } from "./status.constant";
 
-// Backend `AuditAction` enum এর সব মান (filter dropdown এর জন্য)
 export const AUDIT_ACTIONS: AuditAction[] = [
   "SERVICE_REQUEST_CREATED",
   "SERVICE_REQUEST_STATUS_CHANGED",
@@ -34,7 +33,6 @@ export const AUDIT_ACTION_OPTIONS = AUDIT_ACTIONS.map((value) => ({
   label: humanizeEnum(value),
 }));
 
-// badge এর রঙ: ক্ষতিকর/ব্যর্থ = লাল, টাকা পাওয়া/সফল = সবুজ, সতর্ক = হলুদ
 const DANGER: AuditAction[] = [
   "USER_BLOCKED",
   "USER_DELETED",
@@ -68,7 +66,6 @@ export function getAuditActionTone(action: AuditAction): StatusTone {
   return "info";
 }
 
-// audit log এর entity র admin page link (detail page না থাকলে list page, অচেনা হলে null)
 export function getAuditEntityHref(entityType: string, entityId: string) {
   switch (entityType) {
     case "ServiceRequest":

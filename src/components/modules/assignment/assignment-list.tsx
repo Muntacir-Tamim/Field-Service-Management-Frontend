@@ -17,7 +17,6 @@ import type { AssignmentStatus } from "@/types";
 import { getErrorMessage } from "@/utils";
 import AssignmentTable from "./assignment-table";
 
-// admin: /admin/assignments, technician: /technician/assignments
 export default function AssignmentList({
   mode,
 }: {
@@ -27,7 +26,7 @@ export default function AssignmentList({
   const [status, setStatus] = useState<AssignmentStatus | "">("");
 
   const params = { page, limit: DEFAULT_PAGE_SIZE, status };
-  // hook দুটো সবসময় call হয় (rules of hooks), কিন্তু শুধু দরকারিটাই network এ যায়
+
   const adminQuery = useGetAssignments(params, { enabled: mode === "admin" });
   const myQuery = useGetMyAssignments(params, {
     enabled: mode === "technician",

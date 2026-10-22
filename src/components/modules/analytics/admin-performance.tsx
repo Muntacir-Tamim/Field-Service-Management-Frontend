@@ -20,7 +20,6 @@ const SORT_OPTIONS = [
 
 const CHART_COUNT = 10;
 
-// /admin/technician-performance
 export default function AdminPerformance() {
   const [preset, setPreset] = useState<RangePreset>("30");
   const [sortBy, setSortBy] = useState<LeaderboardSortBy>("completedJobs");

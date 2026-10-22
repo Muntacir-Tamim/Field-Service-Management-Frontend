@@ -13,7 +13,6 @@ export interface Meta {
   totalPages: number;
 }
 
-// backend globalErrorHandler এর error response
 export interface ApiErrorSource {
   field?: string;
   message: string;

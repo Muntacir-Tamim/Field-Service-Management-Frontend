@@ -29,7 +29,6 @@ import type {
   WorkOrderListParams,
 } from "@/types";
 
-// enabled: false দিলে request যায় না (এক component এ admin/technician দুই mode এর জন্য)
 export function useGetWorkOrders(
   params?: WorkOrderListParams,
   options?: { enabled?: boolean },
@@ -63,8 +62,6 @@ export function useGetWorkOrder(id: string) {
   });
 }
 
-// work order এর যেকোনো পরিবর্তনের পরে সব work order query refetch হয়;
-// start / complete এ assignment এর actualStart/actualEnd ও বদলায়, তাই assignment ও
 function useWorkOrderMutation<TVariables>(
   mutationFn: (variables: TVariables) => Promise<unknown>,
 ) {

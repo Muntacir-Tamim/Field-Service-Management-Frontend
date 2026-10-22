@@ -8,7 +8,6 @@ import type { Skill } from "@/types";
 
 const PREVIEW_COUNT = 6;
 
-// প্রতিটা category থেকে একটা করে skill নিয়ে পরপর সাজানো (বৈচিত্র্য দেখাতে)
 function pickPreview(skills: Skill[]) {
   const byCategory = new Map<string, Skill[]>();
   for (const skill of skills) {
@@ -35,7 +34,6 @@ function pickPreview(skills: Skill[]) {
   return picked;
 }
 
-// home page এ সেবার ঝলক; তালিকা আসে backend এর skill থেকে (admin যা যোগ করে)
 export default function ServicesPreview() {
   const { data, isPending, isError } = useGetSkills();
   const preview = pickPreview(data?.data ?? []);

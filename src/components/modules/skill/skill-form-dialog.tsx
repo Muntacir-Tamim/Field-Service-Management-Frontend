@@ -29,9 +29,7 @@ import { skillSchema } from "@/validation";
 interface SkillFormDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  // দিলে edit mode, না দিলে create mode
   skill?: Skill | null;
-  // category suggestion (datalist) এর জন্য
   categories?: string[];
 }
 
@@ -54,7 +52,7 @@ export default function SkillFormDialog({
               : "Create a skill that technicians can add to their profile."}
           </DialogDescription>
         </DialogHeader>
-        {/* dialog বন্ধ হলে content unmount হয়, তাই form state নিজে থেকেই reset হয় */}
+
         <SkillForm
           skill={skill}
           categories={categories}
@@ -109,7 +107,6 @@ function SkillForm({
       };
 
       if (skill) {
-        // description খালি করলেও পাঠাই, যাতে মুছে ফেলা যায়
         update(
           { id: skill.id, payload: { name, category, description } },
           callbacks,

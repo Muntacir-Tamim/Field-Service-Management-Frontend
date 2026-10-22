@@ -19,12 +19,10 @@ import { getErrorMessage } from "@/utils";
 import AuditLogContent from "./audit-log-content";
 
 interface AuditLogDetailSheetProps {
-  // null হলে sheet বন্ধ
   logId: string | null;
   onOpenChange: (open: boolean) => void;
 }
 
-// ADMIN: audit log table থেকে "View" চাপলে ডান দিক থেকে খোলে
 export default function AuditLogDetailSheet({
   logId,
   onOpenChange,

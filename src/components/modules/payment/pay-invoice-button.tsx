@@ -9,7 +9,6 @@ import { useInitiatePayment } from "@/hooks";
 import type { PaymentStatus } from "@/types";
 import { getErrorMessage } from "@/utils";
 
-// backend: UNPAID / FAILED / CANCELLED invoice এ (আবার) payment শুরু করা যায়
 export function canPayInvoice(status: PaymentStatus) {
   return status === "UNPAID" || status === "FAILED" || status === "CANCELLED";
 }
@@ -21,7 +20,6 @@ interface PayInvoiceButtonProps {
   className?: string;
 }
 
-// CUSTOMER: POST /payment/initiate → bKash এর checkout page এ redirect
 export default function PayInvoiceButton({
   invoiceId,
   status,
@@ -29,7 +27,7 @@ export default function PayInvoiceButton({
   className,
 }: PayInvoiceButtonProps) {
   const { mutate: initiate, isPending } = useInitiatePayment();
-  // redirect শুরু হলেও page ছাড়তে একটু সময় লাগে; এ সময়ে আবার click ঠেকাতে
+
   const [isRedirecting, setIsRedirecting] = useState(false);
 
   if (!canPayInvoice(status)) {

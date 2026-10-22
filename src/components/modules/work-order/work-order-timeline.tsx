@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import type { WorkOrder } from "@/types";
 import { formatDateTime } from "@/utils";
 
-// backend শুধু এই ধাপগুলোর সময় রাখে (en-route / arrived এর সময় নেই)
 function getStepTime(order: WorkOrder, status: string) {
   switch (status) {
     case "SCHEDULED":

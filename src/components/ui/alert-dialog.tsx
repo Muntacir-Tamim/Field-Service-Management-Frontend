@@ -119,8 +119,6 @@ function AlertDialogDescription({
   );
 }
 
-// Base UI তে আলাদা Action part নেই; confirm হলো সাধারণ Button।
-// auto-close হয় না, তাই caller নিজে `open` নিয়ন্ত্রণ করবে (ConfirmDialog দেখো)।
 function AlertDialogAction({
   className,
   ...props

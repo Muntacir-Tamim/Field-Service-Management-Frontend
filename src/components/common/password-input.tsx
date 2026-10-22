@@ -4,7 +4,6 @@ import { Eye, EyeOff } from "lucide-react";
 import { type ComponentProps, useState } from "react";
 import { Input } from "@/components/ui/input";
 
-// password field + show/hide button (login, register, reset form এ একই জিনিস)
 export default function PasswordInput(
   props: Omit<ComponentProps<typeof Input>, "type">,
 ) {

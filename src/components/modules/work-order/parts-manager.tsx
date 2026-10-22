@@ -37,7 +37,6 @@ import { addPartSchema } from "@/validation";
 interface PartsManagerProps {
   workOrderId: string;
   parts: WorkOrderPart[];
-  // technician এবং status IN_PROGRESS হলে true
   editable: boolean;
 }
 

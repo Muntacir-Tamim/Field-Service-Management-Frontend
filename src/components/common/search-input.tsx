@@ -7,9 +7,7 @@ import useDebounce from "@/hooks/debounce.hook";
 import { cn } from "@/lib/utils";
 
 interface SearchInputProps {
-  // parent এর state এ থাকা "committed" search term
   value: string;
-  // debounce শেষে একবার call হয় (প্রতি keystroke এ নয়)
   onChange: (value: string) => void;
   placeholder?: string;
   delay?: number;
@@ -25,10 +23,7 @@ export default function SearchInput({
 }: SearchInputProps) {
   const [text, setText] = useState(value);
   const debounced = useDebounce(text, delay);
-  // parent কে সর্বশেষ যে value জানানো হয়েছে (বা parent থেকে যা পেয়েছি)
   const lastSynced = useRef(value);
-
-  // user টাইপ করা থামালে (text == debounced) parent কে একবার জানাও
   useEffect(() => {
     if (debounced === text && debounced !== lastSynced.current) {
       lastSynced.current = debounced;
@@ -36,7 +31,6 @@ export default function SearchInput({
     }
   }, [debounced, text, onChange]);
 
-  // parent বাইরে থেকে value বদলালে (যেমন "Clear" চাপলে) input ও মিলিয়ে নাও
   useEffect(() => {
     if (value !== lastSynced.current) {
       lastSynced.current = value;

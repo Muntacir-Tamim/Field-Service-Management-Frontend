@@ -13,7 +13,6 @@ function groupByCategory(skills: Skill[]) {
   return [...groups.entries()].sort(([a], [b]) => a.localeCompare(b));
 }
 
-// /services এর পুরো তালিকা: category ধরে ভাগ করা, backend এর skill থেকে
 export default function ServicesCatalog() {
   const { data, isPending, isError } = useGetSkills();
   const groups = groupByCategory(data?.data ?? []);

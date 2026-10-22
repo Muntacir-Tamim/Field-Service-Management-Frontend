@@ -63,8 +63,6 @@ function SectionCard({
   );
 }
 
-// /dashboard (customer)। backend এ customer analytics endpoint নেই,
-// তাই request আর invoice list থেকেই সংখ্যা (meta.total) বের করা হয়।
 export default function CustomerDashboard() {
   const { data: me } = useGetMe();
 
@@ -88,7 +86,7 @@ export default function CustomerDashboard() {
 
   const recent = all.data?.data ?? [];
   const unpaidInvoices = unpaid.data?.data ?? [];
-  // শেষ হওয়া কিন্তু এখনো rating দেওয়া হয়নি
+
   const toRate = (completed.data?.data ?? []).filter((r) => !r.feedback);
 
   return (

@@ -21,7 +21,6 @@ import { canRefundInvoice } from "./refund-dialog";
 
 const SKELETON_ROWS = ["a", "b", "c", "d", "e"];
 
-// admin: /admin/invoices, customer: /dashboard/payments
 export type InvoiceMode = "admin" | "customer";
 
 export function getInvoiceHref(mode: InvoiceMode, id: string) {
@@ -30,7 +29,6 @@ export function getInvoiceHref(mode: InvoiceMode, id: string) {
   return `${base}/${id}`;
 }
 
-// status অনুযায়ী কোন তারিখটা দেখানো মানায়
 function getDateNote(invoice: Invoice) {
   if (invoice.status === "REFUNDED") {
     return { label: "Refunded", value: invoice.refundedAt };
@@ -44,9 +42,9 @@ function getDateNote(invoice: Invoice) {
 interface InvoiceTableProps {
   invoices: Invoice[];
   isLoading?: boolean;
-  // admin এ customer column আর Refund button, customer এ Pay button
+
   mode: InvoiceMode;
-  // admin: Refund button চাপলে (dialog caller এর হাতে)
+
   onRefund?: (invoice: Invoice) => void;
 }
 

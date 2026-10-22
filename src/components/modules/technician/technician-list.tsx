@@ -23,7 +23,6 @@ const AVAILABILITY_OPTIONS = [
   { value: "false", label: "Unavailable" },
 ];
 
-// /admin/technicians
 export default function TechnicianList() {
   const [page, setPage] = useState(DEFAULT_PAGE);
   const [search, setSearch] = useState("");

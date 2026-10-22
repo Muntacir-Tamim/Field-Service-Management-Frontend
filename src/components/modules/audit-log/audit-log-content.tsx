@@ -13,7 +13,6 @@ const TONE_VARIANT = {
   danger: "destructive",
 } as const;
 
-// "Payment paid", "User blocked" ইত্যাদি badge (রঙ action এর ধরন অনুযায়ী)
 export function AuditActionBadge({ action }: { action: AuditLog["action"] }) {
   return (
     <Badge variant={TONE_VARIANT[getAuditActionTone(action)]}>
@@ -59,7 +58,6 @@ function Row({
   );
 }
 
-// audit log এর পুরো বিবরণ; detail sheet আর /admin/audit-logs/[id] page দুটোতেই বসে
 export default function AuditLogContent({ log }: { log: AuditLog }) {
   const entityHref = getAuditEntityHref(log.entityType, log.entityId);
 

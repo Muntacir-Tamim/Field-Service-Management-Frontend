@@ -11,7 +11,6 @@ export default function GoogleLoginComponent() {
   const router = useRouter();
   const { mutate: googleLogin } = useGoogleOAuth();
 
-  // Google client id না থাকলে provider বসে না; button দেখালে crash করবে
   if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID) {
     return null;
   }

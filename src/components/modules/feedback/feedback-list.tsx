@@ -39,7 +39,6 @@ const SORT_OPTIONS = [
 
 const SKELETON_ROWS = ["a", "b", "c"];
 
-// 5 → 1 তারার সংখ্যা bar এ দেখায় (technician এর নিজের page এ)
 export function RatingSummaryCard({ summary }: { summary: RatingSummary }) {
   const total = summary.totalFeedbacks;
 
@@ -104,7 +103,6 @@ const COPY: Record<
   },
 };
 
-// admin: /admin/feedbacks, customer: /dashboard/feedbacks, technician: /technician/feedbacks
 export default function FeedbackList({ mode }: { mode: FeedbackMode }) {
   const [page, setPage] = useState(DEFAULT_PAGE);
   const [rating, setRating] = useState("");
@@ -290,7 +288,6 @@ export default function FeedbackList({ mode }: { mode: FeedbackMode }) {
   );
 }
 
-// "Newest / Oldest / Highest / Lowest" (FilterBar এর select এর মতোই, কিন্তু "All" ছাড়া)
 function SortSelect({
   value,
   onChange,

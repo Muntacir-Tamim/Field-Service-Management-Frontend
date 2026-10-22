@@ -7,10 +7,9 @@ import type { ServiceRequest } from "@/types";
 import { getErrorMessage } from "@/utils";
 
 interface CancelRequestDialogProps {
-  // null হলে dialog বন্ধ
   request: Pick<ServiceRequest, "id" | "title"> | null;
   onOpenChange: (open: boolean) => void;
-  // সফলভাবে cancel হলে (যেমন detail page এ কিছু করতে চাইলে)
+
   onCancelled?: () => void;
 }
 

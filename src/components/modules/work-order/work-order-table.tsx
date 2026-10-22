@@ -29,7 +29,7 @@ export function getWorkOrderHref(mode: "admin" | "technician", id: string) {
 interface WorkOrderTableProps {
   workOrders: WorkOrderListItem[];
   isLoading?: boolean;
-  // admin এ technician column দেখায়, technician এ customer column
+
   mode: "admin" | "technician";
 }
 

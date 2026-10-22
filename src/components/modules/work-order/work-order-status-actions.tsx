@@ -48,8 +48,6 @@ interface WorkOrderStatusActionsProps {
   status: WorkOrderStatus;
 }
 
-// TECHNICIAN: status অনুযায়ী "পরের কাজ" এর একটাই button
-// SCHEDULED → On my way → Arrived → Start work (form) → Complete work (form)
 export default function WorkOrderStatusActions({
   workOrderId,
   status,

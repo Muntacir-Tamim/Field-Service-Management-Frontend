@@ -27,11 +27,10 @@ import { serviceReportSchema } from "@/validation";
 interface ServiceReportSectionProps {
   workOrderId: string;
   report: ServiceReport | null;
-  // technician এবং status IN_PROGRESS / COMPLETED হলে true
+
   editable: boolean;
 }
 
-// technician লেখে/বদলায়; admin ও customer শুধু পড়ে
 export default function ServiceReportSection({
   workOrderId,
   report,
@@ -51,7 +50,6 @@ export default function ServiceReportSection({
       </CardHeader>
       <CardContent>
         {editable ? (
-          // report বদলালে (save এর পর refetch) form নতুন value নিয়ে শুরু হয়
           <ReportForm
             key={report?.updatedAt ?? "new"}
             workOrderId={workOrderId}

@@ -1,7 +1,5 @@
 import type { AuditAction, SortOrder, UserRole } from "./enum.type";
 
-// Backend `AuditLog` + actor (null হলে system action, যেমন payment gateway callback)।
-// oldValue / newValue / metadata যেকোনো JSON হতে পারে।
 export interface AuditLog {
   id: string;
   action: AuditAction;

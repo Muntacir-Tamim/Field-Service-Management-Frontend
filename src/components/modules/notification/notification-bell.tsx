@@ -26,7 +26,6 @@ import NotificationItem from "./notification-item";
 
 const PREVIEW_LIMIT = 6;
 
-// header এর ঘণ্টা: unread count badge + সাম্প্রতিক notification এর popover
 export default function NotificationBell({ role }: { role: UserRole }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -34,7 +33,6 @@ export default function NotificationBell({ role }: { role: UserRole }) {
   const { data: countData } = useGetUnreadCount();
   const unreadCount = countData?.data.unreadCount ?? 0;
 
-  // popover খুললেই শুধু list আনি
   const { data, isPending } = useGetNotifications(
     { page: 1, limit: PREVIEW_LIMIT },
     { enabled: open },

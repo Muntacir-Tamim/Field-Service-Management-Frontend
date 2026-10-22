@@ -22,7 +22,6 @@ import AuditLogTable from "./audit-log-table";
 
 const PAGE_SIZE = 20;
 
-// yyyy-MM-dd (date input) → ISO; `to` এ দিনের শেষ ধরা হয় যাতে ওই দিনের log বাদ না পড়ে
 function toIso(date: string, endOfDay: boolean) {
   if (!date) {
     return "";
@@ -32,7 +31,6 @@ function toIso(date: string, endOfDay: boolean) {
   ).toISOString();
 }
 
-// /admin/audit-logs
 export default function AuditLogList() {
   const [page, setPage] = useState(DEFAULT_PAGE);
   const [searchTerm, setSearchTerm] = useState("");

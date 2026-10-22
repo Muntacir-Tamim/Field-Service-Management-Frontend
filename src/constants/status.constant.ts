@@ -10,7 +10,6 @@ import type {
   WorkOrderStatus,
 } from "@/types";
 
-// StatusBadge এর রঙ এই tone গুলো থেকে আসে
 export type StatusTone = "neutral" | "info" | "warning" | "success" | "danger";
 
 export interface StatusMeta {
@@ -121,6 +120,5 @@ export const USER_STATUS_OPTIONS = toOptions(USER_STATUS);
 export const USER_ROLE_OPTIONS = toOptions(USER_ROLE);
 export const SKILL_LEVEL_OPTIONS = toOptions(SKILL_LEVEL);
 
-// list এর default
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 10;

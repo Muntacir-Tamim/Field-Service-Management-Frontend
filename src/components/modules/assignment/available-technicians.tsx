@@ -9,17 +9,15 @@ import { cn } from "@/lib/utils";
 import { getErrorMessage, getInitials } from "@/utils";
 
 interface AvailableTechniciansProps {
-  // ISO string; দুটো না থাকলে hint দেখায়
   scheduledStart?: string;
   scheduledEnd?: string;
   selectedId: string;
   onSelect: (technicianId: string) => void;
-  // reschedule এ "বর্তমান technician রাখো" option এর জন্য
+
   keepOption?: { id: string; label: string };
   invalid?: boolean;
 }
 
-// নির্বাচিত সময়ে free technician এর তালিকা (card এ চাপলে select)
 export default function AvailableTechnicians({
   scheduledStart,
   scheduledEnd,

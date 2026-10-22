@@ -14,7 +14,6 @@ import { ADMIN_ROUTES } from "../routes/admin.routes";
 import { CUSTOMER_ROUTES } from "../routes/customer.routes";
 import { TECHNICIAN_ROUTES } from "../routes/technician.routes";
 
-// notification এর ধরন অনুযায়ী icon (বিষয় ধরে ভাগ করা)
 export function getNotificationIcon(type: NotificationType): LucideIcon {
   if (type.startsWith("SERVICE_REQUEST")) {
     return ClipboardListIcon;
@@ -37,7 +36,6 @@ export function getNotificationIcon(type: NotificationType): LucideIcon {
   return BellIcon;
 }
 
-// filter dropdown এর option (সব type)
 const NOTIFICATION_TYPES: NotificationType[] = [
   "SERVICE_REQUEST_CREATED",
   "SERVICE_REQUEST_UNDER_REVIEW",
@@ -79,7 +77,6 @@ export const NOTIFICATION_ROUTE_BY_ROLE: Record<UserRole, string> = {
   ADMIN: ADMIN_ROUTES.notifications,
 };
 
-// notification চাপলে কোথায় যাবে। যেখানে যাওয়ার মতো page নেই সেখানে null
 export function getNotificationHref(
   notification: Pick<Notification, "entityType" | "entityId">,
   role: UserRole,

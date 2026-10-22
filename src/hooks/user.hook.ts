@@ -9,7 +9,6 @@ export function useGetMyProfile() {
   });
 }
 
-// profile বদলালে header/user-nav (useGetMe) ও নতুন data পাবে
 function useProfileMutation<TVariables>(
   mutationFn: (variables: TVariables) => Promise<unknown>,
 ) {

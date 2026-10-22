@@ -17,7 +17,6 @@ import type { WorkOrderStatus } from "@/types";
 import { getErrorMessage } from "@/utils";
 import WorkOrderTable from "./work-order-table";
 
-// admin: /admin/work-orders, technician: /technician/work-orders
 export default function WorkOrderList({
   mode,
 }: {

@@ -26,7 +26,6 @@ export default function LoginForm() {
   const { mutate: login, isPending } = useLogin();
 
   const form = useForm({
-    // সত্যিকারের credential default এ রাখা হয়নি
     defaultValues: { email: "", password: "" },
     validators: { onSubmit: loginSchema },
     onSubmit: ({ value }) => {

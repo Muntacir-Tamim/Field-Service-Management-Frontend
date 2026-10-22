@@ -33,7 +33,6 @@ import NotificationItem from "./notification-item";
 
 const SKELETON_ROWS = ["a", "b", "c", "d", "e"];
 
-// তিন role এর notifications page এ এটাই বসে
 export default function NotificationList() {
   const router = useRouter();
   const { data: me } = useGetMe();

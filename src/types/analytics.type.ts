@@ -6,10 +6,6 @@ import type {
   WorkOrderStatus,
 } from "./enum.type";
 
-// Backend `analytics.service.ts` এর response এর সাথে মিল।
-// টাকার amount এখানে number (round2 করা), Decimal string নয়।
-
-// ?from=YYYY-MM-DD&to=YYYY-MM-DD (দুটোই ঐচ্ছিক; `to` পুরো দিন ধরে)
 export type AnalyticsRangeParams = {
   from?: string;
   to?: string;
@@ -21,7 +17,6 @@ export type LeaderboardSortBy =
   | "laborHours";
 
 export type LeaderboardParams = AnalyticsRangeParams & {
-  // 1-50, default 10
   limit?: number;
   sortBy?: LeaderboardSortBy;
 };
@@ -30,8 +25,6 @@ export interface AnalyticsRange {
   from: string | null;
   to: string | null;
 }
-
-// ---------- GET /analytics/dashboard (ADMIN) ----------
 
 interface StatusBreakdown<S extends string> {
   total: number;
@@ -53,7 +46,7 @@ export interface DashboardStats {
   };
   customers: { total: number };
   feedback: { totalReviews: number; averageRating: number | null };
-  // admin এর "এখনই দেখা দরকার" তালিকা
+
   needsAttention: {
     pendingServiceRequests: number;
     underReviewServiceRequests: number;
@@ -65,8 +58,6 @@ export interface DashboardStats {
   };
 }
 
-// ---------- GET /analytics/technicians (ADMIN leaderboard) ----------
-
 export interface TechnicianLeaderboardRow {
   technicianId: string;
   name: string;
@@ -75,7 +66,7 @@ export interface TechnicianLeaderboardRow {
   experienceYears: number;
   completedJobs: number;
   laborHours: number;
-  // review না থাকলে null
+
   averageRating: number | null;
   totalReviews: number;
 }
@@ -86,9 +77,6 @@ export interface TechnicianLeaderboard {
   totalTechnicians: number;
   data: TechnicianLeaderboardRow[];
 }
-
-// ---------- GET /analytics/technicians/me (TECHNICIAN) ----------
-// ---------- GET /analytics/technicians/:id (ADMIN) ----------
 
 export interface TechnicianStats {
   technician: {
@@ -104,13 +92,13 @@ export interface TechnicianStats {
   rating: {
     average: number | null;
     totalReviews: number;
-    // key "1".."5"
+
     distribution: Record<string, number>;
   };
   assignments: {
     total: number;
     byStatus: Record<AssignmentStatus, number>;
-    // শতাংশ (0-100)
+
     cancellationRate: number;
     upcomingVisits: number;
   };

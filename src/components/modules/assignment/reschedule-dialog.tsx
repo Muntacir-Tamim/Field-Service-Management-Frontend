@@ -31,14 +31,12 @@ import AvailableTechnicians from "./available-technicians";
 import { getValidWindow, nowLocalValue } from "./create-assignment-dialog";
 
 interface RescheduleDialogProps {
-  // null হলে dialog বন্ধ
   assignment: AssignmentWithRelations | null;
   onOpenChange: (open: boolean) => void;
-  // নতুন assignment তৈরি হলে (পুরনোটা CANCELLED হয়ে যায়)
+
   onRescheduled?: (next: AssignmentWithRelations) => void;
 }
 
-// ADMIN: নতুন সময় (এবং চাইলে নতুন technician)
 export default function RescheduleDialog({
   assignment,
   onOpenChange,
@@ -81,7 +79,7 @@ function RescheduleForm({
     defaultValues: {
       scheduledStart: toDateTimeLocalValue(assignment.scheduledStart),
       scheduledEnd: toDateTimeLocalValue(assignment.scheduledEnd),
-      // বর্তমান technician এর id; বদলালে নতুন জন
+
       technicianId: assignment.technicianId,
       reason: "",
       notes: "",
@@ -97,7 +95,7 @@ function RescheduleForm({
           payload: {
             scheduledStart: toIsoString(value.scheduledStart),
             scheduledEnd: toIsoString(value.scheduledEnd),
-            // বর্তমান জনকেই রাখলে পাঠাই না
+
             ...(value.technicianId &&
               value.technicianId !== assignment.technicianId && {
                 technicianId: value.technicianId,

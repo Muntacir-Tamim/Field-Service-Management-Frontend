@@ -11,14 +11,12 @@ import type { User } from "@/types";
 import { formatFileSize, getErrorMessage, getInitials } from "@/utils";
 import { PROFILE_IMAGE_ACCEPT, PROFILE_IMAGE_MAX_MB } from "@/validation";
 
-// ছবি বাছাই -> preview -> "Save photo" চাপলে upload
 export default function ProfileImageUpload({ user }: { user: User }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const { mutate: upload, isPending } = useUploadProfileImage();
 
-  // preview URL memory leak এড়াতে বদলালে/unmount এ মুছে ফেলি
   useEffect(() => {
     if (!file) {
       setPreview(null);
@@ -90,7 +88,6 @@ export default function ProfileImageUpload({ user }: { user: User }) {
         accept={PROFILE_IMAGE_ACCEPT}
         onChange={(event) => {
           handleSelect(event.target.files?.[0]);
-          // একই ফাইল আবার বাছাই করা যাবে
           event.target.value = "";
         }}
       />

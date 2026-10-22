@@ -12,12 +12,10 @@ export function useGetSkills(params?: SkillListParams) {
   return useQuery({
     queryKey: skillKeys.list(params),
     queryFn: () => getSkills(params),
-    // filter বদলালে আগের list দেখিয়ে রাখি, flicker হয় না
     placeholderData: keepPreviousData,
   });
 }
 
-// create / update / delete সবার পরে skill এর সব list refetch হয়
 function useSkillMutation<TVariables>(
   mutationFn: (variables: TVariables) => Promise<unknown>,
 ) {

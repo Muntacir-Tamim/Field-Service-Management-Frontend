@@ -14,12 +14,10 @@ import { getErrorMessage } from "@/utils";
 import SkillFormDialog from "./skill-form-dialog";
 import SkillTable from "./skill-table";
 
-// /admin/skills এর পুরো UI: filter + table + create/edit/delete dialog
 export default function SkillList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
 
-  // form dialog: create (skill = null) / edit (skill = Skill)
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Skill | null>(null);
   const [deleting, setDeleting] = useState<Skill | null>(null);
@@ -28,7 +26,7 @@ export default function SkillList() {
     searchTerm,
     category,
   });
-  // filter ছাড়া পুরো list শুধু category dropdown/suggestion এর জন্য (cache এ ভাগ হয়)
+
   const { data: allData } = useGetSkills();
   const { mutate: remove, isPending: isDeleting } = useDeleteSkill();
 

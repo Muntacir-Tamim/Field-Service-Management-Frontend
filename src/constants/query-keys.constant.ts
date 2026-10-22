@@ -1,7 +1,3 @@
-// React Query key factory।
-// invalidate করার সময় `queryClient.invalidateQueries({ queryKey: xKeys.all })` দিলে
-// ওই module এর সব list/detail একসাথে refetch হবে।
-
 type Params = Record<string, unknown>;
 
 function createKeys<S extends string>(scope: S) {

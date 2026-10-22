@@ -42,12 +42,10 @@ import { rejectServiceRequestSchema } from "@/validation";
 import RequestAttachment from "./request-attachment";
 
 interface AdminReviewSheetProps {
-  // null হলে sheet বন্ধ
   requestId: string | null;
   onOpenChange: (open: boolean) => void;
 }
 
-// admin: request দেখে "Under review" / Approve / Reject
 export default function AdminReviewSheet({
   requestId,
   onOpenChange,
@@ -55,7 +53,6 @@ export default function AdminReviewSheet({
   return (
     <Sheet open={Boolean(requestId)} onOpenChange={onOpenChange}>
       <SheetContent className="w-full overflow-y-auto sm:max-w-lg">
-        {/* sheet বন্ধ হলে content unmount হয়, তাই reject form ও reset হয় */}
         {requestId ? <ReviewBody id={requestId} /> : null}
       </SheetContent>
     </Sheet>

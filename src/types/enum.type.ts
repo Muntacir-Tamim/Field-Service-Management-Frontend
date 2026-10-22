@@ -1,6 +1,3 @@
-// Backend `prisma/schema/enums.prisma` এর সাথে হুবহু মিল রাখা হয়েছে।
-// নতুন enum যোগ হলে এখানেই যোগ করো, আলাদা type file এ duplicate করবে না।
-
 export type UserRole = "CUSTOMER" | "TECHNICIAN" | "ADMIN";
 export type UserStatus = "ACTIVE" | "BLOCKED" | "DELETED";
 export type AuthProvider = "GOOGLE" | "CREDENTIAL";
@@ -86,5 +83,4 @@ export type AuditAction =
   | "USER_DELETED"
   | "USER_PROFILE_UPDATED";
 
-// list endpoint এর common query param (README: API Conventions)
 export type SortOrder = "asc" | "desc";

@@ -16,7 +16,6 @@ export function useGetAdminUsers(params?: AdminUserListParams) {
   });
 }
 
-// user বদলালে: user list, technician list (availability/status) আর audit log (নতুন entry) refetch
 function useAdminUserMutation<TVariables, TData>(
   mutationFn: (variables: TVariables) => Promise<TData>,
 ) {

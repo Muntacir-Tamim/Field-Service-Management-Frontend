@@ -16,7 +16,6 @@ import { toast } from "@/components/ui/toast";
 import { useGetMyTechnicianProfile, useUpdateMyAvailability } from "@/hooks";
 import { getErrorMessage } from "@/utils";
 
-// TECHNICIAN: "আমি কাজ নিতে পারব" on/off। off থাকলে admin assign করতে পারে না
 export default function AvailabilityToggle() {
   const { data, isPending } = useGetMyTechnicianProfile();
   const { mutate: update, isPending: updating } = useUpdateMyAvailability();

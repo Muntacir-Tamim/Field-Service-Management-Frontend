@@ -21,9 +21,9 @@ interface ConfirmDialogProps {
   confirmText?: string;
   cancelText?: string;
   variant?: "default" | "destructive";
-  // mutation চলার সময় true দাও; button disable হবে, dialog বন্ধ হবে না
+
   isLoading?: boolean;
-  // সফল হলে caller নিজে onOpenChange(false) করবে (mutation এর onSuccess এ)
+
   onConfirm: () => void;
 }
 

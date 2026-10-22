@@ -8,7 +8,6 @@ import {
 import { analyticsKeys } from "@/constants";
 import type { AnalyticsRangeParams, LeaderboardParams } from "@/types";
 
-// ADMIN
 export function useGetDashboardStats(params?: AnalyticsRangeParams) {
   return useQuery({
     queryKey: [...analyticsKeys.admin, params ?? {}],
@@ -17,7 +16,6 @@ export function useGetDashboardStats(params?: AnalyticsRangeParams) {
   });
 }
 
-// ADMIN: leaderboard
 export function useGetTechnicianLeaderboard(params?: LeaderboardParams) {
   return useQuery({
     queryKey: analyticsKeys.technicianPerformance(params),
@@ -26,7 +24,6 @@ export function useGetTechnicianLeaderboard(params?: LeaderboardParams) {
   });
 }
 
-// TECHNICIAN: নিজের stats
 export function useGetMyStats(params?: AnalyticsRangeParams) {
   return useQuery({
     queryKey: [...analyticsKeys.technician, "me", params ?? {}],
@@ -35,7 +32,6 @@ export function useGetMyStats(params?: AnalyticsRangeParams) {
   });
 }
 
-// ADMIN: একজন technician এর stats
 export function useGetTechnicianStats(
   technicianId: string | null,
   params?: AnalyticsRangeParams,

@@ -12,7 +12,6 @@ import type {
 } from "@/types";
 import { cleanParams } from "@/utils";
 
-// ADMIN: নির্দিষ্ট সময়ে free technician (APPROVED + available + কোনো overlap নেই)
 export function getAvailableTechnicians(params: AvailableTechnicianParams) {
   return apiClient<ApiResponse<AvailableTechnician[]>>(
     "/assignments/available-technicians",
@@ -20,7 +19,6 @@ export function getAvailableTechnicians(params: AvailableTechnicianParams) {
   );
 }
 
-// ADMIN: APPROVED request এ technician বসানো
 export function createAssignment(payload: CreateAssignmentPayload) {
   return apiClient<ApiResponse<AssignmentWithRelations>>("/assignments", {
     method: "POST",
@@ -28,14 +26,12 @@ export function createAssignment(payload: CreateAssignmentPayload) {
   });
 }
 
-// ADMIN
 export function getAssignments(params?: AssignmentListParams) {
   return apiClient<ApiResponse<AssignmentWithRelations[]>>("/assignments", {
     query: cleanParams(params),
   });
 }
 
-// TECHNICIAN
 export function getMyAssignments(params?: MyAssignmentListParams) {
   return apiClient<ApiResponse<AssignmentWithRelations[]>>(
     "/assignments/my-assignments",
@@ -43,14 +39,12 @@ export function getMyAssignments(params?: MyAssignmentListParams) {
   );
 }
 
-// ADMIN + TECHNICIAN (technician শুধু নিজেরটা)
 export function getAssignmentById(assignmentId: string) {
   return apiClient<ApiResponse<AssignmentWithRelations>>(
     `/assignments/${assignmentId}`,
   );
 }
 
-// ADMIN: পুরনোটা cancel হয়ে নতুন PENDING assignment তৈরি হয় (response এ নতুনটা)
 export function rescheduleAssignment(
   assignmentId: string,
   payload: ReschedulePayload,
@@ -61,7 +55,6 @@ export function rescheduleAssignment(
   );
 }
 
-// TECHNICIAN: PENDING → CONFIRMED (সাথে work order তৈরি হয়)
 export function confirmAssignment(assignmentId: string) {
   return apiClient<ApiResponse<AssignmentWithRelations>>(
     `/assignments/${assignmentId}/confirm`,
@@ -69,7 +62,6 @@ export function confirmAssignment(assignmentId: string) {
   );
 }
 
-// ADMIN + TECHNICIAN (কাজ শুরুর আগে পর্যন্ত)
 export function cancelAssignment(
   assignmentId: string,
   payload: CancelAssignmentPayload,

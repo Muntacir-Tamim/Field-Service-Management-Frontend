@@ -25,8 +25,6 @@ const contactSchema = z.object({
     .max(2000, "Message must be at most 2000 characters"),
 });
 
-// backend এ contact endpoint নেই, তাই submit করলে user এর email app এ
-// তৈরি-করা মেইল খোলে (mailto)। কিছু "পাঠানো হয়েছে" বলে ভুল ধারণা দেওয়া হয় না।
 export default function ContactForm() {
   const form = useForm({
     defaultValues: { name: "", email: "", subject: "", message: "" },

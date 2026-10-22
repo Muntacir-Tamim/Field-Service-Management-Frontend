@@ -21,13 +21,13 @@ export interface FilterOption {
 
 export interface FilterConfig {
   key: string;
-  // screen reader label (যেমন "Status")
+
   label: string;
-  // খালি string মানে "All"
+
   value: string;
   onChange: (value: string) => void;
   options: FilterOption[];
-  // প্রথম item এর লেখা, default: "All <label>"
+
   allLabel?: string;
 }
 
@@ -38,9 +38,9 @@ interface FilterBarProps {
     placeholder?: string;
   };
   filters?: FilterConfig[];
-  // দিলে সক্রিয় filter থাকলে "Clear" button দেখাবে
+
   onReset?: () => void;
-  // ডান পাশে অতিরিক্ত control (যেমন date picker)
+
   children?: ReactNode;
   className?: string;
 }

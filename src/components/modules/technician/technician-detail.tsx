@@ -41,7 +41,6 @@ function DetailSkeleton() {
   );
 }
 
-// /admin/technicians/[id]
 export default function TechnicianDetail({ id }: { id: string }) {
   const [reviewOpen, setReviewOpen] = useState(false);
   const { data, isPending, isError, error, refetch } = useGetTechnician(id);

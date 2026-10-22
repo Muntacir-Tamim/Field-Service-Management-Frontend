@@ -15,14 +15,12 @@ import type {
 } from "@/types";
 import { cleanParams } from "@/utils";
 
-// ADMIN
 export function getWorkOrders(params?: WorkOrderListParams) {
   return apiClient<ApiResponse<WorkOrderListItem[]>>("/work-orders", {
     query: cleanParams(params),
   });
 }
 
-// TECHNICIAN
 export function getMyWorkOrders(params?: MyWorkOrderListParams) {
   return apiClient<ApiResponse<WorkOrderListItem[]>>(
     "/work-orders/my-work-orders",
@@ -30,7 +28,6 @@ export function getMyWorkOrders(params?: MyWorkOrderListParams) {
   );
 }
 
-// CUSTOMER + TECHNICIAN + ADMIN (নিজের access থাকলে)
 export function getWorkOrderById(workOrderId: string) {
   return apiClient<ApiResponse<WorkOrderDetail>>(`/work-orders/${workOrderId}`);
 }
@@ -41,9 +38,6 @@ export function getWorkOrdersByServiceRequest(serviceRequestId: string) {
   );
 }
 
-// ---------- TECHNICIAN: status flow ----------
-
-// SCHEDULED → TECHNICIAN_EN_ROUTE
 export function markEnRoute(workOrderId: string) {
   return apiClient<ApiResponse<WorkOrderDetail>>(
     `/work-orders/${workOrderId}/en-route`,
@@ -51,7 +45,6 @@ export function markEnRoute(workOrderId: string) {
   );
 }
 
-// TECHNICIAN_EN_ROUTE → ARRIVED
 export function markArrived(workOrderId: string) {
   return apiClient<ApiResponse<WorkOrderDetail>>(
     `/work-orders/${workOrderId}/arrived`,
@@ -59,7 +52,6 @@ export function markArrived(workOrderId: string) {
   );
 }
 
-// ARRIVED → IN_PROGRESS
 export function startWork(workOrderId: string, payload: StartWorkPayload) {
   return apiClient<ApiResponse<WorkOrderDetail>>(
     `/work-orders/${workOrderId}/start`,
@@ -67,7 +59,6 @@ export function startWork(workOrderId: string, payload: StartWorkPayload) {
   );
 }
 
-// IN_PROGRESS → COMPLETED (multipart, completionImage ঐচ্ছিক)
 export function completeWork(
   workOrderId: string,
   payload: CompleteWorkPayload,
@@ -84,8 +75,6 @@ export function completeWork(
   );
 }
 
-// ---------- TECHNICIAN: parts / attachments / report ----------
-
 export function addPart(workOrderId: string, payload: AddPartPayload) {
   return apiClient<ApiResponse<WorkOrderPart>>(
     `/work-orders/${workOrderId}/parts`,
@@ -100,7 +89,6 @@ export function removePart(workOrderId: string, partId: string) {
   );
 }
 
-// field name "attachments", একবারে সর্বোচ্চ ৫টা (মোট ২০টা); response এ সব attachment
 export function addAttachments(workOrderId: string, files: File[]) {
   const formData = new FormData();
   for (const file of files) {
@@ -129,9 +117,6 @@ export function saveServiceReport(
   );
 }
 
-// ---------- ADMIN ----------
-
-// COMPLETED → VERIFIED (service report না থাকলে backend 400)
 export function verifyWorkOrder(workOrderId: string) {
   return apiClient<ApiResponse<WorkOrderDetail>>(
     `/work-orders/${workOrderId}/verify`,

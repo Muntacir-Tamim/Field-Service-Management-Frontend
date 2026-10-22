@@ -13,7 +13,6 @@ import type {
 } from "@/types";
 import { cleanParams } from "@/utils";
 
-// ফাইল থাকে বলে JSON নয়, multipart/form-data (Content-Type browser নিজে বসায়)
 function toFormData(payload: CreateServiceRequestPayload) {
   const formData = new FormData();
   formData.append("title", payload.title);
@@ -32,7 +31,6 @@ function toFormData(payload: CreateServiceRequestPayload) {
   return formData;
 }
 
-// CUSTOMER
 export function createServiceRequest(payload: CreateServiceRequestPayload) {
   return apiClient<
     ApiResponse<ServiceRequest & { attachments: ServiceRequestAttachment[] }>
@@ -42,7 +40,6 @@ export function createServiceRequest(payload: CreateServiceRequestPayload) {
   });
 }
 
-// CUSTOMER: নিজের request এর list (pagination সহ)
 export function getMyServiceRequests(params?: MyServiceRequestParams) {
   return apiClient<ApiResponse<MyServiceRequest[]>>(
     "/service-requests/my-requests",
@@ -50,14 +47,12 @@ export function getMyServiceRequests(params?: MyServiceRequestParams) {
   );
 }
 
-// CUSTOMER / TECHNICIAN / ADMIN (নিজের সম্পর্কিতটা)
 export function getServiceRequestById(serviceRequestId: string) {
   return apiClient<ApiResponse<ServiceRequestDetail>>(
     `/service-requests/${serviceRequestId}`,
   );
 }
 
-// CUSTOMER: শুধু PENDING / UNDER_REVIEW cancel হয়
 export function cancelServiceRequest(serviceRequestId: string) {
   return apiClient<ApiResponse<ServiceRequest>>(
     `/service-requests/${serviceRequestId}/cancel`,
@@ -65,14 +60,12 @@ export function cancelServiceRequest(serviceRequestId: string) {
   );
 }
 
-// ADMIN: সব request (status / priority / city filter + pagination)
 export function getAllServiceRequests(params?: AdminServiceRequestParams) {
   return apiClient<ApiResponse<AdminServiceRequest[]>>("/service-requests", {
     query: cleanParams(params),
   });
 }
 
-// ADMIN: PENDING → UNDER_REVIEW
 export function markServiceRequestUnderReview(serviceRequestId: string) {
   return apiClient<ApiResponse<ServiceRequest>>(
     `/service-requests/${serviceRequestId}/under-review`,
@@ -80,7 +73,6 @@ export function markServiceRequestUnderReview(serviceRequestId: string) {
   );
 }
 
-// ADMIN: PENDING / UNDER_REVIEW → APPROVED / REJECTED
 export function reviewServiceRequest(
   serviceRequestId: string,
   payload: ReviewServiceRequestPayload,

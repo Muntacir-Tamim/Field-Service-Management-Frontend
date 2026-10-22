@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 import type { SidebarItems } from "@/types";
 
-// customer এর dashboard path হলো `/dashboard`
 export const CUSTOMER_ROUTES = {
   root: "/dashboard",
   serviceRequests: "/dashboard/service-requests",

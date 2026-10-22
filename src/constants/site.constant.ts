@@ -1,5 +1,3 @@
-// public website এর নাম, link আর যোগাযোগের তথ্য।
-// TODO: নিচের email / phone / address আসল তথ্য দিয়ে বদলাও।
 export const SITE = {
   name: "FSM",
   fullName: "Field Service Management",
@@ -17,7 +15,6 @@ export const NAV_LINKS = [
   { label: "Contact", href: "/contact-us" },
 ] as const;
 
-// "How it works" এর ধাপ (system এর আসল flow অনুযায়ী)
 export const HOW_IT_WORKS = [
   {
     title: "Submit a request",

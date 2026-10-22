@@ -15,7 +15,6 @@ import {
 import { notificationKeys } from "@/constants";
 import type { NotificationListParams } from "@/types";
 
-// bell এর unread count কতক্ষণ পর পর নতুন করে আনবে
 const UNREAD_POLL_MS = 30_000;
 
 export function useGetNotifications(
@@ -38,7 +37,6 @@ export function useGetUnreadCount() {
   });
 }
 
-// যেকোনো পরিবর্তনের পরে list + unread count দুটোই refetch হয়
 function useNotificationMutation<TVariables>(
   mutationFn: (variables: TVariables) => Promise<unknown>,
 ) {

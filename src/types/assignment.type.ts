@@ -7,7 +7,6 @@ import type {
 } from "./enum.type";
 import type { TechnicianSkillEntry } from "./technician.type";
 
-// Backend `Assignment` model এর নিজস্ব field
 export interface Assignment {
   id: string;
   status: AssignmentStatus;
@@ -26,7 +25,6 @@ export interface Assignment {
   technicianId: string;
 }
 
-// list / detail / create / confirm / cancel / reschedule সবার response এ এই include থাকে
 export interface AssignmentWithRelations extends Assignment {
   serviceRequest: {
     id: string;

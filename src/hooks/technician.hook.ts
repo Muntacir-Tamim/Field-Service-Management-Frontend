@@ -21,8 +21,6 @@ export function useApplyAsTechnician() {
   return useMutation({ mutationFn: applyAsTechnician });
 }
 
-// ---------- ADMIN ----------
-
 export function useGetTechnicians(
   params?: TechnicianListParams,
   options?: { enabled?: boolean },
@@ -61,9 +59,6 @@ export function useReviewTechnician() {
   });
 }
 
-// ---------- TECHNICIAN ----------
-
-// নিজের profile + skills। key টা `technicianKeys.mySkills` (["technicians","me","skills"])
 export function useGetMyTechnicianProfile() {
   return useQuery({
     queryKey: technicianKeys.mySkills,

@@ -55,8 +55,6 @@ function isCallbackStatus(
   return value === "success" || value === "failure" || value === "cancel";
 }
 
-// bKash থেকে ফেরার পর backend `/dashboard/payments?status=success|failure|cancel` এ পাঠায়।
-// useSearchParams ব্যবহার করে, তাই caller কে <Suspense> এর ভেতরে বসাতে হবে।
 export default function PaymentResultBanner() {
   const router = useRouter();
   const status = useSearchParams().get("status");
@@ -67,7 +65,6 @@ export default function PaymentResultBanner() {
 
   const { variant, icon: Icon, title, description } = BANNERS[status];
 
-  // query param মুছে দিলে refresh করলে banner আর আসবে না
   const handleDismiss = () => {
     router.replace(CUSTOMER_ROUTES.payments, { scroll: false });
   };

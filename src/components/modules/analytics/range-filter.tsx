@@ -13,8 +13,6 @@ const RANGE_OPTIONS = [
   { value: "365", label: "Last 12 months" },
 ];
 
-// "30" → { from: "2026-09-22" }; খালি (All time) → {}
-// `to` পাঠাই না: backend এ না দিলে আজ পর্যন্ত ধরা হয়
 export function rangeFromPreset(preset: RangePreset): AnalyticsRangeParams {
   if (!preset) {
     return {};
@@ -22,7 +20,6 @@ export function rangeFromPreset(preset: RangePreset): AnalyticsRangeParams {
   return { from: format(subDays(new Date(), Number(preset)), "yyyy-MM-dd") };
 }
 
-// analytics page এর "All time / Last 30 days ..." dropdown
 export default function RangeFilter({
   value,
   onChange,

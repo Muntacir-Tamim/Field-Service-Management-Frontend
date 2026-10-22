@@ -34,7 +34,6 @@ function NewRequestLink({ className }: { className?: string }) {
   );
 }
 
-// /dashboard/service-requests এর পুরো UI: filter + table + pagination + cancel
 export default function ServiceRequestList() {
   const [page, setPage] = useState(DEFAULT_PAGE);
   const [status, setStatus] = useState<ServiceRequestStatus | "">("");

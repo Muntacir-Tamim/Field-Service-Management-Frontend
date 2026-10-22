@@ -42,12 +42,10 @@ export function useGetServiceRequest(id: string) {
     queryKey: serviceRequestKeys.detail(id),
     queryFn: () => getServiceRequestById(id),
     enabled: Boolean(id),
-    // 403/404 এ retry করে লাভ নেই
     retry: false,
   });
 }
 
-// create / cancel এর পরে সব service request query (list + detail) refetch হয়
 function useServiceRequestMutation<TVariables, TData>(
   mutationFn: (variables: TVariables) => Promise<TData>,
 ) {

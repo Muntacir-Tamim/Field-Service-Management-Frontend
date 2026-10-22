@@ -25,7 +25,6 @@ import RangeFilter, { type RangePreset, rangeFromPreset } from "./range-filter";
 import TechnicianStatsCards from "./technician-stats-cards";
 
 function UpcomingVisits() {
-  // আজ থেকে শুরু হওয়া, সবচেয়ে কাছেরটা আগে
   const [today] = useState(() => new Date().toISOString());
   const { data, isPending, isError, error } = useGetMyAssignments({
     page: 1,

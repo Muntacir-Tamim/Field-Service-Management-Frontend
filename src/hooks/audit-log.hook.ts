@@ -11,7 +11,6 @@ export function useGetAuditLogs(params?: AuditLogListParams) {
   });
 }
 
-// id null হলে request যায় না (sheet বন্ধ থাকলে)
 export function useGetAuditLog(id: string | null) {
   return useQuery({
     queryKey: auditLogKeys.detail(id ?? ""),

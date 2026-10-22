@@ -21,8 +21,6 @@ export function useGetMe() {
   });
 }
 
-// login সফল হলে সাথে সাথে /auth/me এনে cache এ রাখি,
-// যাতে component role দেখে সঠিক dashboard এ পাঠাতে পারে
 function useSessionMutation<TVariables>(
   mutationFn: (variables: TVariables) => Promise<unknown>,
 ) {
@@ -47,7 +45,6 @@ export function useGoogleOAuth() {
   return useSessionMutation(googleOAuth);
 }
 
-// customer verify = auto login
 export function useVerifyAccount() {
   return useSessionMutation(verifyAccount);
 }
@@ -61,7 +58,7 @@ export function useLogout() {
 
   return useMutation({
     mutationFn: userLogout,
-    // logout fail করলেও local cache মুছে ফেলা উচিত
+
     onSettled: () => {
       queryClient.clear();
     },

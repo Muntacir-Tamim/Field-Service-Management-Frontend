@@ -35,11 +35,10 @@ import RescheduleDialog from "./reschedule-dialog";
 interface AssignmentActionsProps {
   assignment: AssignmentWithRelations;
   role: "ADMIN" | "TECHNICIAN";
-  // reschedule এ নতুন assignment তৈরি হলে (detail page এ নতুনটায় যেতে)
+
   onRescheduled?: (next: AssignmentWithRelations) => void;
 }
 
-// role আর অবস্থা অনুযায়ী Confirm / Reschedule / Cancel button + তাদের dialog
 export default function AssignmentActions({
   assignment,
   role,

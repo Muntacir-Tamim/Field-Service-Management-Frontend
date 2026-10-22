@@ -2,7 +2,6 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-// home/about এর নিচের "শুরু করো" ব্যান্ড
 export default function CallToAction() {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">

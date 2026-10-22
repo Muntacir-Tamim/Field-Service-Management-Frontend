@@ -35,7 +35,6 @@ export interface ResetPasswordPayload {
   otp: string;
 }
 
-// login / google / refresh-token এর response data
 export interface AuthTokens {
   accessToken: string;
   refreshToken: string;

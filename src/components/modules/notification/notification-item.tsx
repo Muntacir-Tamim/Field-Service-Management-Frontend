@@ -9,10 +9,10 @@ import { formatRelativeTime } from "@/utils";
 interface NotificationItemProps {
   notification: Notification;
   onOpen: (notification: Notification) => void;
-  // দিলে ডান পাশে delete button দেখায় (full list এ)
+
   onDelete?: (notification: Notification) => void;
   isDeleting?: boolean;
-  // bell এর ছোট popover এ কম জায়গা
+
   compact?: boolean;
 }
 

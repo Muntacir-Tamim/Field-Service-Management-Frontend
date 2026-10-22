@@ -41,7 +41,6 @@ import {
 } from "@/utils";
 import { reviewTechnicianSchema } from "@/validation";
 
-// backend: email verify হওয়া + PENDING (বা REJECTED হলে approve) অবস্থায় review হয়
 export function canReviewTechnician(technician: Technician) {
   return (
     technician.user.emailVerified &&
@@ -50,12 +49,10 @@ export function canReviewTechnician(technician: Technician) {
 }
 
 interface TechnicianReviewSheetProps {
-  // null হলে sheet বন্ধ
   technicianId: string | null;
   onOpenChange: (open: boolean) => void;
 }
 
-// admin: আবেদন দেখে Approve / Reject
 export default function TechnicianReviewSheet({
   technicianId,
   onOpenChange,
@@ -63,7 +60,6 @@ export default function TechnicianReviewSheet({
   return (
     <Sheet open={Boolean(technicianId)} onOpenChange={onOpenChange}>
       <SheetContent className="w-full overflow-y-auto sm:max-w-lg">
-        {/* sheet বন্ধ হলে content unmount হয়, তাই reject form ও reset হয় */}
         {technicianId ? <ReviewBody id={technicianId} /> : null}
       </SheetContent>
     </Sheet>
@@ -327,7 +323,6 @@ function ReviewContent({ technician }: { technician: Technician }) {
   );
 }
 
-// resume + documents এর link (নতুন tab এ খোলে)
 export function TechnicianFiles({ technician }: { technician: Technician }) {
   const files = [
     ...(technician.resumeUrl

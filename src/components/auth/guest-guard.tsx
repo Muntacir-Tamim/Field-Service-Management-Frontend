@@ -6,8 +6,6 @@ import { useGetMe } from "@/hooks";
 import { getDashboardPath } from "@/lib/auth-redirect";
 import AuthLoading from "./auth-loading";
 
-// login/register এর মতো page শুধু logged-out user এর জন্য;
-// logged-in user হলে নিজের dashboard এ পাঠিয়ে দেয়
 export default function GuestGuard({ children }: { children: ReactNode }) {
   const router = useRouter();
   const { data, isPending } = useGetMe();

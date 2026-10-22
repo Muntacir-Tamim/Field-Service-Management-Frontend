@@ -9,7 +9,6 @@ import type {
 } from "@/types";
 import { cleanParams } from "@/utils";
 
-// সব role: নিজের notification (নতুন আগে, pagination সহ)
 export function getMyNotifications(params?: NotificationListParams) {
   return apiClient<ApiResponse<Notification[]>>("/notifications", {
     query: cleanParams(params),
@@ -40,7 +39,6 @@ export function deleteNotification(notificationId: string) {
   );
 }
 
-// সব পড়া notification মুছে ফেলে
 export function clearReadNotifications() {
   return apiClient<ApiResponse<ClearReadResult>>("/notifications/clear-read", {
     method: "DELETE",

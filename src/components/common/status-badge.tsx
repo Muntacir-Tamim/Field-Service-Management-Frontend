@@ -22,9 +22,6 @@ interface StatusBadgeProps<K extends StatusKind> {
   className?: string;
 }
 
-// ব্যবহার: <StatusBadge kind="workOrder" value={order.status} />
-// kind আর value মিলে না গেলে TypeScript ধরবে। backend এ নতুন value এলে
-// crash না করে সাধারণ ধূসর badge দেখাবে।
 export default function StatusBadge<K extends StatusKind>({
   kind,
   value,

@@ -28,7 +28,6 @@ import type {
   ReschedulePayload,
 } from "@/types";
 
-// enabled: false দিলে request যায় না (এক component এ admin/technician দুই mode এর জন্য)
 export function useGetAssignments(
   params?: AssignmentListParams,
   options?: { enabled?: boolean },
@@ -62,7 +61,6 @@ export function useGetAssignment(id: string) {
   });
 }
 
-// তারিখ দুটো ঠিক থাকলে তবেই technician এর list আনি
 export function useGetAvailableTechnicians(
   params: Partial<AvailableTechnicianParams>,
   enabled = true,
@@ -77,7 +75,6 @@ export function useGetAvailableTechnicians(
   });
 }
 
-// assignment বদলালে service request / work order / available technician সবই পুরনো হয়ে যায়
 function useAssignmentMutation<TVariables>(
   mutationFn: (variables: TVariables) => Promise<unknown>,
 ) {

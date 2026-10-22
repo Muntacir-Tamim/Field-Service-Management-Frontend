@@ -23,26 +23,22 @@ import type { Invoice, PaymentStatus } from "@/types";
 import { formatCurrency, getErrorMessage } from "@/utils";
 import { refundSchema } from "@/validation";
 
-// backend: শুধু PAID invoice refund করা যায়
 export function canRefundInvoice(status: PaymentStatus) {
   return status === "PAID";
 }
 
 interface RefundDialogProps {
-  // null হলে dialog বন্ধ
   invoice: Pick<Invoice, "id" | "invoiceNumber" | "totalAmount"> | null;
   onOpenChange: (open: boolean) => void;
-  // সফলভাবে refund হলে
+
   onRefunded?: () => void;
 }
 
-// ADMIN: bKash এর মাধ্যমে পুরো amount ফেরত (partial refund নেই)
 export default function RefundDialog({
   invoice,
   onOpenChange,
   onRefunded,
 }: RefundDialogProps) {
-  // mutation এখানে রাখা হয়েছে, কারণ form unmount হলে mutate() এর callback চলে না
   const { mutate: refund, isPending } = useRefundInvoice();
 
   const handleRefund = (reason: string) => {
@@ -76,7 +72,6 @@ export default function RefundDialog({
     <Dialog
       open={Boolean(invoice)}
       onOpenChange={(next) => {
-        // request চলার সময় বন্ধ হতে দেওয়া হয় না
         if (!isPending) {
           onOpenChange(next);
         }

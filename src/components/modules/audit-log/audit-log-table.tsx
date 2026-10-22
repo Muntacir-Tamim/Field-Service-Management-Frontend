@@ -19,7 +19,7 @@ const SKELETON_ROWS = ["a", "b", "c", "d", "e", "f"];
 interface AuditLogTableProps {
   logs: AuditLog[];
   isLoading?: boolean;
-  // "View" চাপলে (sheet caller এর হাতে)
+
   onView: (log: AuditLog) => void;
 }
 

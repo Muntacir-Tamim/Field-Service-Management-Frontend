@@ -14,7 +14,6 @@ interface TechnicianStatsCardsProps {
   isLoading?: boolean;
 }
 
-// TECHNICIAN এর নিজের (বা admin এর দেখা একজন technician এর) ৫টা সংখ্যা
 export default function TechnicianStatsCards({
   stats,
   isLoading,

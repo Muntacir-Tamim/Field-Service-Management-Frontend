@@ -19,7 +19,6 @@ import InvoiceTable, { type InvoiceMode } from "./invoice-table";
 import PaymentResultBanner from "./payment-result-banner";
 import RefundDialog from "./refund-dialog";
 
-// admin: /admin/invoices, customer: /dashboard/payments
 export default function InvoiceList({ mode }: { mode: InvoiceMode }) {
   const [page, setPage] = useState(DEFAULT_PAGE);
   const [status, setStatus] = useState<PaymentStatus | "">("");
@@ -47,7 +46,6 @@ export default function InvoiceList({ mode }: { mode: InvoiceMode }) {
       />
 
       {mode === "customer" ? (
-        // bKash থেকে ফেরার পর ?status=... পড়ে (useSearchParams এর জন্য Suspense লাগে)
         <Suspense fallback={null}>
           <PaymentResultBanner />
         </Suspense>

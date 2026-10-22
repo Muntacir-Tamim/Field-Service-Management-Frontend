@@ -22,11 +22,10 @@ const SKELETON_ROWS = ["a", "b", "c", "d", "e"];
 interface TechnicianPerformanceTableProps {
   rows: TechnicianLeaderboardRow[];
   isLoading?: boolean;
-  // যে column এ sort হয়েছে সেটা bold হয়
+
   sortBy?: LeaderboardSortBy;
 }
 
-// ADMIN: technician leaderboard। rank = backend এর দেওয়া ক্রম
 export default function TechnicianPerformanceTable({
   rows,
   isLoading = false,

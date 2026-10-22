@@ -18,7 +18,6 @@ import { useGetMe, useLogout } from "@/hooks";
 import { getProfilePath } from "@/routes";
 import { getInitials, humanizeEnum } from "@/utils";
 
-// header এর ডান পাশের user menu (profile + logout)
 export default function UserNav() {
   const router = useRouter();
   const { data } = useGetMe();

@@ -12,7 +12,6 @@ interface VerifyWorkOrderDialogProps {
   hasServiceReport: boolean;
 }
 
-// ADMIN: COMPLETED কাজ যাচাই করে VERIFIED করা (এরপর invoice তৈরি হয়)
 export default function VerifyWorkOrderDialog({
   workOrderId,
   open,

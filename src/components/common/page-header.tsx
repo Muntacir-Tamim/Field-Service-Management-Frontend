@@ -7,9 +7,7 @@ import { cn } from "@/lib/utils";
 interface PageHeaderProps {
   title: string;
   description?: ReactNode;
-  // ডান পাশের button (যেমন "New request")
   actions?: ReactNode;
-  // detail page এ list এ ফেরার link
   backHref?: string;
   backLabel?: string;
   className?: string;

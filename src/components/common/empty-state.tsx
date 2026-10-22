@@ -6,7 +6,7 @@ interface EmptyStateProps {
   title: string;
   description?: ReactNode;
   icon?: LucideIcon;
-  // পরবর্তী কাজের button (যেমন "Create your first request")
+
   action?: ReactNode;
   className?: string;
 }

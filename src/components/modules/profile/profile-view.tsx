@@ -26,7 +26,6 @@ function ProfileSkeleton() {
   );
 }
 
-// তিন role (customer / technician / admin) এর profile page এ এটাই বসে
 export default function ProfileView() {
   const { data, isPending, isError, error } = useGetMe();
   const user = data?.data;

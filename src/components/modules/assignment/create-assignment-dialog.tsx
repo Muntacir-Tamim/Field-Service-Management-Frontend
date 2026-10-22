@@ -36,7 +36,6 @@ interface CreateAssignmentDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-// ADMIN: APPROVED request এ সময় ঠিক করে free technician বসানো
 export default function CreateAssignmentDialog({
   serviceRequestId,
   open,
@@ -52,7 +51,7 @@ export default function CreateAssignmentDialog({
             are free in that slot (max {MAX_VISIT_HOURS} hours per visit).
           </DialogDescription>
         </DialogHeader>
-        {/* dialog বন্ধ হলে content unmount হয়, তাই form state reset হয় */}
+
         <CreateForm
           serviceRequestId={serviceRequestId}
           onClose={() => onOpenChange(false)}
@@ -62,7 +61,6 @@ export default function CreateAssignmentDialog({
   );
 }
 
-// available technician এর query শুধু তখনই যায় যখন সময়ের window ঠিক
 export function getValidWindow(start: string, end: string) {
   const s = parseLocalDateTime(start);
   const e = parseLocalDateTime(end);
@@ -75,7 +73,6 @@ export function getValidWindow(start: string, end: string) {
   return { scheduledStart: s.toISOString(), scheduledEnd: e.toISOString() };
 }
 
-// <input type="datetime-local" min=...> এর জন্য "এখন"
 export function nowLocalValue() {
   const now = new Date();
   now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -161,7 +158,7 @@ function CreateForm({
                     onBlur={field.handleBlur}
                     onChange={(e) => {
                       field.handleChange(e.target.value);
-                      // সময় বদলালে আগের বাছাই করা technician আর ঠিক নাও থাকতে পারে
+
                       form.setFieldValue("technicianId", "");
                     }}
                     aria-invalid={isInvalid}

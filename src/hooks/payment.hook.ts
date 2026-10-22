@@ -20,7 +20,6 @@ import type {
   RefundInvoicePayload,
 } from "@/types";
 
-// ADMIN। enabled: false দিলে request যায় না (এক component এ admin/customer দুই mode এর জন্য)
 export function useGetInvoices(
   params?: InvoiceListParams,
   options?: { enabled?: boolean },
@@ -33,7 +32,6 @@ export function useGetInvoices(
   });
 }
 
-// CUSTOMER
 export function useGetMyInvoices(
   params?: InvoiceListParams,
   options?: { enabled?: boolean },
@@ -55,8 +53,6 @@ export function useGetInvoice(id: string) {
   });
 }
 
-// invoice বদলালে সব payment query refetch হয়;
-// work order detail এও invoice এর status দেখানো হয়, তাই work order ও
 function useInvoiceMutation<TVariables, TData>(
   mutationFn: (variables: TVariables) => Promise<TData>,
 ) {
@@ -71,7 +67,6 @@ function useInvoiceMutation<TVariables, TData>(
   });
 }
 
-// caller `res.data.bkashURL` এ redirect করবে
 export function useInitiatePayment() {
   return useInvoiceMutation(initiatePayment);
 }
@@ -89,7 +84,6 @@ export function useCreateInvoice() {
   );
 }
 
-// browser এ file হিসেবে save করানো (এটা server data বদলায় না, তাই cache invalidate নেই)
 function saveBlob(blob: Blob, fileName: string) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -98,7 +92,6 @@ function saveBlob(blob: Blob, fileName: string) {
   document.body.append(link);
   link.click();
   link.remove();
-  // সাথে সাথে revoke করলে কিছু browser এ download কেটে যায়
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 

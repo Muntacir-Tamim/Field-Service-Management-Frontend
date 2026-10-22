@@ -26,7 +26,7 @@ import {
 interface AttachmentsManagerProps {
   workOrderId: string;
   attachments: WorkOrderAttachment[];
-  // technician এবং status ARRIVED / IN_PROGRESS হলে true
+
   editable: boolean;
 }
 
@@ -48,7 +48,6 @@ function AttachmentTile({
         className="flex min-w-0 flex-1 items-center gap-3 transition-colors hover:text-primary"
       >
         {isImage ? (
-          // biome-ignore lint/performance/noImgElement: Cloudinary URL, remote domain config লাগবে না
           <img
             src={file.url}
             alt={file.fileName ?? "Attachment"}

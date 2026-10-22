@@ -13,12 +13,11 @@ const SIZE_CLASS = {
 } as const;
 
 interface RatingStarsProps {
-  // 0-5; দশমিক হতে পারে (average rating এর জন্য), তখন তারা আংশিক ভরাট দেখায়
   value: number;
-  // দিলে interactive (customer rating দেওয়ার সময়); না দিলে শুধু দেখানো
+
   onChange?: (value: number) => void;
   size?: keyof typeof SIZE_CLASS;
-  // তারার পাশে "4.5" লেখা
+
   showValue?: boolean;
   disabled?: boolean;
   className?: string;
@@ -50,7 +49,6 @@ function StarRow({
   );
 }
 
-// শুধু দেখানো: 4.3 হলে চতুর্থ তারা 30% ভরাট
 function ReadOnlyStars({
   value,
   size,

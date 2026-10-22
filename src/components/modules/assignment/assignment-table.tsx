@@ -22,7 +22,7 @@ const SKELETON_ROWS = ["a", "b", "c", "d", "e"];
 interface AssignmentTableProps {
   assignments: AssignmentWithRelations[];
   isLoading?: boolean;
-  // admin এ technician column দেখায়, technician এ customer column
+
   mode: "admin" | "technician";
 }
 

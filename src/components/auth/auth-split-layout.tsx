@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import Logo from "@/assets/svg/Logo";
 
-// login / register / verify / forgot / reset page এর common দুই-কলাম layout
 export default function AuthSplitLayout({
   children,
   image = "/login.jpg",

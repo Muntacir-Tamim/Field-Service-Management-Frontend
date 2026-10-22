@@ -25,7 +25,6 @@ interface AdminStatsCardsProps {
   isLoading?: boolean;
 }
 
-// ADMIN home এর উপরের ৬টা সংখ্যা
 export default function AdminStatsCards({
   stats,
   isLoading,
@@ -81,7 +80,6 @@ export default function AdminStatsCards({
   );
 }
 
-// "এখনই দেখা দরকার" তালিকা; প্রতিটা সারি সংশ্লিষ্ট page এ নিয়ে যায়
 export function AdminAttentionCard({ stats, isLoading }: AdminStatsCardsProps) {
   const needs = stats?.needsAttention;
 
