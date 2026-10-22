@@ -7,10 +7,6 @@ import type {
 } from "./enum.type";
 import type { WorkOrderPart } from "./work-order.type";
 
-// NOTE: Decimal field (subtotal, taxAmount, discount, totalAmount, refundAmount,
-// laborHours) backend থেকে string হয়ে আসে। দেখানোর সময় formatCurrency() ব্যবহার করো।
-
-// backend `toInvoiceView()` এর breakdown (সব মান string)
 export interface InvoiceBreakdown {
   partsTotal: string;
   laborHours: string;
@@ -49,12 +45,10 @@ export interface InvoiceWorkOrder {
   };
 }
 
-// Backend `Payment` model = একটা invoice।
-// GET /payment/invoices, /payment/my-invoices, /payment/invoices/:id সবগুলোর shape এক
 export interface Invoice {
   id: string;
   status: PaymentStatus;
-  // invoice এ এখনো payment শুরু না হলে null
+
   method: PaymentMethod | null;
   invoiceNumber: string;
   subtotal: string;
@@ -65,10 +59,10 @@ export interface Invoice {
   notes: string | null;
   currency: string;
   gatewayPaymentId: string | null;
-  // bKash এর trxID (PAID হওয়ার পর)
+
   transactionId: string | null;
   payerReference: string | null;
-  // gateway এর raw response; UI তে দেখানো হয় না
+
   gatewayResponse: unknown;
   refundTransactionId: string | null;
   refundAmount: string | null;
@@ -86,22 +80,19 @@ export interface Invoice {
 export type InvoiceListParams = {
   page?: number;
   limit?: number;
-  // createdAt | paidAt | totalAmount | status
+
   sortBy?: string;
   sortOrder?: SortOrder;
   status?: PaymentStatus | "";
-  // createdAt এর range (ISO date)
+
   from?: string;
   to?: string;
 };
 
-// POST /payment/initiate (CUSTOMER)
 export interface InitiatePaymentPayload {
   paymentId: string;
 }
 
-// bKash `tokenized/checkout/create` এর response (backend সরাসরি data তে পাঠায়)।
-// customer কে `bkashURL` এ redirect করতে হয়।
 export interface InitiatePaymentResult {
   paymentID: string;
   bkashURL: string;
@@ -119,22 +110,18 @@ export interface InitiatePaymentResult {
   statusMessage: string;
 }
 
-// bKash থেকে ফেরার পর backend এই value দিয়ে
-// `/dashboard/payments?status=<value>` এ redirect করে
 export type PaymentCallbackStatus = "success" | "failure" | "cancel";
 
-// PATCH /payment/invoices/:id/refund (ADMIN, পুরো amount ফেরত যায়)
 export interface RefundInvoicePayload {
   reason: string;
 }
 
-// POST /payment/invoices (ADMIN; work order VERIFIED হতে হবে)
 export interface CreateInvoicePayload {
   workOrderId: string;
   discount?: number;
-  // না দিলে backend এর default tax rate
+
   taxPercent?: number;
-  // ISO string
+
   dueDate?: string;
   notes?: string;
 }
