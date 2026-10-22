@@ -7,9 +7,6 @@ import type {
 } from "./enum.type";
 import type { Skill } from "./skill.type";
 
-// ---------- PUBLIC: POST /technicians/apply ----------
-
-// multipart এর `data` field এ string হয়ে যায়
 export interface ApplyAsTechnicianPayload {
   name: string;
   email: string;
@@ -24,14 +21,11 @@ export interface ApplyAsTechnicianPayload {
   skills: { skillId: string; level?: SkillLevel }[];
 }
 
-// ফাইল গুলো আলাদা: backend field name `resume` (১টা) আর `documents` (সর্বোচ্চ ৫টা)
 export interface ApplyAsTechnicianInput {
   data: ApplyAsTechnicianPayload;
   resume?: File | null;
   documents?: File[];
 }
-
-// ---------- Technician (admin list / detail / my-profile) ----------
 
 export type SkillRef = Pick<Skill, "id" | "name" | "category">;
 
@@ -41,14 +35,12 @@ export interface TechnicianSkillEntry {
   skill: SkillRef;
 }
 
-// আবেদনের সময় upload করা ফাইল (Json column)
 export interface StoredFile {
   url: string;
   publicId: string;
   resourceType: string;
 }
 
-// GET /technicians, /technicians/:id, /technicians/my-profile
 export interface Technician {
   id: string;
   name: string;
@@ -91,21 +83,16 @@ export type TechnicianListParams = {
   skillId?: string;
 };
 
-// ADMIN: PATCH /technicians/:id/review (REJECTED হলে reason বাধ্যতামূলক, min 5)
 export interface ReviewTechnicianPayload {
   verificationStatus: "APPROVED" | "REJECTED";
   rejectionReason?: string;
 }
 
-// ---------- TECHNICIAN: নিজের available / skill ----------
-
-// PATCH /technicians/my-availability
 export interface AvailabilityResult {
   id: string;
   isAvailable: boolean;
 }
 
-// POST /technicians/my-skills
 export interface AddMySkillPayload {
   skillId: string;
   level?: SkillLevel;
