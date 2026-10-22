@@ -57,7 +57,6 @@ export interface AdminProfile {
   userId: string;
 }
 
-// GET /auth/me এর data (password omit করা থাকে)
 export interface User {
   id: string;
   name: string;
@@ -79,8 +78,6 @@ export interface User {
   admin: AdminProfile | null;
 }
 
-// PATCH /users/me : role অনুযায়ী আলাদা body (backend strict, অচেনা field দিলে reject)
-// অন্তত একটা field লাগে
 export interface UpdateCustomerProfilePayload {
   name?: string;
   contactNumber?: string;
@@ -109,13 +106,10 @@ export type UpdateMyProfilePayload =
   | UpdateTechnicianMyProfilePayload
   | UpdateAdminProfilePayload;
 
-// GET /users/me এর data: role profile আলাদা key (customer/technician/admin) তে নয়,
-// `profile` key তে আসে। (UI তে সাধারণত useGetMe এর User ই ব্যবহার হয়)
 export type MyProfile = Omit<User, "customer" | "technician" | "admin"> & {
   profile: CustomerProfile | TechnicianProfile | AdminProfile | null;
 };
 
-// PATCH /users/me/profile-image এর data (user এর base record)
 export type ProfileImageResult = Omit<
   User,
   "customer" | "technician" | "admin"

@@ -7,8 +7,6 @@ import type {
   WorkOrderStatus,
 } from "./enum.type";
 
-// NOTE: Decimal field (laborHours, unitCost, totalCost, totalAmount) backend থেকে string হয়ে আসে
-
 export interface WorkOrderPart {
   id: string;
   name: string;
@@ -24,7 +22,6 @@ export interface WorkOrderAttachment {
   id: string;
   url: string;
   publicId: string;
-  // MIME type
   fileType: string;
   fileName: string | null;
   createdAt: string;
@@ -43,7 +40,6 @@ export interface ServiceReport {
   workOrderId: string;
 }
 
-// Backend `WorkOrder` model এর নিজস্ব field
 export interface WorkOrder {
   id: string;
   status: WorkOrderStatus;
@@ -93,13 +89,11 @@ export interface WorkOrderAssignment {
   };
 }
 
-// GET /work-orders, /work-orders/my-work-orders
 export interface WorkOrderListItem extends WorkOrder {
   assignment: WorkOrderAssignment;
   _count: { parts: number; attachments: number };
 }
 
-// GET /work-orders/:id এবং status বদলানোর endpoint গুলোর response
 export interface WorkOrderDetail extends WorkOrder {
   assignment: WorkOrderAssignment;
   parts: WorkOrderPart[];
@@ -111,7 +105,7 @@ export interface WorkOrderDetail extends WorkOrder {
     status: PaymentStatus;
     totalAmount: string;
   } | null;
-  // শুধু GET /work-orders/:id তে আসে; status বদলের response এ থাকে না
+
   partsTotal?: string;
 }
 
@@ -129,21 +123,18 @@ export type WorkOrderListParams = {
 
 export type MyWorkOrderListParams = Omit<WorkOrderListParams, "technicianId">;
 
-// PATCH /work-orders/:id/start (ARRIVED → IN_PROGRESS)
 export interface StartWorkPayload {
   problemFound: string;
   workDescription: string;
 }
 
-// PATCH /work-orders/:id/complete (multipart; IN_PROGRESS → COMPLETED)
 export interface CompleteWorkPayload {
   laborHours: number;
   completionNotes: string;
-  // field name "completionImage", শুধু image
+
   completionImage?: File | null;
 }
 
-// POST /work-orders/:id/parts (IN_PROGRESS এ)
 export interface AddPartPayload {
   name: string;
   quantity: number;
@@ -151,7 +142,6 @@ export interface AddPartPayload {
   notes?: string;
 }
 
-// PUT /work-orders/:id/service-report (IN_PROGRESS বা COMPLETED এ)
 export interface ServiceReportPayload {
   summary: string;
   findings: string;
