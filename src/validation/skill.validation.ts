@@ -1,6 +1,5 @@
 import z from "zod";
 
-// backend (Skill.validation.ts) এর rule এর সাথে হুবহু মিল
 export const skillSchema = z.object({
   name: z
     .string()

@@ -1,6 +1,5 @@
 import z from "zod";
 
-// backend (auth.validation.ts) এর password rule এর সাথে হুবহু মিল
 const passwordRule = z
   .string()
   .min(8, "Password must be at least 8 characters long")
@@ -9,12 +8,11 @@ const passwordRule = z
   .regex(/[0-9]/, "Password must contain at least 1 number")
   .regex(/[^A-Za-z0-9]/, "Password must contain at least 1 special character");
 
-// Bangladeshi number: +880 / 880 / 0 দিয়ে শুরু, তারপর 1[3-9] + ৮ digit
 const bdPhoneRegex = /^(?:\+?880|0)1[3-9]\d{8}$/;
 
 export const loginSchema = z.object({
   email: z.email("Please enter a valid email"),
-  // login এ শুধু খালি কিনা দেখি; complexity rule register/reset এ আছে
+
   password: z.string().min(1, "Password is required"),
 });
 

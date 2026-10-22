@@ -1,8 +1,5 @@
 import z from "zod";
 
-// backend (payment.validation.ts) এর rule এর সাথে মিল।
-// number input এর value string; submit এর সময় Number() করা হয়।
-
 export const refundSchema = z.object({
   reason: z
     .string()
@@ -11,7 +8,6 @@ export const refundSchema = z.object({
     .max(300, "Reason must be at most 300 characters"),
 });
 
-// ADMIN: invoice তৈরি (discount / taxPercent / dueDate / notes সব ঐচ্ছিক, খালি রাখা যায়)
 export const createInvoiceSchema = z.object({
   workOrderId: z.string().trim().min(1, "Work order is required"),
   discount: z

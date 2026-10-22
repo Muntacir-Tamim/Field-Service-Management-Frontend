@@ -1,6 +1,5 @@
 import z from "zod";
 
-// backend (Technician.validation.ts) এর password rule এর সাথে হুবহু মিল
 const passwordRule = z
   .string()
   .min(8, "Password must be at least 8 characters long")
@@ -30,7 +29,7 @@ export const technicianApplicationSchema = z
       .trim()
       .max(200, "Address must be at most 200 characters"),
     bio: z.string().trim().max(500, "Bio must be at most 500 characters"),
-    // number input এর value string; submit এর সময় number এ বদলানো হয়
+
     experienceYears: z
       .string()
       .trim()
@@ -47,7 +46,7 @@ export const technicianApplicationSchema = z
       )
       .min(1, "Select at least 1 skill")
       .max(15, "You can select at most 15 skills"),
-    // ফাইলের type/size FileDropzone এ যাচাই হয়; এখানে শুধু সংখ্যা
+
     resume: z.array(z.instanceof(File)).max(1),
     documents: z
       .array(z.instanceof(File))

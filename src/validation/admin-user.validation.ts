@@ -1,6 +1,5 @@
 import z from "zod";
 
-// backend (admin-user.validation.ts): BLOCKED করতে reason 5-300 অক্ষর
 export const blockUserSchema = z.object({
   reason: z
     .string()

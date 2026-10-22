@@ -1,6 +1,5 @@
 import z from "zod";
 
-// backend (service-request.validation.ts) এর rule + কিছু UI limit
 export const serviceRequestSchema = z.object({
   title: z
     .string()
@@ -13,7 +12,7 @@ export const serviceRequestSchema = z.object({
     .min(10, "Description must be at least 10 characters")
     .max(2000, "Description must be at most 2000 characters"),
   priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"]),
-  // optional; আজ বা ভবিষ্যতের তারিখ
+
   preferredDate: z
     .date()
     .optional()
@@ -30,7 +29,7 @@ export const serviceRequestSchema = z.object({
     ),
   address: z.string().trim().min(1, "Address is required"),
   city: z.string().trim().min(1, "City is required"),
-  // ফাইলের type/size UI (FileDropzone) এ যাচাই হয়; এখানে শুধু সংখ্যা
+
   attachments: z
     .array(z.instanceof(File))
     .max(5, "You can attach up to 5 files"),
@@ -38,7 +37,6 @@ export const serviceRequestSchema = z.object({
 
 export type ServiceRequestFormValues = z.infer<typeof serviceRequestSchema>;
 
-// admin reject করার form (APPROVED এ reason লাগে না, তাই আলাদা schema)
 export const rejectServiceRequestSchema = z.object({
   rejectionReason: z
     .string()

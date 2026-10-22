@@ -1,8 +1,5 @@
 import z from "zod";
 
-// backend (work-order.validation.ts) এর rule এর সাথে মিল।
-// number input এর value string; submit এর সময় Number() করা হয়।
-
 export const startWorkSchema = z.object({
   problemFound: z
     .string()
@@ -31,7 +28,7 @@ export const completeWorkSchema = z.object({
     .trim()
     .min(3, "Completion notes are required (at least 3 characters)")
     .max(2000, "Must be at most 2000 characters"),
-  // শুধু image; type/size FileDropzone এ যাচাই হয়
+
   completionImage: z.array(z.instanceof(File)).max(1),
 });
 
@@ -82,7 +79,6 @@ export type CompleteWorkFormValues = z.infer<typeof completeWorkSchema>;
 export type AddPartFormValues = z.infer<typeof addPartSchema>;
 export type ServiceReportFormValues = z.infer<typeof serviceReportSchema>;
 
-// attachment / completion image এর limit (backend: ৫ MB, PDF/JPG/PNG/WEBP)
 export const WORK_ORDER_FILE_MAX_MB = 5;
 export const WORK_ORDER_FILE_ACCEPT =
   "application/pdf,image/jpeg,image/png,image/webp";

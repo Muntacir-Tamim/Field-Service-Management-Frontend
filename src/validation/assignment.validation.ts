@@ -1,16 +1,12 @@
 import z from "zod";
 
-// backend (Assignment.validation.ts + service) এর rule:
-// end > start, start ভবিষ্যতে, একটা visit সর্বোচ্চ ১২ ঘণ্টা
 export const MAX_VISIT_HOURS = 12;
 
-// <input type="datetime-local"> এর value ("2026-10-21T14:30") থেকে Date
 export function parseLocalDateTime(value: string) {
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
-// backend এ ISO string পাঠাই
 export function toIsoString(value: string) {
   return (parseLocalDateTime(value) as Date).toISOString();
 }
@@ -69,7 +65,7 @@ export const createAssignmentSchema = z
 export const rescheduleAssignmentSchema = z
   .object({
     ...scheduleFields,
-    // ফাঁকা মানে বর্তমান technician ই থাকবে
+
     technicianId: z.string(),
     reason: z.string().trim().max(300, "Reason must be at most 300 characters"),
     notes: z.string().trim().max(500, "Notes must be at most 500 characters"),

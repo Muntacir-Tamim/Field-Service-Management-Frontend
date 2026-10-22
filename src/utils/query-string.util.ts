@@ -1,6 +1,5 @@
 import type { SortOrder } from "@/types";
 
-// backend list endpoint এর common param: ?page&limit&searchTerm&sortBy&sortOrder
 export interface ListParams {
   page?: number;
   limit?: number;
@@ -12,7 +11,6 @@ export interface ListParams {
 type ParamValue = string | number | boolean | null | undefined;
 export type QueryParams = Record<string, ParamValue | ParamValue[]>;
 
-// filter dropdown এ "All" বোঝাতে এই value ব্যবহার হয় (FilterBar দেখো)
 export const ALL_VALUE = "ALL";
 
 function isEmpty(value: unknown) {
@@ -21,8 +19,6 @@ function isEmpty(value: unknown) {
   );
 }
 
-// খালি / "ALL" / undefined বাদ দিয়ে clean object দেয়
-// ofetch এর `query` option এ সরাসরি দেওয়া যায়: apiClient(url, { query: cleanParams(p) })
 export function cleanParams<T extends QueryParams>(params?: T) {
   const result: Record<string, string | number | boolean | string[]> = {};
   if (!params) {
@@ -41,7 +37,6 @@ export function cleanParams<T extends QueryParams>(params?: T) {
   return result;
 }
 
-// { page: 1, status: "ALL" } → "?page=1"
 export function buildQueryString(params?: QueryParams) {
   const search = new URLSearchParams();
   for (const [key, value] of Object.entries(cleanParams(params))) {

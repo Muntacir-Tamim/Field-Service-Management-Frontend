@@ -1,7 +1,5 @@
 import z from "zod";
 
-// backend (user.validation.ts) এর rule এর সাথে মিল।
-// form এর সব field string; ফাঁকা মানে "বদলাচ্ছি না" (backend এ ফাঁকা string reject হয়)
 const name = z
   .string()
   .trim()
@@ -17,8 +15,6 @@ const contactNumber = z
 
 const gender = z.enum(["", "MALE", "FEMALE", "OTHER"]);
 
-// তিন role এর form একটাই schema ব্যবহার করে। যে field কোনো role এ দেখানো হয় না
-// সেটা default (ফাঁকা / "0") থাকে, তাই সবসময় valid; আর submit এ পাঠানোই হয় না।
 export const myProfileSchema = z.object({
   name,
   contactNumber,
@@ -41,6 +37,5 @@ export const myProfileSchema = z.object({
 
 export type MyProfileFormValues = z.infer<typeof myProfileSchema>;
 
-// ছবির limit (backend এ নির্দিষ্ট limit নেই; UI তে ৫ MB ধরা হলো)
 export const PROFILE_IMAGE_MAX_MB = 5;
 export const PROFILE_IMAGE_ACCEPT = "image/jpeg,image/png,image/webp";
