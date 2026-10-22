@@ -7,7 +7,7 @@ import type {
 } from "@/types";
 
 export function getMyProfile() {
-  return apiClient<ApiResponse<MyProfile>>("/users/me");
+  return apiClient<ApiResponse<MyProfile>>("/user/me");
 }
 
 export function updateMyProfile(payload: UpdateMyProfilePayload) {
