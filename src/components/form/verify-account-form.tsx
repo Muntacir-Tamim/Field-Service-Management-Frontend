@@ -31,7 +31,6 @@ import {
   useVerifyAccount,
   useVerifyTechnicianAccount,
 } from "@/hooks";
-import { getDashboardPath } from "@/lib/auth-redirect";
 import { getErrorMessage } from "@/utils";
 
 const RESEND_COOLDOWN = 120;
@@ -106,15 +105,14 @@ export default function VerifyAccountForm({ mode = "customer" }: IProps) {
       return;
     }
 
-    // customer: verify এর সাথে সাথে backend cookie set করে, মানে auto login
     verifyCustomer(payload, {
-      onSuccess: (res) => {
+      onSuccess: () => {
         toast.add({
           title: "Verification successful",
-          description: "Welcome onboard",
+          description: "Please login to continue",
           type: "success",
         });
-        router.replace(getDashboardPath(res.data.role));
+        router.replace("/login");
       },
       onError: handleError,
     });

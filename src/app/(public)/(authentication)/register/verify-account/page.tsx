@@ -4,7 +4,7 @@ import VerifyAccountForm from "@/components/form/verify-account-form";
 
 export default function VerifyAccountPage() {
   return (
-    <AuthSplitLayout image="/register.jpg">
+    <AuthSplitLayout image="/fsm.jpg">
       <Suspense fallback={<p>Loading...</p>}>
         <VerifyAccountForm mode="customer" />
       </Suspense>

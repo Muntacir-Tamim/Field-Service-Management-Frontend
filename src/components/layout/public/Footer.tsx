@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.5fr_1fr_1fr_1.4fr]">
         <div className="space-y-3">
           <Link href="/" className="flex items-center gap-2">
-            <Logo />
+            {/* <Logo /> */}
             <span className="font-heading text-lg font-semibold">
               {SITE.name}
             </span>

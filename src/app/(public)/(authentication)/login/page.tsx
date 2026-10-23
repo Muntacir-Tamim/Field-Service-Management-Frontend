@@ -3,7 +3,7 @@ import LoginForm from "@/components/form/login-form";
 
 export default function LoginPage() {
   return (
-    <AuthSplitLayout image="/login.jpg">
+    <AuthSplitLayout image="/fsm.jpg">
       <LoginForm />
     </AuthSplitLayout>
   );

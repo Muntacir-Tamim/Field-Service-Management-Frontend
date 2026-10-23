@@ -46,7 +46,7 @@ export function useGoogleOAuth() {
 }
 
 export function useVerifyAccount() {
-  return useSessionMutation(verifyAccount);
+  return useMutation({ mutationFn: verifyAccount });
 }
 
 export function useRegistration() {

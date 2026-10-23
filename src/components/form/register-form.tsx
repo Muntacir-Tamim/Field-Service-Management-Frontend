@@ -73,12 +73,9 @@ export function RegisterForm() {
   });
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold tracking-tight">Create an account</h1>
-        <p className="text-sm text-muted-foreground">
-          Enter your details below to create your account
-        </p>
       </div>
 
       <form
@@ -88,7 +85,7 @@ export function RegisterForm() {
           form.handleSubmit();
         }}
       >
-        <FieldGroup>
+        <FieldGroup className="gap-4">
           <form.Field name="name">
             {(field) => {
               const isInvalid =

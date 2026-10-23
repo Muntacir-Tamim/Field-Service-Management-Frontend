@@ -38,7 +38,7 @@ export default function LoginForm() {
               description: "Welcome back",
               type: "success",
             });
-            // role অনুযায়ী নিজের dashboard এ
+
             router.replace(getDashboardPath(res.data.role));
           },
           onError: (err) => {
@@ -57,11 +57,8 @@ export default function LoginForm() {
     <div className="flex flex-col gap-5">
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold tracking-tight">
-          Login to your account
+          Login your account
         </h1>
-        <p className="text-balance text-sm text-muted-foreground">
-          Enter your email below to login to your account
-        </p>
       </div>
 
       <form
