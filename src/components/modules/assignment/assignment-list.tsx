@@ -1,7 +1,6 @@
 "use client";
 
 import { CalendarClockIcon } from "lucide-react";
-import { useState } from "react";
 import EmptyState from "@/components/common/empty-state";
 import FilterBar from "@/components/common/filter-bar";
 import PageHeader from "@/components/common/page-header";
@@ -12,7 +11,12 @@ import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
 } from "@/constants";
-import { useGetAssignments, useGetMyAssignments } from "@/hooks";
+import {
+  useGetAssignments,
+  useGetMyAssignments,
+  useUrlPage,
+  useUrlState,
+} from "@/hooks";
 import type { AssignmentStatus } from "@/types";
 import { getErrorMessage } from "@/utils";
 import AssignmentTable from "./assignment-table";
@@ -22,8 +26,8 @@ export default function AssignmentList({
 }: {
   mode: "admin" | "technician";
 }) {
-  const [page, setPage] = useState(DEFAULT_PAGE);
-  const [status, setStatus] = useState<AssignmentStatus | "">("");
+  const [page, setPage] = useUrlPage(DEFAULT_PAGE);
+  const [status, setStatus] = useUrlState<AssignmentStatus | "">("status", "");
 
   const params = { page, limit: DEFAULT_PAGE_SIZE, status };
 

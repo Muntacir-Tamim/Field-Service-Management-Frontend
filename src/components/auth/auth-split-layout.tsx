@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Logo from "@/assets/svg/Logo";
@@ -22,11 +23,13 @@ export default function AuthSplitLayout({
         </div>
       </div>
       <div className="relative hidden bg-muted lg:block">
-        {/* biome-ignore lint/performance/noImgElement: static decorative image */}
-        <img
+        <Image
           src={image}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          fill
+          priority
+          sizes="50vw"
+          className="object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>
     </div>

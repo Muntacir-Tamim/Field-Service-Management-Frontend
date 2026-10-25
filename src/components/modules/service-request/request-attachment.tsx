@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FileIcon } from "lucide-react";
 import type { ServiceRequestAttachment } from "@/types";
 
@@ -16,10 +17,11 @@ export default function RequestAttachment({
       className="group flex items-center gap-3 overflow-hidden rounded-lg border p-2 text-sm transition-colors hover:bg-muted/50"
     >
       {isImage ? (
-        // biome-ignore lint/performance/noImgElement: Cloudinary URL, remote domain config লাগবে না
-        <img
+        <Image
           src={file.url}
           alt={file.fileName ?? "Attachment"}
+          width={48}
+          height={48}
           className="size-12 shrink-0 rounded-md object-cover"
         />
       ) : (

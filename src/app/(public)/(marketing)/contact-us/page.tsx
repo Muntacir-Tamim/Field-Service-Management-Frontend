@@ -1,12 +1,13 @@
 import { ClockIcon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
-import type { Metadata } from "next";
 import ContactForm from "@/components/modules/homepage/ContactForm";
 import { SITE } from "@/constants";
+import { createMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Contact us | FSM",
+export const metadata = createMetadata({
+  title: "Contact us",
   description: "Questions about a service or an account? Get in touch.",
-};
+  path: "/contact-us",
+});
 
 const DETAILS = [
   {

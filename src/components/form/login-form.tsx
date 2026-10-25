@@ -3,6 +3,7 @@
 import { useForm } from "@tanstack/react-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import DemoLogin from "@/components/form/demo-login";
 import PasswordInput from "@/components/common/password-input";
 import GoogleLoginComponent from "@/components/modules/google-login/GoogleLogin";
 import { Button } from "@/components/ui/button";
@@ -140,6 +141,10 @@ export default function LoginForm() {
       <FieldSeparator>Or continue with</FieldSeparator>
 
       <GoogleLoginComponent />
+
+      <FieldSeparator>Or try a demo account</FieldSeparator>
+
+      <DemoLogin />
 
       <div className="text-center text-sm text-muted-foreground">
         Don&apos;t have an account?{" "}

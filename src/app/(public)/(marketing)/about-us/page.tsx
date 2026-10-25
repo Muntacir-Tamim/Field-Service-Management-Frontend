@@ -3,14 +3,15 @@ import {
   HandshakeIcon,
   ShieldCheckIcon,
 } from "lucide-react";
-import type { Metadata } from "next";
 import CallToAction from "@/components/modules/homepage/CallToAction";
 import { SITE } from "@/constants";
+import { createMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "About us | FSM",
+export const metadata = createMetadata({
+  title: "About us",
   description: "Why we built a simpler way to book and track field service.",
-};
+  path: "/about-us",
+});
 
 const VALUES = [
   {

@@ -1,17 +1,13 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import RouteError from "@/components/common/route-error";
 
 export default function DashboardError({
+  error,
   reset,
 }: {
-  error: Error;
+  error: Error & { digest?: string };
   reset: () => void;
 }) {
-  return (
-    <div className="flex min-h-[50vh] flex-col items-center justify-center gap-3">
-      <h2 className="text-lg font-semibold">Something went wrong</h2>
-      <Button onClick={reset}>Try again</Button>
-    </div>
-  );
+  return <RouteError error={error} reset={reset} />;
 }

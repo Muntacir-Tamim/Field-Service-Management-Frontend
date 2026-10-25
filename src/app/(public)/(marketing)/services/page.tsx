@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import CallToAction from "@/components/modules/homepage/CallToAction";
 import ServicesCatalog from "@/components/modules/homepage/ServicesCatalog";
+import { createMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Services | FSM",
+export const metadata = createMetadata({
+  title: "Services",
   description: "Browse the field services our verified technicians cover.",
-};
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

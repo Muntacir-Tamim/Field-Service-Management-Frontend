@@ -14,7 +14,7 @@ import {
   DEFAULT_PAGE,
   USER_ROLE_OPTIONS,
 } from "@/constants";
-import { useGetAuditLogs } from "@/hooks";
+import { useGetAuditLogs, useUrlPage, useUrlState } from "@/hooks";
 import type { AuditAction, UserRole } from "@/types";
 import { getErrorMessage } from "@/utils";
 import AuditLogDetailSheet from "./audit-log-detail-sheet";
@@ -32,13 +32,13 @@ function toIso(date: string, endOfDay: boolean) {
 }
 
 export default function AuditLogList() {
-  const [page, setPage] = useState(DEFAULT_PAGE);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [action, setAction] = useState<AuditAction | "">("");
-  const [actorRole, setActorRole] = useState<UserRole | "">("");
-  const [entityType, setEntityType] = useState("");
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
+  const [page, setPage] = useUrlPage(DEFAULT_PAGE);
+  const [searchTerm, setSearchTerm] = useUrlState<string>("search", "");
+  const [action, setAction] = useUrlState<AuditAction | "">("action", "");
+  const [actorRole, setActorRole] = useUrlState<UserRole | "">("actorRole", "");
+  const [entityType, setEntityType] = useUrlState<string>("entityType", "");
+  const [from, setFrom] = useUrlState<string>("from", "");
+  const [to, setTo] = useUrlState<string>("to", "");
   const [viewId, setViewId] = useState<string | null>(null);
 
   const { data, isPending, isError, error, refetch } = useGetAuditLogs({

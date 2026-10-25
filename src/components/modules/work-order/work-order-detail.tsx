@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   BadgeCheckIcon,
   ExternalLinkIcon,
@@ -124,11 +125,12 @@ function WorkOrderBody({
                 rel="noopener noreferrer"
                 className="block w-fit"
               >
-                {/* biome-ignore lint/performance/noImgElement: Cloudinary URL, remote domain config লাগবে না */}
-                <img
+                <Image
                   src={order.completionImageUrl}
                   alt="Completion proof"
-                  className="max-h-64 rounded-lg border object-cover"
+                  width={512}
+                  height={256}
+                  className="h-auto max-h-64 w-auto rounded-lg border object-cover"
                 />
               </a>
             ) : null}

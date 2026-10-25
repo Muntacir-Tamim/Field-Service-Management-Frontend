@@ -2,9 +2,10 @@
 
 import { useForm } from "@tanstack/react-form";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, CheckIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import FileDropzone from "@/components/common/file-dropzone";
 import PageHeader from "@/components/common/page-header";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -48,13 +49,31 @@ import {
   serviceRequestSchema,
 } from "@/validation";
 
-// /dashboard/service-requests/new
+type StepField =
+  | "title"
+  | "description"
+  | "priority"
+  | "preferredDate"
+  | "address"
+  | "city"
+  | "attachments";
+
+/** Wizard steps; each step validates only its own fields before moving on. */
+const STEPS: { label: string; fields: StepField[] }[] = [
+  { label: "Problem", fields: ["title", "description", "priority"] },
+  { label: "Location", fields: ["preferredDate", "address", "city"] },
+  { label: "Attachments & review", fields: ["attachments"] },
+];
+
+// /dashboard/service-requests/new  (3-step wizard)
 export default function ServiceRequestForm() {
   const router = useRouter();
   const { data: me } = useGetMe();
   const { mutate: create, isPending } = useCreateServiceRequest();
 
   const customer = me?.data.customer;
+  const [step, setStep] = useState(0);
+  const isLastStep = step === STEPS.length - 1;
 
   const form = useForm({
     defaultValues: {
@@ -67,7 +86,10 @@ export default function ServiceRequestForm() {
       city: customer?.city ?? "",
       attachments: [],
     } as ServiceRequestFormValues,
-    validators: { onSubmit: serviceRequestSchema },
+    validators: {
+      onChange: serviceRequestSchema,
+      onSubmit: serviceRequestSchema,
+    },
     onSubmit: ({ value }) => {
       create(
         {
@@ -102,6 +124,21 @@ export default function ServiceRequestForm() {
     },
   });
 
+  const goNext = async () => {
+    // Run the schema, mark this step's fields as touched so errors show,
+    // and only continue when every field of the step is valid.
+    await form.validate("change");
+    for (const name of STEPS[step].fields) {
+      form.setFieldMeta(name, (meta) => ({ ...meta, isTouched: true }));
+    }
+    const valid = STEPS[step].fields.every(
+      (name) => form.getFieldMeta(name)?.isValid !== false,
+    );
+    if (valid) {
+      setStep((current) => Math.min(current + 1, STEPS.length - 1));
+    }
+  };
+
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
       <PageHeader
@@ -111,14 +148,51 @@ export default function ServiceRequestForm() {
         backLabel="My requests"
       />
 
+      <ol className="flex items-center gap-2 text-sm" aria-label="Progress">
+        {STEPS.map((item, index) => {
+          const done = index < step;
+          const active = index === step;
+          return (
+            <li
+              key={item.label}
+              className="flex flex-1 items-center gap-2"
+              aria-current={active ? "step" : undefined}
+            >
+              <span
+                className={cn(
+                  "flex size-6 shrink-0 items-center justify-center rounded-full border text-xs font-medium",
+                  active && "border-primary bg-primary text-primary-foreground",
+                  done && "border-primary text-primary",
+                  !active && !done && "text-muted-foreground",
+                )}
+              >
+                {done ? <CheckIcon className="size-3.5" /> : index + 1}
+              </span>
+              <span
+                className={cn(
+                  "hidden truncate sm:inline",
+                  active ? "font-medium" : "text-muted-foreground",
+                )}
+              >
+                {item.label}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+
       <form
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          form.handleSubmit();
+          if (isLastStep) {
+            form.handleSubmit();
+          } else {
+            void goNext();
+          }
         }}
       >
-        <FieldGroup>
+        <FieldGroup hidden={step !== 0}>
           <form.Field name="title">
             {(field) => {
               const isInvalid =
@@ -164,79 +238,77 @@ export default function ServiceRequestForm() {
             }}
           </form.Field>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <form.Field name="priority">
-              {(field) => (
-                <Field>
-                  <FieldLabel htmlFor={field.name}>Priority</FieldLabel>
-                  <Select
-                    items={PRIORITY_OPTIONS}
-                    value={field.state.value}
-                    onValueChange={(value) =>
-                      field.handleChange((value as Priority) ?? "MEDIUM")
-                    }
-                  >
-                    <SelectTrigger id={field.name} className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent alignItemWithTrigger={false}>
-                      {PRIORITY_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+          <form.Field name="priority">
+            {(field) => (
+              <Field>
+                <FieldLabel htmlFor={field.name}>Priority</FieldLabel>
+                <Select
+                  items={PRIORITY_OPTIONS}
+                  value={field.state.value}
+                  onValueChange={(value) =>
+                    field.handleChange((value as Priority) ?? "MEDIUM")
+                  }
+                >
+                  <SelectTrigger id={field.name} className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent alignItemWithTrigger={false}>
+                    {PRIORITY_OPTIONS.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </Field>
+            )}
+          </form.Field>
+        </FieldGroup>
+
+        <FieldGroup hidden={step !== 1}>
+          <form.Field name="preferredDate">
+            {(field) => {
+              const isInvalid =
+                field.state.meta.isTouched && !field.state.meta.isValid;
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>
+                    Preferred date (optional)
+                  </FieldLabel>
+                  <Popover>
+                    <PopoverTrigger
+                      id={field.name}
+                      className={cn(
+                        buttonVariants({ variant: "outline" }),
+                        "h-8 w-full justify-start font-normal",
+                        !field.state.value && "text-muted-foreground",
+                      )}
+                    >
+                      <CalendarIcon />
+                      {field.state.value
+                        ? format(field.state.value, "dd MMM yyyy")
+                        : "Pick a date"}
+                    </PopoverTrigger>
+                    <PopoverContent align="start" className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={field.state.value}
+                        onSelect={(date) => {
+                          field.handleChange(date);
+                          field.handleBlur();
+                        }}
+                        disabled={{ before: today }}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </Field>
-              )}
-            </form.Field>
-
-            <form.Field name="preferredDate">
-              {(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-
-                return (
-                  <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name}>
-                      Preferred date (optional)
-                    </FieldLabel>
-                    <Popover>
-                      <PopoverTrigger
-                        id={field.name}
-                        className={cn(
-                          buttonVariants({ variant: "outline" }),
-                          "h-8 w-full justify-start font-normal",
-                          !field.state.value && "text-muted-foreground",
-                        )}
-                      >
-                        <CalendarIcon />
-                        {field.state.value
-                          ? format(field.state.value, "dd MMM yyyy")
-                          : "Pick a date"}
-                      </PopoverTrigger>
-                      <PopoverContent align="start" className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={field.state.value}
-                          onSelect={(date) => {
-                            field.handleChange(date);
-                            field.handleBlur();
-                          }}
-                          disabled={{ before: today }}
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
-                  </Field>
-                );
-              }}
-            </form.Field>
-          </div>
+              );
+            }}
+          </form.Field>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <form.Field name="address">
@@ -289,7 +361,9 @@ export default function ServiceRequestForm() {
               }}
             </form.Field>
           </div>
+        </FieldGroup>
 
+        <FieldGroup hidden={step !== 2}>
           <form.Field name="attachments">
             {(field) => (
               <Field>
@@ -311,24 +385,60 @@ export default function ServiceRequestForm() {
             )}
           </form.Field>
 
-          <div className="flex justify-end gap-2">
+          <form.Subscribe selector={(state) => state.values}>
+            {(values) => (
+              <dl className="grid gap-2 rounded-lg border p-4 text-sm sm:grid-cols-[8rem_1fr]">
+                <dt className="text-muted-foreground">Title</dt>
+                <dd className="font-medium break-words">{values.title}</dd>
+                <dt className="text-muted-foreground">Priority</dt>
+                <dd>{values.priority}</dd>
+                <dt className="text-muted-foreground">Preferred date</dt>
+                <dd>
+                  {values.preferredDate
+                    ? format(values.preferredDate, "dd MMM yyyy")
+                    : "Not set"}
+                </dd>
+                <dt className="text-muted-foreground">Location</dt>
+                <dd className="break-words">
+                  {values.address}, {values.city}
+                </dd>
+                <dt className="text-muted-foreground">Attachments</dt>
+                <dd>{values.attachments.length} file(s)</dd>
+              </dl>
+            )}
+          </form.Subscribe>
+        </FieldGroup>
+
+        <div className="mt-6 flex flex-wrap justify-between gap-2">
+          {step === 0 ? (
             <Link
               href={CUSTOMER_ROUTES.serviceRequests}
               className={buttonVariants({ variant: "outline" })}
             >
               Cancel
             </Link>
-            <Button type="submit" disabled={isPending}>
-              {isPending ? (
-                <>
-                  <Spinner /> Submitting
-                </>
-              ) : (
-                "Submit request"
-              )}
+          ) : (
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isPending}
+              onClick={() => setStep((current) => Math.max(current - 1, 0))}
+            >
+              Back
             </Button>
-          </div>
-        </FieldGroup>
+          )}
+          <Button type="submit" disabled={isPending}>
+            {isPending ? (
+              <>
+                <Spinner /> Submitting
+              </>
+            ) : isLastStep ? (
+              "Submit request"
+            ) : (
+              "Next"
+            )}
+          </Button>
+        </div>
       </form>
     </div>
   );

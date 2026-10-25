@@ -13,7 +13,7 @@ import {
   USER_ROLE_OPTIONS,
   USER_STATUS_OPTIONS,
 } from "@/constants";
-import { useGetAdminUsers, useGetMe } from "@/hooks";
+import { useGetAdminUsers, useGetMe, useUrlPage, useUrlState } from "@/hooks";
 import type { UserRole, UserStatus } from "@/types";
 import { getErrorMessage } from "@/utils";
 import UserStatusDialog, { type UserActionTarget } from "./user-status-dialog";
@@ -21,10 +21,10 @@ import UserTable from "./user-table";
 
 // /admin/users
 export default function UserList() {
-  const [page, setPage] = useState(DEFAULT_PAGE);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [role, setRole] = useState<UserRole | "">("");
-  const [status, setStatus] = useState<UserStatus | "">("");
+  const [page, setPage] = useUrlPage(DEFAULT_PAGE);
+  const [searchTerm, setSearchTerm] = useUrlState<string>("search", "");
+  const [role, setRole] = useUrlState<UserRole | "">("role", "");
+  const [status, setStatus] = useUrlState<UserStatus | "">("status", "");
   const [target, setTarget] = useState<UserActionTarget | null>(null);
 
   const { data: me } = useGetMe();

@@ -13,7 +13,7 @@ import {
   PRIORITY_OPTIONS,
   SERVICE_REQUEST_STATUS_OPTIONS,
 } from "@/constants";
-import { useGetAllServiceRequests } from "@/hooks";
+import { useGetAllServiceRequests, useUrlPage, useUrlState } from "@/hooks";
 import type { Priority, ServiceRequestStatus } from "@/types";
 import { getErrorMessage } from "@/utils";
 import AdminReviewSheet from "./admin-review-sheet";
@@ -21,10 +21,13 @@ import AdminServiceRequestTable from "./admin-service-request-table";
 
 // /admin/service-requests এর পুরো UI: filter + table + pagination + review sheet
 export default function AdminServiceRequestList() {
-  const [page, setPage] = useState(DEFAULT_PAGE);
-  const [status, setStatus] = useState<ServiceRequestStatus | "">("");
-  const [priority, setPriority] = useState<Priority | "">("");
-  const [city, setCity] = useState("");
+  const [page, setPage] = useUrlPage(DEFAULT_PAGE);
+  const [status, setStatus] = useUrlState<ServiceRequestStatus | "">(
+    "status",
+    "",
+  );
+  const [priority, setPriority] = useUrlState<Priority | "">("priority", "");
+  const [city, setCity] = useUrlState<string>("city", "");
   const [reviewingId, setReviewingId] = useState<string | null>(null);
 
   const { data, isPending, isError, error, refetch } = useGetAllServiceRequests(

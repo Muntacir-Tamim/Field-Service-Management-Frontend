@@ -14,7 +14,7 @@ import {
   PRIORITY_OPTIONS,
   SERVICE_REQUEST_STATUS_OPTIONS,
 } from "@/constants";
-import { useGetMyServiceRequests } from "@/hooks";
+import { useGetMyServiceRequests, useUrlPage, useUrlState } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { CUSTOMER_ROUTES } from "@/routes";
 import type { MyServiceRequest, Priority, ServiceRequestStatus } from "@/types";
@@ -35,9 +35,12 @@ function NewRequestLink({ className }: { className?: string }) {
 }
 
 export default function ServiceRequestList() {
-  const [page, setPage] = useState(DEFAULT_PAGE);
-  const [status, setStatus] = useState<ServiceRequestStatus | "">("");
-  const [priority, setPriority] = useState<Priority | "">("");
+  const [page, setPage] = useUrlPage(DEFAULT_PAGE);
+  const [status, setStatus] = useUrlState<ServiceRequestStatus | "">(
+    "status",
+    "",
+  );
+  const [priority, setPriority] = useUrlState<Priority | "">("priority", "");
   const [cancelling, setCancelling] = useState<MyServiceRequest | null>(null);
 
   const { data, isPending, isError, error, refetch } = useGetMyServiceRequests({

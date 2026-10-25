@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FileIcon, Trash2Icon, UploadIcon } from "lucide-react";
 import { useState } from "react";
 import ConfirmDialog from "@/components/common/confirm-dialog";
@@ -48,9 +49,11 @@ function AttachmentTile({
         className="flex min-w-0 flex-1 items-center gap-3 transition-colors hover:text-primary"
       >
         {isImage ? (
-          <img
+          <Image
             src={file.url}
             alt={file.fileName ?? "Attachment"}
+            width={48}
+            height={48}
             className="size-12 shrink-0 rounded-md object-cover"
           />
         ) : (

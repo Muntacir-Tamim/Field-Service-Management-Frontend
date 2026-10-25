@@ -1,7 +1,6 @@
 "use client";
 
 import { FileTextIcon } from "lucide-react";
-import { useState } from "react";
 import EmptyState from "@/components/common/empty-state";
 import FilterBar from "@/components/common/filter-bar";
 import PageHeader from "@/components/common/page-header";
@@ -12,7 +11,12 @@ import {
   DEFAULT_PAGE_SIZE,
   WORK_ORDER_STATUS_OPTIONS,
 } from "@/constants";
-import { useGetMyWorkOrders, useGetWorkOrders } from "@/hooks";
+import {
+  useGetMyWorkOrders,
+  useGetWorkOrders,
+  useUrlPage,
+  useUrlState,
+} from "@/hooks";
 import type { WorkOrderStatus } from "@/types";
 import { getErrorMessage } from "@/utils";
 import WorkOrderTable from "./work-order-table";
@@ -22,8 +26,8 @@ export default function WorkOrderList({
 }: {
   mode: "admin" | "technician";
 }) {
-  const [page, setPage] = useState(DEFAULT_PAGE);
-  const [status, setStatus] = useState<WorkOrderStatus | "">("");
+  const [page, setPage] = useUrlPage(DEFAULT_PAGE);
+  const [status, setStatus] = useUrlState<WorkOrderStatus | "">("status", "");
 
   const params = { page, limit: DEFAULT_PAGE_SIZE, status };
   const adminQuery = useGetWorkOrders(params, { enabled: mode === "admin" });

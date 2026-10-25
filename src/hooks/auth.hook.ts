@@ -12,11 +12,21 @@ import {
   verifyTechnicianAccount,
 } from "@/api";
 import { authKeys } from "@/constants";
+import { endSession, startSession } from "@/lib/session";
 
 export function useGetMe() {
   return useQuery({
     queryKey: authKeys.me,
-    queryFn: getMe,
+    queryFn: async () => {
+      try {
+        const res = await getMe();
+        startSession(res.data);
+        return res;
+      } catch (err) {
+        endSession();
+        throw err;
+      }
+    },
     retry: false,
   });
 }
@@ -32,6 +42,7 @@ function useSessionMutation<TVariables>(
       return getMe();
     },
     onSuccess: (me) => {
+      startSession(me.data);
       queryClient.setQueryData(authKeys.me, me);
     },
   });
@@ -60,6 +71,7 @@ export function useLogout() {
     mutationFn: userLogout,
 
     onSettled: () => {
+      endSession();
       queryClient.clear();
     },
   });

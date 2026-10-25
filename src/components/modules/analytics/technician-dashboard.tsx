@@ -15,7 +15,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetMe, useGetMyAssignments, useGetMyStats } from "@/hooks";
+import {
+  useGetMe,
+  useGetMyAssignments,
+  useGetMyStats,
+  useUrlState,
+} from "@/hooks";
 import { cn } from "@/lib/utils";
 import { TECHNICIAN_ROUTES } from "@/routes";
 import { formatDateTime, getErrorMessage } from "@/utils";
@@ -95,7 +100,7 @@ function UpcomingVisits() {
 
 // /technician
 export default function TechnicianDashboard() {
-  const [preset, setPreset] = useState<RangePreset>("");
+  const [preset, setPreset] = useUrlState<RangePreset>("preset", "");
   const { data: me } = useGetMe();
   const stats = useGetMyStats(rangeFromPreset(preset));
   const data = stats.data?.data;

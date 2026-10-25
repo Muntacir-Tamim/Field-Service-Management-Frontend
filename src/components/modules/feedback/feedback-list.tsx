@@ -15,6 +15,8 @@ import {
   useGetMyFeedbacks,
   useGetMyTechnicianFeedbacks,
   useGetTechnicians,
+  useUrlPage,
+  useUrlState,
 } from "@/hooks";
 import type { Feedback, RatingSummary, SortOrder } from "@/types";
 import { getErrorMessage } from "@/utils";
@@ -104,9 +106,12 @@ const COPY: Record<
 };
 
 export default function FeedbackList({ mode }: { mode: FeedbackMode }) {
-  const [page, setPage] = useState(DEFAULT_PAGE);
-  const [rating, setRating] = useState("");
-  const [technicianId, setTechnicianId] = useState("");
+  const [page, setPage] = useUrlPage(DEFAULT_PAGE);
+  const [rating, setRating] = useUrlState<string>("rating", "");
+  const [technicianId, setTechnicianId] = useUrlState<string>(
+    "technicianId",
+    "",
+  );
   const [sort, setSort] = useState("createdAt:desc");
   const [editTarget, setEditTarget] = useState<Feedback | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Feedback | null>(null);

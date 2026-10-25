@@ -1,9 +1,5 @@
-import { Spinner } from "@/components/ui/spinner";
+import PageSkeleton from "@/components/common/page-skeleton";
 
 export default function DashboardLoading() {
-  return (
-    <div className="flex h-full min-h-[50vh] items-center justify-center">
-      <Spinner className="size-6" />
-    </div>
-  );
+  return <PageSkeleton />;
 }

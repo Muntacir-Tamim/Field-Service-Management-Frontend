@@ -26,6 +26,8 @@ import {
   useGetUnreadCount,
   useMarkAllNotificationsAsRead,
   useMarkNotificationAsRead,
+  useUrlPage,
+  useUrlState,
 } from "@/hooks";
 import type { Notification, NotificationType } from "@/types";
 import { getErrorMessage } from "@/utils";
@@ -38,9 +40,9 @@ export default function NotificationList() {
   const { data: me } = useGetMe();
   const role = me?.data.role;
 
-  const [page, setPage] = useState(DEFAULT_PAGE);
-  const [isRead, setIsRead] = useState<"true" | "false" | "">("");
-  const [type, setType] = useState<NotificationType | "">("");
+  const [page, setPage] = useUrlPage(DEFAULT_PAGE);
+  const [isRead, setIsRead] = useUrlState<"true" | "false" | "">("isRead", "");
+  const [type, setType] = useUrlState<NotificationType | "">("type", "");
   const [confirmClear, setConfirmClear] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 

@@ -12,7 +12,12 @@ import {
   DEFAULT_PAGE_SIZE,
   TECHNICIAN_VERIFICATION_OPTIONS,
 } from "@/constants";
-import { useGetSkills, useGetTechnicians } from "@/hooks";
+import {
+  useGetSkills,
+  useGetTechnicians,
+  useUrlPage,
+  useUrlState,
+} from "@/hooks";
 import type { Technician, TechnicianVerificationStatus } from "@/types";
 import { getErrorMessage } from "@/utils";
 import TechnicianReviewSheet from "./technician-review-sheet";
@@ -24,11 +29,17 @@ const AVAILABILITY_OPTIONS = [
 ];
 
 export default function TechnicianList() {
-  const [page, setPage] = useState(DEFAULT_PAGE);
-  const [search, setSearch] = useState("");
-  const [status, setStatus] = useState<TechnicianVerificationStatus | "">("");
-  const [availability, setAvailability] = useState<"true" | "false" | "">("");
-  const [skillId, setSkillId] = useState("");
+  const [page, setPage] = useUrlPage(DEFAULT_PAGE);
+  const [search, setSearch] = useUrlState<string>("search", "");
+  const [status, setStatus] = useUrlState<TechnicianVerificationStatus | "">(
+    "status",
+    "",
+  );
+  const [availability, setAvailability] = useUrlState<"true" | "false" | "">(
+    "availability",
+    "",
+  );
+  const [skillId, setSkillId] = useUrlState<string>("skillId", "");
   const [reviewingId, setReviewingId] = useState<string | null>(null);
 
   const { data: skillsData } = useGetSkills();

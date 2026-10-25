@@ -18,8 +18,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FSM - Field Service Management",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  ),
+  title: {
+    default: "FSM - Field Service Management",
+    template: "%s",
+  },
   description: "Book, assign and track field service work",
+  openGraph: {
+    siteName: "Field Service Management",
+    type: "website",
+    images: [{ url: "/fsm.jpg" }],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

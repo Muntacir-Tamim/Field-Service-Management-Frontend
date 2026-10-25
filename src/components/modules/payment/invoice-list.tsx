@@ -12,7 +12,12 @@ import {
   DEFAULT_PAGE_SIZE,
   PAYMENT_STATUS_OPTIONS,
 } from "@/constants";
-import { useGetInvoices, useGetMyInvoices } from "@/hooks";
+import {
+  useGetInvoices,
+  useGetMyInvoices,
+  useUrlPage,
+  useUrlState,
+} from "@/hooks";
 import type { Invoice, PaymentStatus } from "@/types";
 import { getErrorMessage } from "@/utils";
 import InvoiceTable, { type InvoiceMode } from "./invoice-table";
@@ -20,8 +25,11 @@ import PaymentResultBanner from "./payment-result-banner";
 import RefundDialog from "./refund-dialog";
 
 export default function InvoiceList({ mode }: { mode: InvoiceMode }) {
-  const [page, setPage] = useState(DEFAULT_PAGE);
-  const [status, setStatus] = useState<PaymentStatus | "">("");
+  const [page, setPage] = useUrlPage(DEFAULT_PAGE);
+  const [status, setStatus] = useUrlState<PaymentStatus | "">(
+    "invoiceStatus",
+    "",
+  );
   const [refundTarget, setRefundTarget] = useState<Invoice | null>(null);
 
   const params = { page, limit: DEFAULT_PAGE_SIZE, status };

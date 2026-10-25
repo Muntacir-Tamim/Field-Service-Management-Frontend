@@ -9,15 +9,15 @@ import PageHeader from "@/components/common/page-header";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
 import { SKILL_CATEGORIES } from "@/constants";
-import { useDeleteSkill, useGetSkills } from "@/hooks";
+import { useDeleteSkill, useGetSkills, useUrlState } from "@/hooks";
 import type { Skill } from "@/types";
 import { getErrorMessage } from "@/utils";
 import SkillFormDialog from "./skill-form-dialog";
 import SkillTable from "./skill-table";
 
 export default function SkillList() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState("");
+  const [searchTerm, setSearchTerm] = useUrlState<string>("search", "");
+  const [category, setCategory] = useUrlState<string>("category", "");
 
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Skill | null>(null);
