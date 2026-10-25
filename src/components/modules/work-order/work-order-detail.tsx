@@ -1,6 +1,11 @@
 "use client";
 
-import { BadgeCheckIcon, ExternalLinkIcon, MapPinIcon } from "lucide-react";
+import {
+  BadgeCheckIcon,
+  ExternalLinkIcon,
+  MapPinIcon,
+  ReceiptTextIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import EmptyState from "@/components/common/empty-state";
@@ -27,6 +32,9 @@ import {
   formatDateTime,
   getErrorMessage,
 } from "@/utils";
+import CreateInvoiceDialog, {
+  canCreateInvoice,
+} from "@/components/modules/payment/create-invoice-dialog";
 import AttachmentsManager from "./attachments-manager";
 import PartsManager from "./parts-manager";
 import ServiceReportSection from "./service-report-form";
@@ -261,6 +269,7 @@ export default function WorkOrderDetail({
   mode: "admin" | "technician";
 }) {
   const [verifyOpen, setVerifyOpen] = useState(false);
+  const [invoiceOpen, setInvoiceOpen] = useState(false);
   const { data, isPending, isError, error, refetch } = useGetWorkOrder(id);
   const order = data?.data;
   const listHref =
@@ -292,6 +301,19 @@ export default function WorkOrderDetail({
                 <BadgeCheckIcon />
                 Verify work
               </Button>
+            ) : canCreateInvoice(order.status, Boolean(order.payment)) ? (
+              <Button onClick={() => setInvoiceOpen(true)}>
+                <ReceiptTextIcon />
+                Create invoice
+              </Button>
+            ) : order.payment ? (
+              <Link
+                href={`${ADMIN_ROUTES.invoices}/${order.payment.id}`}
+                className={cn(buttonVariants({ variant: "outline" }))}
+              >
+                <ReceiptTextIcon />
+                View invoice
+              </Link>
             ) : undefined
           ) : undefined
         }
@@ -312,6 +334,14 @@ export default function WorkOrderDetail({
       ) : (
         <WorkOrderBody order={order} mode={mode} />
       )}
+
+      {order && mode === "admin" ? (
+        <CreateInvoiceDialog
+          workOrderId={order.id}
+          open={invoiceOpen}
+          onOpenChange={setInvoiceOpen}
+        />
+      ) : null}
 
       {order ? (
         <VerifyWorkOrderDialog

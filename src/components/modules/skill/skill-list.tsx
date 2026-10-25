@@ -8,6 +8,7 @@ import FilterBar from "@/components/common/filter-bar";
 import PageHeader from "@/components/common/page-header";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
+import { SKILL_CATEGORIES } from "@/constants";
 import { useDeleteSkill, useGetSkills } from "@/hooks";
 import type { Skill } from "@/types";
 import { getErrorMessage } from "@/utils";
@@ -32,10 +33,14 @@ export default function SkillList() {
 
   const skills = data?.data ?? [];
 
-  const categories = useMemo(
-    () => [...new Set((allData?.data ?? []).map((s) => s.category))].sort(),
-    [allData],
-  );
+  // fixed list আগে (serial অনুযায়ী), তারপর DB তে থাকা অন্য (পুরনো/custom) category
+  const categories = useMemo(() => {
+    const fixed: string[] = [...SKILL_CATEGORIES];
+    const extra = [...new Set((allData?.data ?? []).map((s) => s.category))]
+      .filter((c) => !fixed.includes(c))
+      .sort();
+    return [...fixed, ...extra];
+  }, [allData]);
 
   const hasFilter = Boolean(searchTerm || category);
 
