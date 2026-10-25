@@ -50,11 +50,8 @@ export default function DemoLogin() {
   };
 
   return (
-    <div
-      className="grid grid-cols-1 gap-2 sm:grid-cols-3"
-      role="group"
-      aria-label="Demo login"
-    >
+    <fieldset className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+      <legend className="sr-only">Demo login</legend>
       {DEMO_ACCOUNTS.map(({ role, label, description, email, password }) => {
         const Icon = ICONS[role];
         const loading = isPending && activeRole === role;
@@ -78,6 +75,6 @@ export default function DemoLogin() {
           </Button>
         );
       })}
-    </div>
+    </fieldset>
   );
 }
