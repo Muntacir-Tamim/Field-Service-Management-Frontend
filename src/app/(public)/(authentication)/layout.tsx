@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { type ReactNode, Suspense } from "react";
+import AuthLoading from "@/components/auth/auth-loading";
 import GuestGuard from "@/components/auth/guest-guard";
 
 export default function AuthenticationLayout({
@@ -6,5 +7,9 @@ export default function AuthenticationLayout({
 }: {
   children: ReactNode;
 }) {
-  return <GuestGuard>{children}</GuestGuard>;
+  return (
+    <Suspense fallback={<AuthLoading label="Loading..." />}>
+      <GuestGuard>{children}</GuestGuard>
+    </Suspense>
+  );
 }

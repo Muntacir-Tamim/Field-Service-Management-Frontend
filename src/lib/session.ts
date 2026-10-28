@@ -1,14 +1,26 @@
 import { useAuthStore } from "@/store/auth.store";
 import type { User } from "@/types";
-import { clearRoleCookie, setRoleCookie } from "./session-cookie";
 
-/** Single place that keeps the store + routing cookie in sync with the session. */
+/** Keep the Zustand store in sync with the signed-in user. */
 export function startSession(user: User) {
   useAuthStore.getState().setUser(user);
-  setRoleCookie(user.role);
 }
 
-export function endSession() {
+export async function createServerSession(accessToken: string) {
+  await fetch("/api/session", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ accessToken }),
+    credentials: "same-origin",
+  });
+}
+
+export async function endSession() {
   useAuthStore.getState().clear();
-  clearRoleCookie();
+  try {
+    await fetch("/api/session", {
+      method: "DELETE",
+      credentials: "same-origin",
+    });
+  } catch {}
 }

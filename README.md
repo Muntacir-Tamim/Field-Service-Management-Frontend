@@ -328,20 +328,6 @@ Checklist:
 
 ---
 
-## Troubleshooting
-
-| Problem                                   | What to check                                                                                                  |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| CORS error / requests blocked             | Backend `FRONTEND_URL` must exactly match the frontend origin (including port)                                 |
-| Logged out right after login              | Cookie `SameSite` / `Secure` settings on the backend; use HTTPS when frontend and API are on different domains |
-| Redirected to `/login` on dashboard pages | `fsm_role` cookie missing — log in again; check that cookies are not blocked                                   |
-| Demo login fails                          | Demo user doesn't exist in the backend, or `NEXT_PUBLIC_DEMO_*` doesn't match the seeded `TESTER_*` values     |
-| Google login button missing               | `NEXT_PUBLIC_GOOGLE_CLIENT_ID` is not set                                                                      |
-| Images from uploads don't load            | Uploads are served from `res.cloudinary.com` (allowed in `next.config.ts`)                                     |
-| `429 Too Many Requests`                   | Backend rate limit (10 requests / 15 min on `/auth`) — wait and retry                                          |
-
----
-
 <div align="center">
 
 Built with Next.js, TanStack and shadcn/ui.

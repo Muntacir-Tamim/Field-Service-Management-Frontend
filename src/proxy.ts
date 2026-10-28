@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { getDashboardPath } from "@/lib/auth-redirect";
-import { ROLE_COOKIE } from "@/lib/session-cookie";
+import { SESSION_COOKIE, verifySession } from "@/lib/session-token";
 import type { UserRole } from "@/types";
 
 /**
@@ -13,9 +13,7 @@ const PROTECTED_AREAS: { prefix: string; role: UserRole }[] = [
   { prefix: "/dashboard", role: "CUSTOMER" },
 ];
 
-const VALID_ROLES: UserRole[] = ["ADMIN", "TECHNICIAN", "CUSTOMER"];
-
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const area = PROTECTED_AREAS.find(
@@ -26,13 +24,14 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const cookieRole = request.cookies.get(ROLE_COOKIE)?.value as
-    | UserRole
-    | undefined;
+  // Signed + httpOnly cookie issued by /api/session: cannot be forged client-side
+  const cookieRole = await verifySession(
+    request.cookies.get(SESSION_COOKIE)?.value,
+  );
 
-  // Not signed in -> login
-  if (!cookieRole || !VALID_ROLES.includes(cookieRole)) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  // Not signed in (or tampered/expired cookie) -> login
+  if (!cookieRole) {
+    return NextResponse.redirect(new URL("/login?reauth=1", request.url));
   }
 
   // Signed in with the wrong role -> send them to their own dashboard

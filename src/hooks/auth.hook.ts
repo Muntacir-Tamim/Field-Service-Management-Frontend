@@ -12,7 +12,7 @@ import {
   verifyTechnicianAccount,
 } from "@/api";
 import { authKeys } from "@/constants";
-import { endSession, startSession } from "@/lib/session";
+import { createServerSession, endSession, startSession } from "@/lib/session";
 
 export function useGetMe() {
   return useQuery({
@@ -23,7 +23,7 @@ export function useGetMe() {
         startSession(res.data);
         return res;
       } catch (err) {
-        endSession();
+        await endSession();
         throw err;
       }
     },
@@ -32,13 +32,17 @@ export function useGetMe() {
 }
 
 function useSessionMutation<TVariables>(
-  mutationFn: (variables: TVariables) => Promise<unknown>,
+  mutationFn: (
+    variables: TVariables,
+  ) => Promise<{ data: { accessToken: string } }>,
 ) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (variables: TVariables) => {
-      await mutationFn(variables);
+      const tokens = await mutationFn(variables);
+      // server verifies the token with the backend, then sets the signed cookie
+      await createServerSession(tokens.data.accessToken);
       return getMe();
     },
     onSuccess: (me) => {
@@ -70,8 +74,8 @@ export function useLogout() {
   return useMutation({
     mutationFn: userLogout,
 
-    onSettled: () => {
-      endSession();
+    onSettled: async () => {
+      await endSession();
       queryClient.clear();
     },
   });

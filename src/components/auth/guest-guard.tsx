@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { type ReactNode, useEffect } from "react";
 import { useGetMe } from "@/hooks";
 import { getDashboardPath } from "@/lib/auth-redirect";
@@ -11,18 +11,19 @@ export default function GuestGuard({ children }: { children: ReactNode }) {
   const { data, isPending } = useGetMe();
 
   const user = data?.data;
+  const reauth = useSearchParams().get("reauth") === "1";
 
   useEffect(() => {
-    if (user) {
+    if (user && !reauth) {
       router.replace(getDashboardPath(user.role));
     }
-  }, [user, router]);
+  }, [user, reauth, router]);
 
   if (isPending) {
     return <AuthLoading label="Loading..." />;
   }
 
-  if (user) {
+  if (user && !reauth) {
     return <AuthLoading label="Redirecting..." />;
   }
 

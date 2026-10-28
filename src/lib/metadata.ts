@@ -5,11 +5,9 @@ interface PageMetadataInput {
   title: string;
   description: string;
   path?: string;
-  /** Keep auth / utility pages out of search results. */
   noIndex?: boolean;
 }
 
-/** One place that builds title, description, Open Graph and Twitter tags. */
 export function createMetadata({
   title,
   description,
