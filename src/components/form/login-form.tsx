@@ -138,7 +138,7 @@ export default function LoginForm() {
         </FieldGroup>
       </form>
 
-      <FieldSeparator>Or continue with</FieldSeparator>
+      <FieldSeparator>Or</FieldSeparator>
 
       <GoogleLoginComponent />
 
