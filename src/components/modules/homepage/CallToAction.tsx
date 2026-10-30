@@ -3,6 +3,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { display } from "./display-font";
 
+
 export default function CallToAction() {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
