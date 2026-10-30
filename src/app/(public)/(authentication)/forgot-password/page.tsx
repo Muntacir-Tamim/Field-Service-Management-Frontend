@@ -11,7 +11,7 @@ export const metadata = createMetadata({
 
 export default function ForgotPasswordPage() {
   return (
-    <AuthSplitLayout image="/login.jpg">
+    <AuthSplitLayout image="/fsm.jpg">
       <ForgotPasswordForm />
     </AuthSplitLayout>
   );

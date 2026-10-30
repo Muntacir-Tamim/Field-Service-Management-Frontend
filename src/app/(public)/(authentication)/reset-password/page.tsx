@@ -12,7 +12,7 @@ export const metadata = createMetadata({
 
 export default function ResetPasswordPage() {
   return (
-    <AuthSplitLayout image="/login.jpg">
+    <AuthSplitLayout image="/fsm.jpg">
       <Suspense fallback={<p>Loading...</p>}>
         <ResetPasswordForm />
       </Suspense>

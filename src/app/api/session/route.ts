@@ -6,7 +6,7 @@ import {
 } from "@/lib/session-token";
 import type { User } from "@/types";
 
-const API = process.env.NEXT_PUBLIC_API_BASE_URL;
+const API = process.env.BACKEND_API_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const cookieBase = {
   httpOnly: true,

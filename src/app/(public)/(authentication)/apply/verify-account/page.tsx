@@ -12,7 +12,7 @@ export const metadata = createMetadata({
 
 export default function TechnicianVerifyAccountPage() {
   return (
-    <AuthSplitLayout image="/register.jpg">
+    <AuthSplitLayout image="/fsm.jpg">
       <Suspense fallback={<p>Loading...</p>}>
         <VerifyAccountForm mode="technician" />
       </Suspense>
