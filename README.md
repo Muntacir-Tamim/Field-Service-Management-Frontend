@@ -1,109 +1,130 @@
 <div align="center">
 
-<img src="public/logo.png" alt="FSM Logo" width="90" />
+<img src="public/logo.png" alt="FSM Logo" width="110" />
 
-# Field Service Management — Frontend
+# Field Service Management System
 
-**A role-based web app for managing the full life cycle of an on-site service business — from the customer's request to technician dispatch, work completion, bKash payment and feedback.**
+### Frontend Application
 
-![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
+**A role-based web platform that manages the complete life cycle of an on-site service business — from the customer's request to technician dispatch, work completion, bKash payment and feedback.**
+
+<br />
+
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit_Site-2563EB?style=for-the-badge)](https://field-service-management-system-fro.vercel.app)
+[![Backend API](https://img.shields.io/badge/⚙️_Backend_API-Vercel-000000?style=for-the-badge)](https://field-service-management-system-bac.vercel.app)
+
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
-![TanStack Query](https://img.shields.io/badge/TanStack_Query-5-FF4154)
-![Bun](https://img.shields.io/badge/Bun-1.x-000000?logo=bun)
+![TanStack Query](https://img.shields.io/badge/TanStack_Query-5-FF4154?logo=reactquery&logoColor=white)
+![Bun](https://img.shields.io/badge/Bun-1.x-FBF0DF?logo=bun&logoColor=black)
+![Deployed on Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?logo=vercel&logoColor=white)
 
-[**🌐 Live Demo**](https://field-service-management-system-fro.vercel.app) · [**⚙️ Backend API**](https://field-service-management-system-bac.vercel.app)
+<br />
+
+<img src="public/fsm.jpg" alt="FSM — Reliable Service. Better Tomorrow." width="520" />
 
 </div>
 
 ---
 
-## Table of Contents
+## 🔗 Live Links
 
-1. [Live Links](#live-links)
-2. [Overview](#overview)
-3. [Key Features](#key-features)
-4. [Roles & Dashboards](#roles--dashboards)
-5. [Business Workflow](#business-workflow)
-6. [Tech Stack](#tech-stack)
-7. [Getting Started](#getting-started)
-8. [Environment Variables](#environment-variables)
-9. [Available Scripts](#available-scripts)
-10. [Project Structure](#project-structure)
-11. [Architecture & Conventions](#architecture--conventions)
-12. [Authentication & Route Protection](#authentication--route-protection)
-13. [Payment Flow (bKash)](#payment-flow-bkash)
-14. [Deployment](#deployment)
+| Service                | URL                                                                                                      |
+| ---------------------- | -------------------------------------------------------------------------------------------------------- |
+| 🌐 **Frontend (Live)** | [field-service-management-system-fro.vercel.app](https://field-service-management-system-fro.vercel.app) |
+| ⚙️ **Backend API**     | [field-service-management-system-bac.vercel.app](https://field-service-management-system-bac.vercel.app) |
+| 📡 **API Base URL**    | `https://field-service-management-system-bac.vercel.app/api/v1`                                          |
 
----
+### 🔑 Try it instantly — Demo Login
 
-## Live Links
+Open the [login page](https://field-service-management-system-fro.vercel.app/login) and click one of the **Demo Login** buttons, or sign in manually:
 
-| Service      | URL                                                        |
-| ------------ | ---------------------------------------------------------- |
-| **Frontend** | <https://field-service-management-system-fro.vercel.app>   |
-| **Backend**  | <https://field-service-management-system-bac.vercel.app>   |
-| API base URL | `https://field-service-management-system-bac.vercel.app/api/v1` |
+| Role              | Email                 | Password    |
+| ----------------- | --------------------- | ----------- |
+| 👑 **Admin**      | `admin@demo.com`      | `Demo@1234` |
+| 👤 **Customer**   | `customer@demo.com`   | `Demo@1234` |
+| 🛠️ **Technician** | `technician@demo.com` | `Demo@1234` |
 
-> Use the **demo login** buttons on the login page to explore the Admin, Customer and Technician dashboards without registering.
+> Demo accounts are for exploration only. Please do not store sensitive information.
 
 ---
 
-## Overview
+## 📑 Table of Contents
 
-This repository is the **frontend** of the Field Service Management (FSM) system. It is a Next.js (App Router) application that talks to the [FSM Backend](https://field-service-management-system-bac.vercel.app) REST API (`/api/v1`).
+1. [Overview](#-overview)
+2. [Key Features](#-key-features)
+3. [Roles & Dashboards](#-roles--dashboards)
+4. [Business Workflow](#-business-workflow)
+5. [Tech Stack](#-tech-stack)
+6. [Getting Started](#-getting-started)
+7. [Environment Variables](#-environment-variables)
+8. [Available Scripts](#-available-scripts)
+9. [Project Structure](#-project-structure)
+10. [Architecture & Conventions](#-architecture--conventions)
+11. [Authentication & Route Protection](#-authentication--route-protection)
+12. [Payment Flow (bKash)](#-payment-flow-bkash)
+13. [Deployment](#-deployment)
+
+---
+
+## 📖 Overview
+
+This repository contains the **frontend** of the Field Service Management (FSM) system — a Next.js (App Router) application that consumes the [FSM Backend REST API](https://field-service-management-system-bac.vercel.app) (`/api/v1`).
 
 Three user roles — **Customer**, **Technician** and **Admin** — each get their own dashboard, navigation and permissions:
 
-- **Customers** book services, track progress, pay invoices with bKash and leave feedback.
-- **Technicians** confirm assignments, run work orders on site, upload reports and monitor their performance.
-- **Admins** review requests, assign technicians, verify work, issue invoices and monitor the whole business through analytics and audit logs.
+| Role              | What they do                                                                                                            |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| 👤 **Customer**   | Book services, track progress, pay invoices with bKash and leave feedback.                                              |
+| 🛠️ **Technician** | Confirm assignments, run work orders on site, upload service reports and monitor personal performance.                  |
+| 👑 **Admin**      | Review requests, assign technicians, verify work, issue invoices and monitor the business via analytics and audit logs. |
 
 ---
 
-## Key Features
+## ✨ Key Features
 
-**Public site**
+### 🌐 Public Site
 
-- Marketing pages: Home, Services, About Us, Contact Us
-- Customer registration with email OTP verification, login, **Google login**, forgot / reset password
+- Marketing pages: **Home, Services, About Us, Contact Us**
+- Customer registration with **email OTP verification**, login, **Google login**, forgot / reset password
 - **Technician application** with document upload and email OTP verification
 - One-click **demo login** for Admin, Customer and Technician
 
-**Customer**
+### 👤 Customer
 
 - Create service requests with priority and up to 5 attachments
 - Track request status and cancel pending requests
 - View invoices, **pay online with bKash**, download invoice PDF
 - Give and edit feedback after the job is completed
 
-**Technician**
+### 🛠️ Technician
 
 - Confirm or cancel assignments
 - Work-order status flow: _en route → arrived → in progress → completed_
 - Manage parts used, attachments and service report
 - Manage skills and availability; personal performance dashboard and feedback
 
-**Admin**
+### 👑 Admin
 
 - Review service requests (under review / approve / reject)
-- Search available technicians and create, reschedule or cancel assignments (schedule-conflict aware)
-- Verify work orders and create invoices; issue refunds
+- Find available technicians and create, reschedule or cancel assignments (schedule-conflict aware)
+- Verify work orders, create invoices and issue refunds
 - Technician onboarding review, skills CRUD, user management (block / unblock / delete)
 - Analytics dashboard, technician leaderboard and **audit logs**
 
-**Platform**
+### ⚙️ Platform
 
 - In-app notifications with unread badge
 - Server-driven pagination, search, filters and sorting synced to the URL
-- Charts powered by Recharts
+- Interactive charts powered by Recharts
 - Loading skeletons, route-level error boundaries, empty states and confirm dialogs
 - Fully responsive UI built on shadcn/ui
 
 ---
 
-## Roles & Dashboards
+## 🧭 Roles & Dashboards
 
 | Role         | Dashboard path | Main areas                                                                                                                    |
 | ------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -115,9 +136,9 @@ Each area is accessible only by its own role; users who open another role's area
 
 ---
 
-## Business Workflow
+## 🔄 Business Workflow
 
-```
+```text
 Customer creates Service Request           PENDING
         │
 Admin reviews → approves / rejects         UNDER_REVIEW → APPROVED | REJECTED
@@ -137,7 +158,7 @@ Request becomes COMPLETED → Customer leaves feedback
 
 ---
 
-## Tech Stack
+## 🧰 Tech Stack
 
 | Category        | Technology                                                              |
 | --------------- | ----------------------------------------------------------------------- |
@@ -154,65 +175,53 @@ Request becomes COMPLETED → Customer leaves feedback
 | Dates / OTP     | `date-fns`, `react-day-picker`, `input-otp`                             |
 | Lint & format   | [Biome](https://biomejs.dev/)                                           |
 | Package manager | [Bun](https://bun.sh/)                                                  |
+| Hosting         | [Vercel](https://vercel.com/)                                           |
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
 - [Bun](https://bun.sh/) 1.x (or Node.js 20+ with npm / pnpm)
-- The **FSM Backend** running locally (default: `http://localhost:5000`)
 - _(Optional)_ A Google OAuth client ID for Google login
 
-### 1. Start the backend
+The frontend is already wired to the **hosted backend**, so no local backend setup is required.
 
-Follow the backend README: set up PostgreSQL, Redis and the `.env` file, then run:
-
-```bash
-npx prisma generate
-npx prisma migrate deploy
-npm run dev            # http://localhost:5000
-```
-
-On startup the backend seeds one **admin** and one **technician** from its `TESTER_*` variables.
-
-### 2. Start the frontend
+### Installation
 
 ```bash
-# clone and enter the project
+# 1. Clone the repository
 git clone <your-frontend-repo-url>
 cd Field-Service-Management-Frontend
 
-# install dependencies
+# 2. Install dependencies
 bun install
 
-# configure environment
-cp .env.example .env.local      # then edit the values (see below)
+# 3. Configure environment
+cp .env.example .env.local
+#    then fill in the values (see "Environment Variables" below)
 
-# run the dev server
-bun dev                         # http://localhost:3000
+# 4. Start the development server
+bun dev
 ```
 
-Open <http://localhost:3000>.
+Or skip the setup and use the live app: **<https://field-service-management-system-fro.vercel.app>**
 
-> **Important:** the backend `FRONTEND_URL` must equal the URL you open in the browser (e.g. `http://localhost:3000`). It is used for CORS and for the payment redirect.
+> **Note:** the backend's `FRONTEND_URL` (used for CORS and the payment redirect) must match the frontend origin you are using. If you run the frontend from a different origin, ask the backend owner to allow it.
 
 ---
 
-## Environment Variables
+## 🔐 Environment Variables
 
 Create a `.env.local` file in the project root:
 
 ```env
 # --- Required ---
-# Local backend:
-NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api/v1
-# Or the deployed backend:
-# NEXT_PUBLIC_API_BASE_URL=https://field-service-management-system-bac.vercel.app/api/v1
+NEXT_PUBLIC_API_BASE_URL=https://field-service-management-system-bac.vercel.app/api/v1
 
 # --- Optional ---
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_URL=https://field-service-management-system-fro.vercel.app
 NEXT_PUBLIC_GOOGLE_CLIENT_ID=<your-google-oauth-client-id>
 
 # Demo accounts used by the one-click demo login
@@ -226,18 +235,16 @@ NEXT_PUBLIC_DEMO_TECHNICIAN_PASSWORD=Demo@1234
 
 | Variable                       | Required | Description                                                                    |
 | ------------------------------ | :------: | ------------------------------------------------------------------------------ |
-| `NEXT_PUBLIC_API_BASE_URL`     |   Yes    | Backend API base URL including `/api/v1`                                       |
-| `NEXT_PUBLIC_SITE_URL`         |    No    | Public site URL used for metadata (default `http://localhost:3000`)            |
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` |    No    | Enables Google login. Use the same client ID as the backend `GOOGLE_CLIENT_ID` |
-| `NEXT_PUBLIC_DEMO_*`           |    No    | Credentials for the demo-login buttons. Fall back to the defaults shown above  |
+| `NEXT_PUBLIC_API_BASE_URL`     |    ✅    | Backend API base URL including `/api/v1`                                       |
+| `NEXT_PUBLIC_SITE_URL`         |    ➖    | Public site URL used for metadata                                              |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` |    ➖    | Enables Google login. Use the same client ID as the backend `GOOGLE_CLIENT_ID` |
+| `NEXT_PUBLIC_DEMO_*`           |    ➖    | Credentials for the demo-login buttons (defaults shown above)                  |
 
-> **Demo accounts:** the demo login only works if these users exist in the backend. The backend automatically seeds an **admin** and a **technician** from `TESTER_ADMIN_*` / `TESTER_TECHNICIAN_*` — set the `NEXT_PUBLIC_DEMO_*` values to match them. The **customer** demo user is not seeded; register one through the app (OTP email required) and use its credentials.
-
-All `NEXT_PUBLIC_*` values are exposed to the browser. Never put secrets in them.
+> ⚠️ All `NEXT_PUBLIC_*` values are exposed to the browser. Never put secrets in them.
 
 ---
 
-## Available Scripts
+## 📜 Available Scripts
 
 | Script           | Description                          |
 | ---------------- | ------------------------------------ |
@@ -249,9 +256,9 @@ All `NEXT_PUBLIC_*` values are exposed to the browser. Never put secrets in them
 
 ---
 
-## Project Structure
+## 🗂️ Project Structure
 
-```
+```text
 src
 ├── api/              # One file per backend module (thin wrappers over apiClient)
 ├── app/              # Next.js App Router
@@ -278,19 +285,19 @@ src
 └── proxy.ts          # Role-based route guard (Next.js 16 proxy)
 ```
 
-Backend modules covered: `auth`, `user`, `admin-user`, `audit-log`, `skill`, `technician`, `service-request`, `assignment`, `work-order`, `payment`, `feedback`, `notification`, `analytics`.
+**Backend modules covered:** `auth` · `user` · `admin-user` · `audit-log` · `skill` · `technician` · `service-request` · `assignment` · `work-order` · `payment` · `feedback` · `notification` · `analytics`
 
 ---
 
-## Architecture & Conventions
+## 🏗️ Architecture & Conventions
 
 **Layer order** — pages stay thin and never call the API directly:
 
-```
+```text
 app (page)  →  components/modules  →  hooks  →  api  →  lib/apiClient
 ```
 
-- **Per module, four files:** `types/*.type.ts`, `api/*.api.ts`, `hooks/*.hook.ts`, `validation/*.validation.ts`.
+- **Four files per module:** `types/*.type.ts`, `api/*.api.ts`, `hooks/*.hook.ts`, `validation/*.validation.ts`.
 - **Pages** only compose components; logic lives in `components/modules/<module>/`.
 - **Server state** lives in TanStack Query (central keys in `constants/query-keys.constant.ts`); **client state** (current user, UI) lives in Zustand.
 - **Forms** use TanStack Form with Zod schemas from `validation/`.
@@ -300,7 +307,7 @@ app (page)  →  components/modules  →  hooks  →  api  →  lib/apiClient
 
 ---
 
-## Authentication & Route Protection
+## 🛡️ Authentication & Route Protection
 
 1. The backend issues `accessToken` and `refreshToken` as **httpOnly cookies**; the frontend sends them with `credentials: "include"`.
 2. `lib/apiClient.ts` automatically calls `/auth/refresh-token` when a request returns `401` and retries the original request once (auth endpoints are excluded).
@@ -310,48 +317,51 @@ app (page)  →  components/modules  →  hooks  →  api  →  lib/apiClient
    - users in the wrong area → their own dashboard
 5. The `fsm_role` cookie is only a UX hint. **All real authorization is enforced by the backend** on every request.
 
-> For cross-domain deployments, make sure the backend sets cookies with the correct `SameSite` / `Secure` options and allows your frontend origin in CORS.
+> The frontend and backend are deployed on separate Vercel domains, so the backend must set cookies with the correct `SameSite` / `Secure` options and allow the frontend origin in CORS.
 
 ---
 
-## Payment Flow (bKash)
+## 💳 Payment Flow (bKash)
 
 1. Admin creates an invoice for a verified work order.
 2. Customer clicks **Pay with bKash** on the invoice → the frontend calls `POST /payment/initiate` and redirects the browser to the returned `bkashURL`.
 3. After payment, bKash calls the backend callback, which verifies the transaction server-side.
-4. The backend redirects back to `/dashboard/payments?status=success|failure|cancel`, where a result banner is shown.
+4. The backend redirects back to `/dashboard/payments?status=success|failure|cancel` on the [live frontend](https://field-service-management-system-fro.vercel.app), where a result banner is shown.
 5. Customers and admins can download the invoice as a PDF.
 
-Use the bKash **sandbox** wallet credentials when testing.
+> Use bKash **sandbox** wallet credentials when testing.
 
 ---
 
-## Deployment
+## ☁️ Deployment
 
-The project is currently deployed on **Vercel**:
+Both apps are deployed on **Vercel**:
 
-- Frontend: <https://field-service-management-system-fro.vercel.app>
-- Backend: <https://field-service-management-system-bac.vercel.app>
+| App      | URL                                                    |
+| -------- | ------------------------------------------------------ |
+| Frontend | https://field-service-management-system-fro.vercel.app |
+| Backend  | https://field-service-management-system-bac.vercel.app |
 
-It is a standard Next.js project and works on any Next-compatible host.
+To deploy your own copy:
 
-```bash
-bun run build
-bun start
-```
+1. Import the repository into [Vercel](https://vercel.com/new).
+2. Add the environment variables listed [above](#-environment-variables).
+3. Deploy — Vercel detects Next.js automatically.
 
 Checklist:
 
-- [ ] Set `NEXT_PUBLIC_API_BASE_URL` to the deployed backend URL (`https://field-service-management-system-bac.vercel.app/api/v1`)
-- [ ] Set backend `FRONTEND_URL` to the deployed frontend URL (`https://field-service-management-system-fro.vercel.app`) — used for CORS + payment redirect
-- [ ] Serve both apps over **HTTPS** so `Secure` cookies work
-- [ ] Add the frontend domain to the Google OAuth client's authorized origins
-- [ ] Update the bKash callback URL to the deployed backend
+- [ ] `NEXT_PUBLIC_API_BASE_URL` points to `https://field-service-management-system-bac.vercel.app/api/v1`
+- [ ] Backend `FRONTEND_URL` is set to `https://field-service-management-system-fro.vercel.app` (CORS + payment redirect)
+- [ ] Both apps are served over **HTTPS** so `Secure` cookies work
+- [ ] The frontend domain is added to the Google OAuth client's authorized origins
+- [ ] The bKash callback URL points to the deployed backend
 
 ---
 
 <div align="center">
 
-Built with Next.js, TanStack and shadcn/ui.
+**Built with ❤️ using Next.js, TanStack and shadcn/ui**
+
+[🌐 Live Demo](https://field-service-management-system-fro.vercel.app) · [⚙️ Backend API](https://field-service-management-system-bac.vercel.app)
 
 </div>
