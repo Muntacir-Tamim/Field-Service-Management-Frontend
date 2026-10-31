@@ -13,32 +13,46 @@
 ![TanStack Query](https://img.shields.io/badge/TanStack_Query-5-FF4154)
 ![Bun](https://img.shields.io/badge/Bun-1.x-000000?logo=bun)
 
+[**🌐 Live Demo**](https://field-service-management-system-fro.vercel.app) · [**⚙️ Backend API**](https://field-service-management-system-bac.vercel.app)
+
 </div>
 
 ---
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Key Features](#key-features)
-3. [Roles & Dashboards](#roles--dashboards)
-4. [Business Workflow](#business-workflow)
-5. [Tech Stack](#tech-stack)
-6. [Getting Started](#getting-started)
-7. [Environment Variables](#environment-variables)
-8. [Available Scripts](#available-scripts)
-9. [Project Structure](#project-structure)
-10. [Architecture & Conventions](#architecture--conventions)
-11. [Authentication & Route Protection](#authentication--route-protection)
-12. [Payment Flow (bKash)](#payment-flow-bkash)
-13. [Deployment](#deployment)
-14. [Troubleshooting](#troubleshooting)
+1. [Live Links](#live-links)
+2. [Overview](#overview)
+3. [Key Features](#key-features)
+4. [Roles & Dashboards](#roles--dashboards)
+5. [Business Workflow](#business-workflow)
+6. [Tech Stack](#tech-stack)
+7. [Getting Started](#getting-started)
+8. [Environment Variables](#environment-variables)
+9. [Available Scripts](#available-scripts)
+10. [Project Structure](#project-structure)
+11. [Architecture & Conventions](#architecture--conventions)
+12. [Authentication & Route Protection](#authentication--route-protection)
+13. [Payment Flow (bKash)](#payment-flow-bkash)
+14. [Deployment](#deployment)
+
+---
+
+## Live Links
+
+| Service      | URL                                                        |
+| ------------ | ---------------------------------------------------------- |
+| **Frontend** | <https://field-service-management-system-fro.vercel.app>   |
+| **Backend**  | <https://field-service-management-system-bac.vercel.app>   |
+| API base URL | `https://field-service-management-system-bac.vercel.app/api/v1` |
+
+> Use the **demo login** buttons on the login page to explore the Admin, Customer and Technician dashboards without registering.
 
 ---
 
 ## Overview
 
-This repository is the **frontend** of the Field Service Management (FSM) system. It is a Next.js (App Router) application that talks to the [FSM Backend](#getting-started) REST API (`/api/v1`).
+This repository is the **frontend** of the Field Service Management (FSM) system. It is a Next.js (App Router) application that talks to the [FSM Backend](https://field-service-management-system-bac.vercel.app) REST API (`/api/v1`).
 
 Three user roles — **Customer**, **Technician** and **Admin** — each get their own dashboard, navigation and permissions:
 
@@ -174,7 +188,7 @@ cd Field-Service-Management-Frontend
 bun install
 
 # configure environment
-cp .env.example .env.local      # or create .env.local manually (see below)
+cp .env.example .env.local      # then edit the values (see below)
 
 # run the dev server
 bun dev                         # http://localhost:3000
@@ -192,7 +206,10 @@ Create a `.env.local` file in the project root:
 
 ```env
 # --- Required ---
+# Local backend:
 NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api/v1
+# Or the deployed backend:
+# NEXT_PUBLIC_API_BASE_URL=https://field-service-management-system-bac.vercel.app/api/v1
 
 # --- Optional ---
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -311,7 +328,12 @@ Use the bKash **sandbox** wallet credentials when testing.
 
 ## Deployment
 
-The app is a standard Next.js project and works on any Next-compatible host (e.g. Vercel).
+The project is currently deployed on **Vercel**:
+
+- Frontend: <https://field-service-management-system-fro.vercel.app>
+- Backend: <https://field-service-management-system-bac.vercel.app>
+
+It is a standard Next.js project and works on any Next-compatible host.
 
 ```bash
 bun run build
@@ -320,8 +342,8 @@ bun start
 
 Checklist:
 
-- [ ] Set `NEXT_PUBLIC_API_BASE_URL` to the deployed backend URL (`https://api.example.com/api/v1`)
-- [ ] Set backend `FRONTEND_URL` to the deployed frontend URL (CORS + payment redirect)
+- [ ] Set `NEXT_PUBLIC_API_BASE_URL` to the deployed backend URL (`https://field-service-management-system-bac.vercel.app/api/v1`)
+- [ ] Set backend `FRONTEND_URL` to the deployed frontend URL (`https://field-service-management-system-fro.vercel.app`) — used for CORS + payment redirect
 - [ ] Serve both apps over **HTTPS** so `Secure` cookies work
 - [ ] Add the frontend domain to the Google OAuth client's authorized origins
 - [ ] Update the bKash callback URL to the deployed backend
